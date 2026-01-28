@@ -74,6 +74,7 @@ export default function SettingsDevice() {
             await updateMutation.mutateAsync({ name: deviceName });
             displayToaster(t("settingsDevice.nameUpdated"))
         } catch (error) {
+            console.log(updateMutation)
             displayToaster(t("settingsDevice.nameUpdateError"),"error")
         } finally {
             setIsUpdating(false);

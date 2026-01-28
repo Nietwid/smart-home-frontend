@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Message, useToaster } from "rsuite";
-import { websocketUrl } from "../../../constant/urls.ts";
-import LoadingAnimation from "../../ui/LoadingAnimation/LoadingAnimation.tsx";
-import styles from "./CameraCard.module.css";
-import Header from "../../ui/Headers/Header/Header.tsx";
-import ThreeDot from "../../ui/ThreeDot/ThreeDot.tsx";
+import { websocketUrl } from "../../../../constant/urls.ts";
+import LoadingAnimation from "../../../ui/LoadingAnimation/LoadingAnimation.tsx";
+import styles from "./CameraCardWebRTC.module.css";
+import Header from "../../../ui/Headers/Header/Header.tsx";
+import ThreeDot from "../../../ui/ThreeDot/ThreeDot.tsx";
 
 interface CameraCardProps {
     id: number;
@@ -13,7 +13,7 @@ interface CameraCardProps {
     className?: string;
 }
 
-export default function CameraCard({ id, name, className }: CameraCardProps) {
+export default function CameraCardWebRTC({ id, name, className }: CameraCardProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const queryClient = useQueryClient();
     const toaster = useToaster();

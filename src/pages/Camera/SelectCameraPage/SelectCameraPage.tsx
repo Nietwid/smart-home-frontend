@@ -1,5 +1,4 @@
 import styles from './SelectCameraPage.module.css'
-import CameraCard from "../../../components/Cards/CameraCard/CameraCard.tsx";
 import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useCameraQuery from "../../../hooks/queries/useCameraQuery.tsx";
@@ -8,6 +7,7 @@ import {ICamera} from "../../../interfaces/ICamera.tsx";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
 import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActionPanel.tsx";
 import {useTranslation} from "react-i18next";
+import CameraCardHls from "../../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
 
 export default function SelectCameraPage() {
     const {cameraData,status, isLoading} = useCameraQuery();
@@ -40,7 +40,7 @@ export default function SelectCameraPage() {
             ) : (
                 <div className={styles.container}>
                     {cameras?.map((camera) => (
-                        <CameraCard key={camera.id} id={camera.id} name={camera.name} />
+                        <CameraCardHls key={camera.id} id={camera.id} name={camera.name} />
                     ))}
                 </div>
             )}

@@ -25,6 +25,7 @@ export const api = {
   triggerEvent: baseURL + "/api/event/trigger/",
   action: baseURL + "/api/event/action/",
   cameras: baseURL + "/api/cameras/",
+  cameraStream: baseURL + "/stream/",
   getUpdateLamp: baseURL + "/api/lamp/", // +id
   tempHum:baseURL + "/api/temperature/",
   getAllEvents: baseURL + "/api/device/get/event/",
