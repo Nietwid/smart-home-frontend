@@ -21,7 +21,8 @@ export default function HomePage() {
     const { devices } = useDevicesQuery(favouriteData?.devices || []);
     const { rooms } = useRoomsQuery(favouriteData?.rooms || []);
     if (!devices || !rooms || !cameraData) return null;
-    const gridSize = countToGridSize(cameraData.length)
+    const cameras = cameraData.filter(camera => (favouriteData?.cameras || []).includes(camera.id))
+    const gridSize = countToGridSize(cameras.length)
     const measuredDevice:IDevice[] = devices.filter(device => MEASUREMENT_DEVICE_FUN.includes(device.fun));
     const normalDevice:IDevice[] = devices.filter(device => !MEASUREMENT_DEVICE_FUN.includes(device.fun));
     return (
@@ -57,7 +58,7 @@ export default function HomePage() {
                          gridTemplateRows: `repeat(${gridSize}, minmax(0, 1fr))`,
                      } as React.CSSProperties
                  }>
-                    {cameraData?.map((camera:ICamera) => (
+                    {cameras?.map((camera:ICamera) => (
                         <CameraCardHls key={camera.id} id={camera.id} name={camera.name}/>
                     ))}
             </div>

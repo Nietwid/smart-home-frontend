@@ -26,7 +26,6 @@ export default function HlsPlayer({  id,
     const src = `${api.cameraStream}${id}/index.m3u8`;
     const {send, status} = useWebSocket();
     useEffect(() => {
-        console.log("e")
         if (status === WebSocket.OPEN){
             send({type: "camera_open", id:id })
         }
