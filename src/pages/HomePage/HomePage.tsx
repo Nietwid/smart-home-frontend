@@ -10,18 +10,19 @@ import useRoomsQuery from "../../hooks/queries/room/useRoomsQuery.tsx";
 import { useTranslation } from "react-i18next";
 import styles from "./HomePage.module.css";
 import useCameraQuery from "../../hooks/queries/useCameraQuery.tsx";
-import CameraCard from "../../components/Cards/CameraCard/CameraCard.tsx";
-import {ICamera} from "../../interfaces/ICamera.tsx";
 import MEASUREMENT_DEVICE_FUN from "../../constant/MEASUREMENT_DEVICE_FUN.ts"
+import CameraCardHls from "../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
+import {ICamera} from "../../interfaces/ICamera.tsx";
+import countToGridSize from "../../utils/countToGridSize.ts";
 export default function HomePage() {
     const { t } = useTranslation();
     const { favouriteData } = useFavouriteQuery();
     const {cameraData} = useCameraQuery();
     const { devices } = useDevicesQuery(favouriteData?.devices || []);
     const { rooms } = useRoomsQuery(favouriteData?.rooms || []);
-
     if (!devices || !rooms || !cameraData) return null;
-
+    const cameras = cameraData.filter(camera => (favouriteData?.cameras || []).includes(camera.id))
+    const gridSize = countToGridSize(cameras.length)
     const measuredDevice:IDevice[] = devices.filter(device => MEASUREMENT_DEVICE_FUN.includes(device.fun));
     const normalDevice:IDevice[] = devices.filter(device => !MEASUREMENT_DEVICE_FUN.includes(device.fun));
     return (
@@ -50,9 +51,15 @@ export default function HomePage() {
                     ))}
                 </div>
             </div>
-            <div className={styles.cameraContainer}>
-                    {cameraData?.map((camera:ICamera) => (
-                        <CameraCard className={styles.cameraCard} key={camera.id} id={camera.id} name={camera.name} />
+            <div className={styles.cameraContainer}
+                 style={
+                     {
+                         gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
+                         gridTemplateRows: `repeat(${gridSize}, minmax(0, 1fr))`,
+                     } as React.CSSProperties
+                 }>
+                    {cameras?.map((camera:ICamera) => (
+                        <CameraCardHls key={camera.id} id={camera.id} name={camera.name}/>
                     ))}
             </div>
         </div>

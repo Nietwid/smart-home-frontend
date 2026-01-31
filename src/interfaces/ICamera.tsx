@@ -1,6 +1,6 @@
 export interface ICamera {
     id: number;
-    name: string;
+    name:string;
 }
 export interface ICameraCreate{
     name:string,
