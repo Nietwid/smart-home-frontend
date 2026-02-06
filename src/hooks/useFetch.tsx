@@ -41,7 +41,6 @@ export default function useFetch(): useFetchReturn {
     credentials: "include" as RequestCredentials,
     headers: {
       "Content-Type": "application/json",
-      "ngrok-skip-browser-warning": "1234",
       Authorization: `Bearer ${access}`,
       "X-CSRFToken": getCsrfToken() || "",
     },
