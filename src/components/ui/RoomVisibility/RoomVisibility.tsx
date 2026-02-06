@@ -1,5 +1,3 @@
-import styles from "./RoomVisibility.module.css";
-
 import LockUnlocked from "/static/svg/lock_unlocked.svg";
 import LockLocked from "/static/svg/lock_locked.svg";
 

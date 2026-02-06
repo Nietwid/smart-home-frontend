@@ -6,7 +6,7 @@ import CacheKey from "../../constant/cacheKey.ts";
 
 
 export default function useCameraMutation(){
-    const {createData, deleteData} = useFetch()
+    const {createData, updateData, deleteData} = useFetch()
     const queryClient = useQueryClient();
     function createCamera(){
         return useMutation({
@@ -16,13 +16,22 @@ export default function useCameraMutation(){
             }
         })
     }
+    function updateCamera(id: number){
+        return useMutation({
+            mutationFn: (data:object) => updateData(`${api.cameras}${id}`,data),
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: [CacheKey.CAMERAS] });
+                queryClient.invalidateQueries({ queryKey: [CacheKey.CAMERAS, id] });
+            }
+        })
+    }
     function deleteCamera(id: number){
         return useMutation({
-            mutationFn: () => deleteData(`${api.cameras}${id}/`),
+            mutationFn: () => deleteData(`${api.cameras}${id}`),
             onSuccess: () => {
             }
         })
     }
 
-    return {createCamera, deleteCamera}
+    return {createCamera, updateCamera, deleteCamera}
 }

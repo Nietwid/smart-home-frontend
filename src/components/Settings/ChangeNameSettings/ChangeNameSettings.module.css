@@ -1,0 +1,54 @@
+.configSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0;
+}
+.configLabel {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    display: block;
+}
+.nameSection {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.inputGroup {
+    flex: 1;
+}
+
+.inputGroup :global(.rs-input) {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+}
+
+.inputGroup :global(.rs-input:focus) {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2) !important;
+}
+
+.saveButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    min-width: 100px;
+}
+
+.saveButton:hover {
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4) !important;
+}
+
+@media (max-width: 768px) {
+
+    .nameSection {
+        flex-direction: column;
+    }
+}

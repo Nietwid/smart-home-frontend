@@ -12,11 +12,12 @@ export default function updateFavouriteData(
   console.log(data);
   const oldFavouriteData = queryClient.getQueryData([CacheKey.FAVOURITES]) as {
     status: number;
-    data: { rooms: number[]; devices: number[] };
+    data: { rooms: number[]; devices: number[]; cameras: number[] };
   };
   if (!oldFavouriteData) return;
   let deviceData = oldFavouriteData.data.devices;
   let roomData = oldFavouriteData.data.rooms;
+  let cameraData = oldFavouriteData.data.cameras;
   if (data.type === "device") {
     if (!data.is_favourite) {
       deviceData.push(data.id);
@@ -33,12 +34,21 @@ export default function updateFavouriteData(
         (id: number) => id !== data.id
       );
     }
+  }else if (data.type === "camera") {
+    if (!data.is_favourite) {
+      cameraData.push(data.id);
+    } else {
+      cameraData = cameraData.filter(
+          (id: number) => id !== data.id
+      );
+    }
   }
   const newFavouriteData = {
     status: status,
     data: {
       rooms: roomData,
       devices: deviceData,
+      cameras: cameraData
     },
   };
   queryClient.setQueryData([CacheKey.FAVOURITES], newFavouriteData);
