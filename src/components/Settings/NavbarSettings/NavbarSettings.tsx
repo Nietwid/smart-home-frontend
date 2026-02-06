@@ -1,4 +1,4 @@
-import { TSettings } from "../../type/TSettings";
+import { TSettings } from "../../../type/TSettings.ts";
 import { Nav } from "rsuite";
 import styles from "./NavbarSettings.module.css";
 import {useTranslation} from "react-i18next";

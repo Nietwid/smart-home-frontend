@@ -1,0 +1,27 @@
+.configSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0;
+}
+.toggleSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.toggleInfo {
+    flex: 1;
+}
+.configLabel {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    display: block;
+}
+.configDesc {
+     font-size: 13px;
+     color: rgba(255, 255, 255, 0.6);
+     margin: 4px 0 0 0;
+     line-height: 1.5;
+}

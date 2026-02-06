@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./SettingsPage.module.css";
-import NavbarSettings from "../../../components/NavbarSettings/NavbarSettings.tsx";
+import NavbarSettings from "../../../components/Settings/NavbarSettings/NavbarSettings.tsx";
 import ChangePasswordForm from "../../../components/ChangePasswordForm/ChangePasswordForm.tsx";
 import { TSettings } from "../../../type/TSettings.ts";
 import ChangeHomeForm from "../../../components/ChangeHomeForm/ChangeHomeForm.tsx";

@@ -21,6 +21,7 @@ import AddCameraPage from "../pages/Camera/AddCameraPage/AddCameraPage.tsx";
 import TempHumPage from "../pages/TempHumPage/TempHumPage.tsx";
 import LightPage from "../pages/LightPage/LightPage.tsx";
 import StairsPage from "../pages/StairsPage/StairsPage.tsx";
+import SettingsCamera from "../pages/Settings/SettingsCamera/SettingsCamera.tsx";
 
 export default createBrowserRouter([
     {
@@ -50,6 +51,7 @@ export default createBrowserRouter([
             { path: ":deviceFun/:id/settings/", element: <SettingsDevice /> },
             { path: "camera/",element:<SelectCameraPage/> },
             { path: "camera/add/", element:<AddCameraPage/> },
+            { path: "camera/settings/:id", element:<SettingsCamera/> },
             { path: "settings/", element: <SettingsPage /> },
             { path: "temperature/:id/", element:<TempHumPage/>},
             { path: "light/:id/", element:<LightPage/>},

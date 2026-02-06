@@ -1,4 +1,10 @@
 {
+  "changeNameSettings": {
+    "nameEmpty": "Nazwa nie może być pusta",
+    "nameUpdated": "Nazwa została zaktualizowana",
+    "nameUpdateError": "Błąd podczas aktualizacji nazwy",
+    "setName": "Wprowadź nazwę"
+  },
   "chatbot": {
     "warning": "Proszę używać prostych i klarownych instrukcji"
   },
@@ -54,7 +60,7 @@
     "selectRoom": "Wybierz pokój",
     "yes": "TAK",
     "no": "NIE",
-    "favouriteDescription": "Oznacz urządzenie jako ulubione, aby łatwiej je znaleźć",
+    "favouriteDescription": "Oznacz jako ulubione, aby łatwiej je znaleźć",
     "removeFromRoomNote": "Będziesz mógł przypisać je ponownie później.",
     "confirmRemoveFromRoom": "Tak, usuń z pokoju",
     "removeDeviceFromRoom": "Usuń urządzenie z przypisanego pokoju",
@@ -252,7 +258,11 @@
   "camera": {
     "title": "Kamery",
     "addButton": "Dodaj kamerę",
-    "addTooltip": "Dodaj nową kamerę rtsp"
+    "addTooltip": "Dodaj nową kamerę rtsp",
+    "settingsTitle": "Ustawienia kamery",
+    "confirmDelete": "kamerę",
+    "settingsConfig": "Konfiguracja kamery"
+
   },
   "router": {
     "title": "Router",

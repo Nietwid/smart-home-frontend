@@ -9,7 +9,7 @@ import useDevicesQuery from "../../hooks/queries/device/useDevicesQuery.tsx";
 import useRoomsQuery from "../../hooks/queries/room/useRoomsQuery.tsx";
 import { useTranslation } from "react-i18next";
 import styles from "./HomePage.module.css";
-import useCameraQuery from "../../hooks/queries/useCameraQuery.tsx";
+import useCamerasQuery from "../../hooks/queries/useCamerasQuery.tsx";
 import MEASUREMENT_DEVICE_FUN from "../../constant/MEASUREMENT_DEVICE_FUN.ts"
 import CameraCardHls from "../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
 import {ICamera} from "../../interfaces/ICamera.tsx";
@@ -17,7 +17,7 @@ import countToGridSize from "../../utils/countToGridSize.ts";
 export default function HomePage() {
     const { t } = useTranslation();
     const { favouriteData } = useFavouriteQuery();
-    const {cameraData} = useCameraQuery();
+    const {cameraData} = useCamerasQuery();
     const { devices } = useDevicesQuery(favouriteData?.devices || []);
     const { rooms } = useRoomsQuery(favouriteData?.rooms || []);
     if (!devices || !rooms || !cameraData) return null;

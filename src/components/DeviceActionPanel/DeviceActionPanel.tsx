@@ -22,7 +22,7 @@ export default function DeviceActionPanel({buttons, wifiStrength, children, show
     return (
         <div className={styles.container}>
             <div className={styles.buttonGroup}>
-                {buttons.map((btn, idx) => (
+                {buttons?.map((btn, idx) => (
                     <Whisper
                         key={idx}
                         placement="bottom"

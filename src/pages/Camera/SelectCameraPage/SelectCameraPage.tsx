@@ -1,7 +1,7 @@
 import styles from './SelectCameraPage.module.css'
 import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
-import useCameraQuery from "../../../hooks/queries/useCameraQuery.tsx";
+import useCamerasQuery from "../../../hooks/queries/useCamerasQuery.tsx";
 import {useEffect, useState} from "react";
 import {ICamera} from "../../../interfaces/ICamera.tsx";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
@@ -10,7 +10,7 @@ import {useTranslation} from "react-i18next";
 import CameraCardHls from "../../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
 
 export default function SelectCameraPage() {
-    const {cameraData,status, isLoading} = useCameraQuery();
+    const {cameraData,status, isLoading} = useCamerasQuery();
     const [cameras, setCameras] = useState<ICamera[]>([]);
     const {t} = useTranslation();
 

@@ -3,11 +3,11 @@ import {useQuery} from "@tanstack/react-query";
 import {api} from "../../constant/api.ts";
 import CacheKey from "../../constant/cacheKey.ts";
 
-export default function useCameraQuery(id:number) {
+export default function useCamerasQuery() {
     const {readData} = useFetch();
     const {data, isLoading} = useQuery({
-        queryFn: () => readData(`${api.cameras}${id}`),
-        queryKey: [CacheKey.CAMERAS, id],
+        queryFn: () => readData(api.cameras),
+        queryKey: [CacheKey.CAMERAS],
         staleTime: 10 * 60 * 1000
     });
     return {status: data?.status, cameraData: data?.data, isLoading};
