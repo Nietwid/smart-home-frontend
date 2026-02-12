@@ -10,7 +10,7 @@ interface ThreeDotProps {
 
 export default function ThreeDot({to, className}:ThreeDotProps) {
     return <Link to={to} className={`${styles.link} ${className}`}>
-      <SvgIcon svg={threeDot} alt={""} className={styles.size}/>
+      <SvgIcon svgId={"threeDot"} className={styles.size}/>
     </Link>
 
 }

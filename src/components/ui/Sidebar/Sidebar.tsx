@@ -14,8 +14,8 @@ import useLogoutMutation from "../../../hooks/queries/useLogoutMutation.ts";
 
 const menuItems = [
     { icon: dashboard, label: "Dashboard", path: "/" },
-    { icon: room, label: "Pokoje", path: "/room" },
-    { icon: device, label: "Urządzenia", path: "/device" },
+    { icon: room, label: "Pokoje", path: "/rooms" },
+    { icon: device, label: "Urządzenia", path: "/devices" },
     { icon: router, label: "Router", path: "/router" },
     { icon: camera, label: "Kamery", path: "/camera" },
     { icon: settings, label: "Ustawienia", path: "/settings" },

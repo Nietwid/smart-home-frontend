@@ -23,12 +23,13 @@ export default function DeviceActionPanel({buttons, wifiStrength, children, show
         <div className={styles.container}>
             <div className={styles.buttonGroup}>
                 {buttons?.map((btn, idx) => (
-                    <Whisper
-                        key={idx}
-                        placement="bottom"
-                        trigger="hover"
-                        speaker={btn.tooltip ? <Tooltip>{btn.tooltip}</Tooltip> : <></>}
-                    >
+                    // <Whisper
+                    //     key={idx}
+                    //     placement="bottom"
+                    //     trigger="hover"
+                    //     speaker={btn.tooltip ? <Tooltip>{btn.tooltip}</Tooltip> : <></>}
+                    // >
+                    // </Whisper>
                         <Button
                             key={`dap_button_${idx}`}
                             as={Link}
@@ -39,7 +40,6 @@ export default function DeviceActionPanel({buttons, wifiStrength, children, show
                         >
                             {btn.label}
                         </Button>
-                    </Whisper>
                 ))}
                 {children}
             </div>

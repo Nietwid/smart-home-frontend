@@ -13,7 +13,7 @@ export default function RoomCard({ room }: RoomCardProps) {
   const {t} = useTranslation();
   return (
     <div className={styles.card}>
-      <ThreeDot to={`/room/${room.id}/`}/>
+      <ThreeDot to={`/rooms/${room.id}/`}/>
       <RoomVisibility visibility={room.visibility} className={styles.lock} />
       <Header disable={false}>{room.name}</Header>
       <p style={{"margin":0}}>{room.device_count} {t("selectRoom.device")}</p>

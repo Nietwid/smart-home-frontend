@@ -1,38 +1,33 @@
-import usePrefetchDeviceQuery from "../../../hooks/queries/device/usePrefetchDeviceQuery.tsx";
-import { IDevice } from "../../../interfaces/IDevice";
-import getDeviceComponent from "../../../utils/getDeviceCard";
+import {useTranslation} from "react-i18next";
+import {useParams} from "react-router-dom";
 import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
-import {useTranslation} from "react-i18next";
-import MEASUREMENT_DEVICE_FUN from "../../../constant/MEASUREMENT_DEVICE_FUN.ts"
+import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery.tsx";
 import styles from "./DevicePage.module.css";
+import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActionPanel.tsx";
+
 export default function Device() {
-  const { deviceData } = usePrefetchDeviceQuery();
-  const {t} = useTranslation();
 
+    const { t } = useTranslation();
+    const params = useParams();
+    const deviceId = parseInt(params.id ?? "0");
+    const { device } = useDeviceQuery(deviceId);
+    if (!device) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
+    console.log(device);
+    return (
+        <PageContainer>
+          <PageHeader title={device.name} subtitle={`Liczba peryferiów ${device.peripherals.length}`} >
+              <DeviceActionPanel
+                  buttons={[
+                      { label: t("buttons.deviceSettings"), to: `/devices/${device.id}/settings/`, type: "default"},
+                      { label: "Edycja", to: `/devices/${device.id}/edit/`, type: "default"}
+                  ]}
+                  wifiStrength={device.is_online ? device.wifi_strength : -100}
+                  showWifi={true}
+              />
+          </PageHeader>
 
-  if (!deviceData) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
-  const measuredDevice:IDevice[] = deviceData.filter(device => MEASUREMENT_DEVICE_FUN.includes(device.fun));
-  const normalDevice:IDevice[] = deviceData.filter(device => !MEASUREMENT_DEVICE_FUN.includes(device.fun));
-  return (
-    <PageContainer>
-      <PageHeader title={t("device.title")}>
-      </PageHeader>
-      <div className={styles.wrapper}>
-        <div className={`${styles.measurementContainer} ${styles.background}`}>
-          <p className={styles.deviceTitle}>Urządzenia pomiarowe</p>
-          <div className={styles.measurement}>
-            {measuredDevice.map((device: IDevice) => getDeviceComponent(device))}
-          </div>
-        </div>
-        <div className={`${styles.deviceContainer} ${styles.background}`}>
-          <p className={styles.deviceTitle}>Urządzenia</p>
-          <div className={styles.devices}>
-            {normalDevice.map((device: IDevice) => getDeviceComponent(device))}
-          </div>
-        </div>
-      </div>
-    </PageContainer>
-  );
+        </PageContainer>
+    );
 }

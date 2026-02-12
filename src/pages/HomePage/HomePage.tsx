@@ -1,7 +1,6 @@
 import {IRoom} from "../../interfaces/IRoom.tsx";
 import RoomCard from "../../components/Cards/RoomCard/RoomCard.tsx";
 import {IDevice} from "../../interfaces/IDevice.tsx";
-import getDeviceComponent from "../../utils/getDeviceCard.tsx";
 import useFavouriteQuery from "../../hooks/queries/useFavouriteQuery.tsx";
 import PageContainer from "../../components/ui/containers/PageContainer/PageContainer.tsx";
 import PageHeader from "../../components/ui/Headers/PageHeader/PageHeader.tsx";
@@ -10,10 +9,12 @@ import useRoomsQuery from "../../hooks/queries/room/useRoomsQuery.tsx";
 import { useTranslation } from "react-i18next";
 import styles from "./HomePage.module.css";
 import useCamerasQuery from "../../hooks/queries/useCamerasQuery.tsx";
-import MEASUREMENT_DEVICE_FUN from "../../constant/MEASUREMENT_DEVICE_FUN.ts"
 import CameraCardHls from "../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
 import {ICamera} from "../../interfaces/ICamera.tsx";
 import countToGridSize from "../../utils/countToGridSize.ts";
+import Form from "@rjsf/core";
+import validator from "@rjsf/validator-ajv8";
+import DeviceCard from "../../components/Cards/DeviceCard/DeviceCard.tsx";
 export default function HomePage() {
     const { t } = useTranslation();
     const { favouriteData } = useFavouriteQuery();
@@ -23,24 +24,20 @@ export default function HomePage() {
     if (!devices || !rooms || !cameraData) return null;
     const cameras = cameraData.filter(camera => (favouriteData?.cameras || []).includes(camera.id))
     const gridSize = countToGridSize(cameras.length)
-    const measuredDevice:IDevice[] = devices.filter(device => MEASUREMENT_DEVICE_FUN.includes(device.fun));
-    const normalDevice:IDevice[] = devices.filter(device => !MEASUREMENT_DEVICE_FUN.includes(device.fun));
     return (
       <PageContainer>
         <div className={styles.grid}>
             <PageHeader className={styles.header} title={t("home.title")} subtitle={t("home.subtitle")}>
             </PageHeader>
-
+            {/*<Form*/}
+            {/*    schema={schema}*/}
+            {/*    validator={validator}*/}
+            {/*    onSubmit={({ formData }) => console.log(formData)}*/}
+            {/*/>*/}
             <div className={`${styles.deviceContainer} ${styles.background}`}>
                 <p className={styles.deviceTitle}>Urządzenia</p>
                 <div className={styles.devices}>
-                    {normalDevice.map((device: IDevice) => getDeviceComponent(device))}
-                </div>
-            </div>
-            <div className={`${styles.measurementContainer} ${styles.background}`}>
-                <p className={styles.deviceTitle}>Urządzenia pomiarowe</p>
-                <div className={styles.measurement}>
-                    {measuredDevice.map((device: IDevice) => getDeviceComponent(device))}
+                    {devices.map((device: IDevice) => <DeviceCard key={device.id} id={device.id} name={device.name} isOnline={device.is_online} svgId={device.svg_id}/>)}
                 </div>
             </div>
             <div className={`${styles.roomContainer} ${styles.background}`}>

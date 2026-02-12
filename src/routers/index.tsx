@@ -11,6 +11,7 @@ import AquariumPage from "../pages/Aquariums/AquariumPage/AquariumPage.tsx";
 import RfidPage from "../pages/Rfid/RfidPage/RfidPage.tsx";
 import LampPage from "../pages/Lamps/LampPage/LampPage.tsx";
 import ButtonPage from "../pages/Button/ButtonPage/ButtonPage.tsx";
+import DevicesPage from "../pages/Devices/DevicesPage/DevicesPage.tsx";
 import DevicePage from "../pages/Devices/DevicePage/DevicePage.tsx";
 import DeviceEventWizard from "../pages/DeviceEventWizard/DeviceEventWizard.tsx";
 import SelectCameraPage from "../pages/Camera/SelectCameraPage/SelectCameraPage.tsx";
@@ -22,6 +23,7 @@ import TempHumPage from "../pages/TempHumPage/TempHumPage.tsx";
 import LightPage from "../pages/LightPage/LightPage.tsx";
 import StairsPage from "../pages/StairsPage/StairsPage.tsx";
 import SettingsCamera from "../pages/Settings/SettingsCamera/SettingsCamera.tsx";
+import DeviceEdit from "../pages/Devices/DeviceEdit/DeviceEdit.tsx";
 
 export default createBrowserRouter([
     {
@@ -38,24 +40,28 @@ export default createBrowserRouter([
         children: [
             { path: "", element: <HomePage /> },
             { path: "/router/", element: <RouterPage /> },
-            { path: "room/", element: <SelectRoom /> },
-            { path: "room/:id/", element: <Room /> },
-            { path: "room/:id/add/", element: <DeviceAddPage /> },
-            { path: "room/:id/settings/", element: <SettingsRoom /> },
-            { path: "aquarium/:id/", element: <AquariumPage /> },
-            { path: "rfid/:id/", element: <RfidPage /> },
-            { path: "lamp/:id/", element: <LampPage /> },
-            { path: "button/:id/", element: <ButtonPage /> },
-            { path: "device/", element: <DevicePage /> },
-            { path: ":deviceFun/:id/event/wizard/", element: <DeviceEventWizard /> },
-            { path: ":deviceFun/:id/settings/", element: <SettingsDevice /> },
+            { path: "rooms/", element: <SelectRoom /> },
+            { path: "rooms/:id/", element: <Room /> },
+            { path: "rooms/:id/add/", element: <DeviceAddPage /> },
+            { path: "rooms/:id/settings/", element: <SettingsRoom /> },
+            { path: "devices/", element: <DevicesPage /> },
+            { path: "devices/:id", element: <DevicePage /> },
+            { path: "devices/:id/settings/", element: <SettingsDevice /> },
+            { path: "devices/:id/edit/",element:<DeviceEdit/>},
             { path: "camera/",element:<SelectCameraPage/> },
             { path: "camera/add/", element:<AddCameraPage/> },
             { path: "camera/settings/:id", element:<SettingsCamera/> },
             { path: "settings/", element: <SettingsPage /> },
+
+
+            { path: ":deviceFun/:id/event/wizard/", element: <DeviceEventWizard /> },
             { path: "temperature/:id/", element:<TempHumPage/>},
             { path: "light/:id/", element:<LightPage/>},
-            { path: "stairs/:id/", element:<StairsPage/>}
+            { path: "stairs/:id/", element:<StairsPage/>},
+            { path: "aquarium/:id/", element: <AquariumPage /> },
+            { path: "rfid/:id/", element: <RfidPage /> },
+            { path: "lamp/:id/", element: <LampPage /> },
+            { path: "button/:id/", element: <ButtonPage /> },
         ],
     },
 ]);

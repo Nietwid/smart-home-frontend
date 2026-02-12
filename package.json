@@ -11,6 +11,8 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@rjsf/core": "^6.2.5",
+    "@rjsf/validator-ajv8": "^6.2.5",
     "@tanstack/react-query": "^5.62.8",
     "@tanstack/react-query-devtools": "^5.62.8",
     "@uiw/color-convert": "^2.3.2",
