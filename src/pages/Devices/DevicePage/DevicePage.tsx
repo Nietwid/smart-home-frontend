@@ -4,7 +4,6 @@ import PageContainer from "../../../components/ui/containers/PageContainer/PageC
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery.tsx";
-import styles from "./DevicePage.module.css";
 import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActionPanel.tsx";
 
 export default function Device() {
@@ -17,11 +16,13 @@ export default function Device() {
     console.log(device);
     return (
         <PageContainer>
-          <PageHeader title={device.name} subtitle={`Liczba peryferiów ${device.peripherals.length}`} >
+          <PageHeader title={device.name} subtitle={`${t("devicePage.headerSubtitle")} ${device.peripherals.length}`} >
               <DeviceActionPanel
                   buttons={[
-                      { label: t("buttons.deviceSettings"), to: `/devices/${device.id}/settings/`, type: "default"},
-                      { label: "Edycja", to: `/devices/${device.id}/edit/`, type: "default"}
+                      { label: t("button.deviceSettings"), to: `/devices/${device.id}/settings/`, type: "default"},
+                      { label: t("button.editPeripheral"), to: `/devices/${device.id}/peripheral/edit/`, type: "default"},
+                      { label: t("button.addPeripheral"), to: `/devices/${device.id}/peripheral/add/`, type: "default"},
+
                   ]}
                   wifiStrength={device.is_online ? device.wifi_strength : -100}
                   showWifi={true}

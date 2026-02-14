@@ -23,7 +23,8 @@ import TempHumPage from "../pages/TempHumPage/TempHumPage.tsx";
 import LightPage from "../pages/LightPage/LightPage.tsx";
 import StairsPage from "../pages/StairsPage/StairsPage.tsx";
 import SettingsCamera from "../pages/Settings/SettingsCamera/SettingsCamera.tsx";
-import DeviceEdit from "../pages/Devices/DeviceEdit/DeviceEdit.tsx";
+import DeviceAddPeripheral from "../pages/Devices/DeviceAddPeripheral/DeviceAddPeripheral.tsx";
+import DeviceEditPeripheral from "../pages/Devices/DeviceEditPeripheral/DeviceEditPeripheral.tsx";
 
 export default createBrowserRouter([
     {
@@ -47,7 +48,8 @@ export default createBrowserRouter([
             { path: "devices/", element: <DevicesPage /> },
             { path: "devices/:id", element: <DevicePage /> },
             { path: "devices/:id/settings/", element: <SettingsDevice /> },
-            { path: "devices/:id/edit/",element:<DeviceEdit/>},
+            { path: "devices/:id/peripheral/edit/",element:<DeviceEditPeripheral/>},
+            { path: "devices/:id/peripheral/add/",element:<DeviceAddPeripheral/>},
             { path: "camera/",element:<SelectCameraPage/> },
             { path: "camera/add/", element:<AddCameraPage/> },
             { path: "camera/settings/:id", element:<SettingsCamera/> },

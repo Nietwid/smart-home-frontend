@@ -1,4 +1,22 @@
 {
+  "devicePage":{
+    "headerSubtitle": "Number of peripherals"
+  },
+  "button": {
+    "select": "Select",
+    "deviceSettings": "Device settings",
+    "deviceSettingsTooltip": "Change device settings",
+    "deviceEvent": "Event Settings",
+    "deviceEventTooltip": "Configure events for this device",
+    "save": "Save",
+    "add": "Add",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "addPeripheral": "Add new peripherals",
+    "editPeripheral": "Edit peripheral"
+  },
+
+
   "chatbot": {
     "warning": "Please use simple and clear commands"
   },
@@ -9,16 +27,7 @@
       "click": "Click"
     }
   },
-  "buttons": {
-    "select": "Select",
-    "deviceSettings": "Device settings",
-    "deviceSettingsTooltip": "Change device settings",
-    "deviceEvent": "Event Settings",
-    "deviceEventTooltip": "Configure events for this device",
-    "saveButton": "Save",
-    "addButton": "Add",
-    "cancelButton": "Cancel"
-  },
+
   "selectRoom": {
     "title": "Rooms",
     "device": "device"

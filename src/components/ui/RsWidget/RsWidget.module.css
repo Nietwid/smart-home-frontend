@@ -1,0 +1,7 @@
+.error li{
+    color: #ff6b6b;
+    font-size: 13px;
+    margin-top: 6px;
+    font-weight: 500;
+    list-style: none;
+}

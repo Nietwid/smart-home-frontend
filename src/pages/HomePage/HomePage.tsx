@@ -12,8 +12,7 @@ import useCamerasQuery from "../../hooks/queries/useCamerasQuery.tsx";
 import CameraCardHls from "../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
 import {ICamera} from "../../interfaces/ICamera.tsx";
 import countToGridSize from "../../utils/countToGridSize.ts";
-import Form from "@rjsf/core";
-import validator from "@rjsf/validator-ajv8";
+
 import DeviceCard from "../../components/Cards/DeviceCard/DeviceCard.tsx";
 export default function HomePage() {
     const { t } = useTranslation();
@@ -29,11 +28,6 @@ export default function HomePage() {
         <div className={styles.grid}>
             <PageHeader className={styles.header} title={t("home.title")} subtitle={t("home.subtitle")}>
             </PageHeader>
-            {/*<Form*/}
-            {/*    schema={schema}*/}
-            {/*    validator={validator}*/}
-            {/*    onSubmit={({ formData }) => console.log(formData)}*/}
-            {/*/>*/}
             <div className={`${styles.deviceContainer} ${styles.background}`}>
                 <p className={styles.deviceTitle}>Urządzenia</p>
                 <div className={styles.devices}>
