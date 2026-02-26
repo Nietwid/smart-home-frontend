@@ -3,15 +3,22 @@ import IPeripheral from "../../../interfaces/IPeripheral.ts";
 import {useState} from "react";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
 import {peripheralAction} from "../../../utils/commandBuilders.ts";
+import styles from "./PinOutputWidget.module.css";
+import BaseWidget from "../BaseWidget/BaseWidget.tsx";
 
 interface IPinOutputWidgetState {
     value:boolean;
 }
+interface IPinOutputWidgetConfig {
+    pin:number;
+    name?: string;
+}
 
 interface IPinOutputWidget extends IPeripheral {
     state: IPinOutputWidgetState
+    config: IPinOutputWidgetConfig
 }
-export default function PinOutputWidget({id, name, state, pending}:IPinOutputWidget){
+export default function PinOutputWidget({id, state, pending, config}:IPinOutputWidget){
     console.log(pending)
     const [value, setValue] = useState(state.value);
     const [loading, setLoading] = useState(false);
@@ -27,6 +34,8 @@ export default function PinOutputWidget({id, name, state, pending}:IPinOutputWid
 
 
     return (
-        <Toggle checked={value} onChange={handleToggle} loading={isLoading} />
+        <BaseWidget name={config.name} size="md">
+            <Toggle checked={value} onChange={handleToggle} loading={isLoading} />
+        </BaseWidget>
     );
 }
