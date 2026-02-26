@@ -7,6 +7,7 @@ import MessageType from "../constant/message_type";
 import updateRouterData from "../utils/updateRouterData";
 import { websocketUrl } from "../constant/urls";
 import displayToaster from "../utils/displayToaster.tsx";
+import updatePeripheralPending from "../utils/updatePeripheralPending.ts";
 
 interface WebSocketType {
   send: (data: object) => void;
@@ -41,6 +42,9 @@ export default function WebSocketProvider({children}:{children: React.ReactNode}
     ws.onmessage = async (event) => {
       const data = JSON.parse(event.data);
       switch (data.action) {
+        case MessageType.UPDATE_PERIPHERAL_PENDING:
+          updatePeripheralPending(queryClient, data.data)
+          break;
         case MessageType.UPDATE_ROUTER:
           updateRouterData(queryClient, data.data, data.status);
           break;

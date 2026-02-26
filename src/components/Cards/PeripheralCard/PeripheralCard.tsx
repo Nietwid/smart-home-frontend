@@ -2,7 +2,6 @@ import { Card, Panel, Divider } from "rsuite";
 
 interface IPeripheral {
     name: string;
-    type: string;
     config: any;
 }
 
@@ -39,11 +38,7 @@ function RenderConfig({ data }: { data: any }) {
     );
 }
 
-export default function PeripheralCard({
-                                           name,
-                                           type,
-                                           config
-                                       }: IPeripheral) {
+export default function PeripheralCard({name, config}: IPeripheral){
     return (
         <Card
             bordered
@@ -55,9 +50,6 @@ export default function PeripheralCard({
             }}
         >
             <Panel header={<h5 style={{ margin: 0 }}>{name}</h5>}>
-                <p style={{ marginBottom: 10 }}>
-                    <strong>Type:</strong> {type}
-                </p>
 
                 <Divider />
 

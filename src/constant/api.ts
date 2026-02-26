@@ -8,6 +8,7 @@ export const api = {
   changePassword: baseURL + "/api/change-password/",
   hardwareSchema: baseURL + "/api/hardware/schemas",
   peripherals: baseURL + "/api/peripherals/",
+  triggerActionEvent: baseURL + "/api/peripherals/trigger/",
 
   home: baseURL + "/api/home/",
 
@@ -24,7 +25,6 @@ export const api = {
   unassignedDevice: baseURL + "/api/device/?unassigned=true",
   router: baseURL + "/api/device/router/",
   event: baseURL + "/api/event/",
-  triggerEvent: baseURL + "/api/event/trigger/",
   action: baseURL + "/api/event/action/",
   cameras: baseURL + "/api/cameras/",
   cameraStream: baseURL + "/stream/",

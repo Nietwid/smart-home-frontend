@@ -5,6 +5,8 @@ import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAni
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery.tsx";
 import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActionPanel.tsx";
+import IPeripheral from "../../../interfaces/IPeripheral.ts";
+import peripheralFactory from "../../../utils/peripheralFactory.tsx";
 
 export default function Device() {
 
@@ -28,7 +30,7 @@ export default function Device() {
                   showWifi={true}
               />
           </PageHeader>
-
+            {device.peripherals.map((peripheral:IPeripheral) => peripheralFactory(peripheral))}
         </PageContainer>
     );
 }

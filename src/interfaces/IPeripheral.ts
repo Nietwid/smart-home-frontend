@@ -1,7 +1,8 @@
-export default interface IPeripheral {
-    id:number;
-    type: string;
+export default interface IPeripheral<TConfig = unknown, TState = unknown> {
+    id: number;
     name: string;
-    config: Record<string, unknown>;
-    state: Record<string, unknown>;
+    device:number;
+    pending:string[];
+    config: TConfig;
+    state: TState;
 }

@@ -14,6 +14,21 @@ function getCsrfToken() {
   }
   return cookieValue;
 }
+export class ApiError extends Error {
+  details?: Record<string, string[]>;
+  status?: number;
+
+  constructor(
+      message: string,
+      details?: Record<string, string[]>,
+      status?: number
+  ) {
+    super(message);
+    this.name = "ApiError";
+    this.details = details;
+    this.status = status;
+  }
+}
 interface useFetchReturn {
   createData: (
     url: string,
@@ -25,14 +40,6 @@ interface useFetchReturn {
     body: any
   ) => Promise<{ status: number; data: any }>;
   deleteData: (url: string) => Promise<{ status: number }>;
-}
-
-class CustomError extends Error {
-  details: { [key: string]: string[] };
-  constructor(message: string, details: { [key: string]: string[] }) {
-    super(message);
-    this.details = details;
-  }
 }
 
 export default function useFetch(): useFetchReturn {
@@ -57,7 +64,11 @@ export default function useFetch(): useFetchReturn {
     const data = await response.json();
     if (response.status === 401) {logout()}
     if (!response.ok) {
-      throw new CustomError("Błąd podczas wysyłania danych", data);
+      throw new ApiError(
+          "Validation error",
+          data,
+          response.status
+      );
     }
     return { status: response.status, data: data };
   }
@@ -83,10 +94,11 @@ export default function useFetch(): useFetchReturn {
     if (response.status === 401) {logout()}
     const data = await response.json();
     if (!response.ok) {
-      throw new CustomError("Błąd podczas wysyłania danych", {
-        ...data,
-        status: response.status,
-      });
+      throw new ApiError(
+          "Validation error",
+          data,
+          response.status
+      );
     }
     return { status: response.status, data: data };
   }

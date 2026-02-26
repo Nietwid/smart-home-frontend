@@ -3,32 +3,17 @@ import validator from "@rjsf/validator-ajv8";
 import styles from "./PeripheralAddForm.module.css"
 import {RsFieldTemplate, RsInputWidget, RsSelectWidget} from "../ui/RsWidget/RsWidget.tsx";
 import usePeripheralMutation from "../../hooks/queries/usePeripheralMutation.ts";
+import { useState } from "react";
 interface IProps{
     deviceId: number
     name:string
     schema: Record<string, unknown>
 }
-function transformErrors(errors: any[]) {
-    return errors.map(error => {
-        if (error.name === "minimum") {
-            error.message = "Wartość jest za mała";
-        }
-
-        if (error.name === "maximum") {
-            error.message = "Wartość jest za duża";
-        }
-
-        if (error.name === "required") {
-            error.message = "To pole jest wymagane";
-        }
-
-        return error;
-    });
-}
-
 export default function PeripheralAddForm({deviceId, name, schema}:IProps) {
-    const {createPeripheralMutation} =  usePeripheralMutation()
-    const mutation = createPeripheralMutation()
+    const {createPeripheralMutation} =  usePeripheralMutation();
+    const [extraErrors, setExtraErrors] = useState({});
+    const mutation = createPeripheralMutation(setExtraErrors);
+
     function onSubmitHandler(data:Record<string, any>){
         mutation.mutate({
             name:name,
@@ -41,7 +26,10 @@ export default function PeripheralAddForm({deviceId, name, schema}:IProps) {
         showErrorList={false}
         schema={schema}
         validator={validator}
-        transformErrors={transformErrors}
+        extraErrors={extraErrors}
+        onChange={(_) => {
+            if (extraErrors) setExtraErrors({})
+        }}
         templates={{
             FieldTemplate: RsFieldTemplate
         }}
