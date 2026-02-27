@@ -41,9 +41,13 @@ export default function WebSocketProvider({children}:{children: React.ReactNode}
     };
     ws.onmessage = async (event) => {
       const data = JSON.parse(event.data);
+      console.log(data)
       switch (data.action) {
         case MessageType.UPDATE_PERIPHERAL_PENDING:
           updatePeripheralPending(queryClient, data.data)
+          break;
+        case MessageType.DISPLAY_TOASTER:
+          displayToaster(data.data.message, "error")
           break;
         case MessageType.UPDATE_ROUTER:
           updateRouterData(queryClient, data.data, data.status);

@@ -3,7 +3,6 @@ import IPeripheral from "../../../interfaces/IPeripheral.ts";
 import {useState} from "react";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
 import {peripheralAction} from "../../../utils/commandBuilders.ts";
-import styles from "./PinOutputWidget.module.css";
 import BaseWidget from "../BaseWidget/BaseWidget.tsx";
 
 interface IPinOutputWidgetState {
@@ -27,7 +26,7 @@ export default function PinOutputWidget({id, state, pending, config}:IPinOutputW
     async function handleToggle(value:boolean) {
         setValue(value);
         setLoading(true);
-        const data = peripheralAction(id,"set_value",{value:value});
+        const data = peripheralAction(id,"set_value", {value:value});
         await mutation.mutateAsync(data)
         setLoading(false);
     }

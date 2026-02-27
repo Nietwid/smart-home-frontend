@@ -21,23 +21,13 @@ const sizeMap: Record<Size, { width: string; height?: string }> = {
     '2xl':  { width: '32rem', height: '32rem'  },
 };
 
-export default function BaseWidget({
-                                       name,
-                                       children,
-                                       size = 'normal',
-                                       ratio = '1',
-                                       className = '',
-                                   }: Props) {
+export default function BaseWidget({name, children, size = 'normal', ratio = '1', className = ''}: Props) {
     const dims = sizeMap[size];
     const isSquare = ratio === '1';
 
     return (
         <Center
-            className={`
-        relative
-        ${styles.center}              
-        ${className}
-      `}
+            className={`relative ${styles.center} ${className}`}
             style={{
                 width: dims.width,
                 height: isSquare ? dims.height : 'auto',
