@@ -1,5 +1,6 @@
 import IPeripheral from "../interfaces/IPeripheral.ts";
 import PinOutputWidget from "../components/Widgets/PinOutput/PinOutputWidget.tsx";
+import RGBStripWidget from "../components/Widgets/RGBStrip/RGBStripWidget.tsx";
 export default function peripheralFactory(peripheral:IPeripheral){
     switch(peripheral.name){
         case "pin_output":
@@ -9,7 +10,7 @@ export default function peripheralFactory(peripheral:IPeripheral){
         case "pin_pwm":
             return null;
         case "rgb_strip":
-            return null;
+            return <RGBStripWidget key={peripheral.id} {...peripheral}/>;
         default: return null;
     }
 }

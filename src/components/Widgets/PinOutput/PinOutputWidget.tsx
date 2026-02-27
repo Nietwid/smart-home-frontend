@@ -17,23 +17,18 @@ interface IPinOutputWidget extends IPeripheral {
     state: IPinOutputWidgetState
     config: IPinOutputWidgetConfig
 }
-export default function PinOutputWidget({id, state, pending, config}:IPinOutputWidget){
-    console.log(pending)
+export default function PinOutputWidget({id, state, pending}:IPinOutputWidget){
     const [value, setValue] = useState(state.value);
-    const [loading, setLoading] = useState(false);
     const mutation = useTriggerActionEventMutation()
-    const isLoading = loading || pending.includes("set_value")
+    const isLoading = mutation.isPending || pending.includes("set_value")
     async function handleToggle(value:boolean) {
         setValue(value);
-        setLoading(true);
-        const data = peripheralAction(id,"set_value", {value:value});
+        const data = peripheralAction(id,"set_value", {value:!value});
         await mutation.mutateAsync(data)
-        setLoading(false);
     }
 
-
     return (
-        <BaseWidget name={config.name} size="md">
+        <BaseWidget  size="md">
             <Toggle checked={value} onChange={handleToggle} loading={isLoading} />
         </BaseWidget>
     );

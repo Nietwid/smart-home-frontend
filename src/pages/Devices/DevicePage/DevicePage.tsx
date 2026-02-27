@@ -7,7 +7,7 @@ import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery.tsx";
 import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActionPanel.tsx";
 import IPeripheral from "../../../interfaces/IPeripheral.ts";
 import peripheralFactory from "../../../utils/peripheralFactory.tsx";
-
+import styles from "./DevicePage.module.css"
 export default function Device() {
 
     const { t } = useTranslation();
@@ -30,7 +30,9 @@ export default function Device() {
                   showWifi={true}
               />
           </PageHeader>
-            {device.peripherals.map((peripheral:IPeripheral) => peripheralFactory(peripheral))}
+            <div className={styles.wrapper}>
+                {device.peripherals.map((peripheral:IPeripheral) => peripheralFactory(peripheral))}
+            </div>
         </PageContainer>
     );
 }

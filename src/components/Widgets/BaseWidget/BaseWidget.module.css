@@ -3,6 +3,9 @@
     border: 1px solid gray;
     border-radius: 15px;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .name{
