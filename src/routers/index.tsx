@@ -7,7 +7,6 @@ import RouterPage from "../pages/Router/RouterPage.tsx";
 import SelectRoom from "../pages/Rooms/SelectRoom/SelectRoom.tsx";
 import Room from "../pages/Rooms/Room/Room.tsx";
 import DeviceAddPage from "../pages/Devices/DeviceAddPage/DeviceAddPage.tsx";
-import AquariumPage from "../pages/Aquariums/AquariumPage/AquariumPage.tsx";
 import RfidPage from "../pages/Rfid/RfidPage/RfidPage.tsx";
 import LampPage from "../pages/Lamps/LampPage/LampPage.tsx";
 import ButtonPage from "../pages/Button/ButtonPage/ButtonPage.tsx";
@@ -60,7 +59,6 @@ export default createBrowserRouter([
             { path: "temperature/:id/", element:<TempHumPage/>},
             { path: "light/:id/", element:<LightPage/>},
             { path: "stairs/:id/", element:<StairsPage/>},
-            { path: "aquarium/:id/", element: <AquariumPage /> },
             { path: "rfid/:id/", element: <RfidPage /> },
             { path: "lamp/:id/", element: <LampPage /> },
             { path: "button/:id/", element: <ButtonPage /> },

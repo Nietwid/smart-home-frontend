@@ -8,18 +8,22 @@ interface IProps{
     deviceId: number
     name:string
     schema: Record<string, unknown>
+    loading: boolean
 }
-export default function PeripheralAddForm({deviceId, name, schema}:IProps) {
+
+export default function PeripheralAddForm({deviceId, loading, name, schema}:IProps) {
     const {createPeripheralMutation} =  usePeripheralMutation();
     const [extraErrors, setExtraErrors] = useState({});
     const mutation = createPeripheralMutation(setExtraErrors);
-
     function onSubmitHandler(data:Record<string, any>){
         mutation.mutate({
             name:name,
             device:deviceId,
             config:data
         })
+    }
+    if (loading){
+        return <p>LOADING</p>
     }
     return <Form
         className={styles.rjsfForm}

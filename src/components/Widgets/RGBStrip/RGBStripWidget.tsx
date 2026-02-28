@@ -9,6 +9,7 @@ import {IRGBStripState, IRGBStripConfig} from "../../../interfaces/Widgets/IRGBS
 import styles from "./RGBStripWidget.module.css";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
 import {peripheralAction} from "../../../utils/commandBuilders.ts";
+import {MessageAction} from "../../../enums/message_command.ts";
 
 interface IRGBStripWidget extends IPeripheral {
     state: IRGBStripState
@@ -87,7 +88,7 @@ function reducer(state:IRGBStripState, action:TAction){
 export default function RGBStripWidget({id, state, config, pending}:IRGBStripWidget){
     const [rstate, dispatch] = useReducer(reducer, setNewState(state, config))
     const mutation = useTriggerActionEventMutation()
-    const isLoading = mutation.isPending || pending.includes("set_value")
+    const isLoading = mutation.isPending || pending.includes(MessageAction.UPDATE_STATE)
     const [hsva, setHsva] = useState<HsvaColor>(rgbaToHsva(
         {
             r:rstate.r_pin.duty_cycle,
@@ -97,7 +98,7 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
         }
     ));
     function handleSave(){
-        const data = peripheralAction(id,"set_value", rstate);
+        const data = peripheralAction(id,MessageAction.UPDATE_STATE, rstate);
         mutation.mutate(data)
     }
     return (

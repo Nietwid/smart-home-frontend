@@ -7,6 +7,7 @@ import useHardwareSchemaQuery from "../../../hooks/queries/hardwareSchema/useHar
 import {SelectPicker} from "rsuite";
 import {SyntheticEvent, useState} from "react";
 import PeripheralAddForm from "../../../components/PeripheralAddForm/PeripheralAddForm.tsx";
+import {MessageAction} from "../../../enums/message_command.ts";
 
 export default function DeviceAddPeripheral() {
     const params = useParams();
@@ -28,11 +29,20 @@ export default function DeviceAddPeripheral() {
         setDisplayForm(true);
         setSchemaKey(value)
     }
+    console.log(device.pending);
     return <PageContainer>
         <PageHeader title={device.name}>
         </PageHeader>
         <SelectPicker data={Object.keys(schemas).map(k=>({ label: k, value: k }))} onChange={handleOnChange}/>
-        {displayForm && <PeripheralAddForm deviceId={deviceId} name={schemaKey} key={schemaKey} schema={schemas[schemaKey]}/>}
+        {displayForm &&
+            <PeripheralAddForm
+                deviceId={deviceId}
+                loading={device.pending.includes(MessageAction.UPDATE_PERIPHERAL)}
+                name={schemaKey}
+                key={schemaKey}
+                schema={schemas[schemaKey]}
+            />
+        }
 
     </PageContainer>
 }

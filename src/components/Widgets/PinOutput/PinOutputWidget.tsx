@@ -4,6 +4,7 @@ import {useState} from "react";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
 import {peripheralAction} from "../../../utils/commandBuilders.ts";
 import BaseWidget from "../BaseWidget/BaseWidget.tsx";
+import {MessageAction} from "../../../enums/message_command.ts";
 
 interface IPinOutputWidgetState {
     is_on:boolean;
@@ -20,10 +21,10 @@ interface IPinOutputWidget extends IPeripheral {
 export default function PinOutputWidget({id, state, pending}:IPinOutputWidget){
     const [value, setValue] = useState(state.is_on);
     const mutation = useTriggerActionEventMutation()
-    const isLoading = mutation.isPending || pending.includes("set_value")
-    async function handleToggle(value:boolean) {
-        setValue(value);
-        const data = peripheralAction(id,"set_value", {value:!value});
+    const isLoading = mutation.isPending || pending.includes(MessageAction.UPDATE_STATE)
+    async function handleToggle(isOn:boolean) {
+        setValue(isOn);
+        const data = peripheralAction(id,MessageAction.UPDATE_STATE, {is_on:isOn});
         await mutation.mutateAsync(data)
     }
 

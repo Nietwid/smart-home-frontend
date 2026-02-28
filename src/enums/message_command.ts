@@ -1,5 +1,5 @@
 
-const MessageEvent = {
+export const MessageEvent = {
     STATE_CHANGE: "state_change",
     UPDATE_FIRMWARE: "update_firmware",
     UPDATE_FIRMWARE_ERROR: "update_firmware_error",
@@ -11,7 +11,9 @@ const MessageEvent = {
     ON_TOGGLE: "on_toggle",
 } as const
 
-const MessageAction = {
+export const MessageAction = {
+    UPDATE_STATE: "update_state",
+    UPDATE_PERIPHERAL: "update_peripheral",
     ON: "on",
     OFF: "off",
     BLINK: "blink",
