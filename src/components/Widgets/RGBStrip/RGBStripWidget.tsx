@@ -1,9 +1,9 @@
-import {useRef, useState} from "react";
-import {Slider} from "rsuite";
+import {useReducer,  useState} from "react";
+import {Slider, Toggle} from "rsuite";
 import BaseWidget from "../BaseWidget/BaseWidget.tsx";
 import IPeripheral from "../../../interfaces/IPeripheral.ts";
 import Wheel from "@uiw/react-color-wheel";
-import {ColorResult, HsvaColor, rgbaToHsva} from "@uiw/color-convert";
+import {HsvaColor, rgbaToHsva} from "@uiw/color-convert";
 import ButtonSave from "../../ui/Buttons/ButtonSave/ButtonSave.tsx";
 import {IRGBStripState, IRGBStripConfig} from "../../../interfaces/Widgets/IRGBStrip.ts";
 import styles from "./RGBStripWidget.module.css";
@@ -14,6 +14,7 @@ interface IRGBStripWidget extends IPeripheral {
     state: IRGBStripState
     config: IRGBStripConfig
 }
+
 function setNewState(state: IRGBStripState,config:IRGBStripConfig):IRGBStripState{
     let rPin:number = state.r_pin.duty_cycle;
     let gPin:number = state.g_pin.duty_cycle;
@@ -29,8 +30,14 @@ function setNewState(state: IRGBStripState,config:IRGBStripConfig):IRGBStripStat
         g_pin: {duty_cycle: gPin },
         b_pin: {duty_cycle: bPin },
         brightness: state.brightness,
+        is_on: state.is_on,
     }
 }
+
+type TAction =
+    { type: "set/color", payload:{rgb: { r: number; g: number; b: number }}} |
+    { type: "set/brightness", payload:{brightness: number}}|
+    { type: "set/isOn", payload:{isOn: boolean}}
 
 const marks = [
     {
@@ -55,39 +62,55 @@ const marks = [
     }
 ];
 
+function reducer(state:IRGBStripState, action:TAction){
+    switch(action.type){
+        case "set/color":
+            return {
+                ...state,
+                r_pin:{duty_cycle:action.payload.rgb.r},
+                g_pin:{duty_cycle:action.payload.rgb.g},
+                b_pin:{duty_cycle:action.payload.rgb.b},
+            };
+            case "set/brightness":
+                return {
+                    ...state,
+                    brightness:action.payload.brightness,
+                }
+            case "set/isOn":
+                return {
+                    ...state,
+                    is_on:action.payload.isOn,
+                }
+    }
+}
+
 export default function RGBStripWidget({id, state, config, pending}:IRGBStripWidget){
-    const newStateRef = useRef<IRGBStripState>(setNewState(state,config));
+    const [rstate, dispatch] = useReducer(reducer, setNewState(state, config))
     const mutation = useTriggerActionEventMutation()
     const isLoading = mutation.isPending || pending.includes("set_value")
     const [hsva, setHsva] = useState<HsvaColor>(rgbaToHsva(
         {
-            r:newStateRef.current.r_pin.duty_cycle,
-            g:newStateRef.current.g_pin.duty_cycle,
-            b:newStateRef.current.b_pin.duty_cycle,
+            r:rstate.r_pin.duty_cycle,
+            g:rstate.g_pin.duty_cycle,
+            b:rstate.b_pin.duty_cycle,
             a:1
         }
     ));
-    function updateColor(color:ColorResult){
-        setHsva(color.hsva);
-        newStateRef.current = {
-            ...newStateRef.current,
-            r_pin:{duty_cycle:color.rgb.r},
-            g_pin:{duty_cycle:color.rgb.g},
-            b_pin:{duty_cycle:color.rgb.b},
-        }
-    }
-    function updateBrightness(value:number){
-        newStateRef.current.brightness = value
-    }
     function handleSave(){
-        const data = peripheralAction(id,"set_value", newStateRef.current);
+        const data = peripheralAction(id,"set_value", rstate);
         mutation.mutate(data)
     }
     return (
         <BaseWidget  size="xl">
             <Wheel
                 color={hsva}
-                onChange={updateColor}
+                onChange={(color) => {
+                    dispatch({
+                        type: "set/color",
+                        payload: {rgb: color.rgb},
+                    });
+                    setHsva(color.hsva);
+                }}
             />
             <Slider
                 className={styles.slider}
@@ -96,11 +119,16 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
                 max={100}
                 marks={marks}
                 renderTooltip={value => `${value}%`}
-                onChange={updateBrightness}
+                onChange={(value)=> dispatch({ type:"set/brightness",payload:{brightness:value}})}
                 disabled={isLoading}
             />
+            <Toggle
+                className={styles.toggle}
+                checked={rstate.is_on}
+                onChange={(value)=>dispatch({type:"set/isOn",payload:{isOn:value}})}
+                loading={isLoading}
+            />
             <ButtonSave loading={isLoading} onSave={handleSave}/>
-
         </BaseWidget>
     )
 }

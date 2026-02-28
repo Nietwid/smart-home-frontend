@@ -2,3 +2,8 @@
     width: 70%;
     margin-bottom: 30px;
 }
+.toggle{
+    position: absolute !important;
+    top: 20px;
+    right: 20px;
+}

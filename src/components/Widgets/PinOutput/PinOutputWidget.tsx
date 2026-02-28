@@ -6,7 +6,7 @@ import {peripheralAction} from "../../../utils/commandBuilders.ts";
 import BaseWidget from "../BaseWidget/BaseWidget.tsx";
 
 interface IPinOutputWidgetState {
-    value:boolean;
+    is_on:boolean;
 }
 interface IPinOutputWidgetConfig {
     pin:number;
@@ -18,7 +18,7 @@ interface IPinOutputWidget extends IPeripheral {
     config: IPinOutputWidgetConfig
 }
 export default function PinOutputWidget({id, state, pending}:IPinOutputWidget){
-    const [value, setValue] = useState(state.value);
+    const [value, setValue] = useState(state.is_on);
     const mutation = useTriggerActionEventMutation()
     const isLoading = mutation.isPending || pending.includes("set_value")
     async function handleToggle(value:boolean) {
