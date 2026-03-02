@@ -1,5 +1,4 @@
 .rjsfForm {
-    /*background: linear-gradient(135deg, #1a1d29 0%, #0f1117 100%);*/
     background-color: var(--rs-bg-overlay);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
@@ -12,14 +11,13 @@
 }
 .rjsfForm fieldset{
     border: none !important;
-    padding: 20px !important;
+    padding: 5px !important;
     display: flex;
 }
 .rjsfForm label {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
     color: #fff;
 }
 
@@ -37,6 +35,8 @@
 }
 
 .rjsfForm button {
+    display: block;
+    margin: 0 auto;
     background: #5a5cff;
     color: #fff;
     border: none;
@@ -54,6 +54,10 @@
 .rjsfForm .divider {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin: 16px 0;
+}
+
+.rjsfForm legend {
+    display:none;
 }
 
 @media (max-width: 768px) {

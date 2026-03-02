@@ -3,23 +3,21 @@ import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery.tsx";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
 import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
-import useHardwareSchemaQuery from "../../../hooks/queries/hardwareSchema/useHardwareSchemaQuery.tsx";
 import {SelectPicker} from "rsuite";
 import {SyntheticEvent, useState} from "react";
 import PeripheralAddForm from "../../../components/PeripheralAddForm/PeripheralAddForm.tsx";
 import {MessageAction} from "../../../enums/message_command.ts";
+import schemaRegistry from "../../../schemas/schemaRegistry.ts";
 
+type SchemaKey = keyof typeof schemaRegistry;
 export default function DeviceAddPeripheral() {
     const params = useParams();
     const deviceId = parseInt(params.id ?? "0");
     const { device } = useDeviceQuery(deviceId);
-    const { getHardwareSchemasName } = useHardwareSchemaQuery()
-    const { data } = getHardwareSchemasName()
     const [displayForm, setDisplayForm] = useState(false);
     const [schemaKey, setSchemaKey] = useState<string>("");
 
-    if (!device || !data ) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
-    const schemas = data?.data
+    if (!device ) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
     function handleOnChange(value: string | null, _: SyntheticEvent<Element, Event>) {
         if (!value) {
             setDisplayForm(false);
@@ -29,18 +27,17 @@ export default function DeviceAddPeripheral() {
         setDisplayForm(true);
         setSchemaKey(value)
     }
-    console.log(device.pending);
     return <PageContainer>
         <PageHeader title={device.name}>
         </PageHeader>
-        <SelectPicker data={Object.keys(schemas).map(k=>({ label: k, value: k }))} onChange={handleOnChange}/>
+        <SelectPicker data={Object.keys(schemaRegistry).map(k =>({ label: k, value: k }))} onChange={handleOnChange}/>
         {displayForm &&
             <PeripheralAddForm
                 deviceId={deviceId}
                 loading={device.pending.includes(MessageAction.UPDATE_PERIPHERAL)}
-                name={schemaKey}
+                schemaName={schemaKey}
                 key={schemaKey}
-                schema={schemas[schemaKey]}
+                schema={schemaRegistry[schemaKey as SchemaKey]}
             />
         }
 

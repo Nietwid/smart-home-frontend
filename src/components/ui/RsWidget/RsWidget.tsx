@@ -40,9 +40,9 @@ export function RsFieldTemplate(props: FieldTemplateProps) {
     } = props;
 
     return (
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 10 }}>
             {label && (
-                <label htmlFor={id} style={{ fontWeight: 600 }}>
+                <label htmlFor={id}>
                     {label}{required && "*"}
                 </label>
             )}

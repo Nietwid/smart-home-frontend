@@ -1,6 +1,7 @@
 import {IPwmState, IPwmConfig} from "./IPwmState.ts";
+import BaseConfig from "./Base.ts";
 
-export interface IRGBStripState {
+export interface IRGBStripState  {
     brightness:number
     is_on:boolean
     r_pin:IPwmState
@@ -8,7 +9,7 @@ export interface IRGBStripState {
     b_pin:IPwmState
 }
 
-export interface IRGBStripConfig {
+export interface IRGBStripConfig extends BaseConfig {
     r_pin:IPwmConfig
     g_pin:IPwmConfig
     b_pin:IPwmConfig

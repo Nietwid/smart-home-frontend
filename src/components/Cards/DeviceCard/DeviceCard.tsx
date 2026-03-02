@@ -14,7 +14,7 @@ export default function DeviceCard({id,isOnline,name,svgId,}:IProps){
     return<>
         <div className={styles.card}>
             <div className={styles.content}>
-                <ThreeDot to={`devices/${id}`} />
+                <ThreeDot to={`/devices/${id}`} />
                 <SvgIcon svgId={svgId} />
                 <Header disable={!isOnline}>{name}</Header>
             </div>

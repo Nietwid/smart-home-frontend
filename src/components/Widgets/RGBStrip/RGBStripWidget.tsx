@@ -98,11 +98,17 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
         }
     ));
     function handleSave(){
-        const data = peripheralAction(id,MessageAction.UPDATE_STATE, rstate);
+        const data = peripheralAction(id, MessageAction.UPDATE_STATE, rstate);
         mutation.mutate(data)
     }
+    function handleToggle(value: boolean){
+        dispatch({type:"set/isOn",payload:{isOn:value}})
+        const data = peripheralAction(id, MessageAction.TOGGLE, {});
+        mutation.mutate(data)
+    }
+
     return (
-        <BaseWidget  size="xl">
+        <BaseWidget name={config?.name} size="xl">
             <Wheel
                 color={hsva}
                 onChange={(color) => {
@@ -126,7 +132,7 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
             <Toggle
                 className={styles.toggle}
                 checked={rstate.is_on}
-                onChange={(value)=>dispatch({type:"set/isOn",payload:{isOn:value}})}
+                onChange={handleToggle}
                 loading={isLoading}
             />
             <ButtonSave loading={isLoading} onSave={handleSave}/>

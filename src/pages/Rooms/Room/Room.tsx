@@ -8,6 +8,8 @@ import useDevicesQuery from "../../../hooks/queries/device/useDevicesQuery.tsx";
 import useRoomQuery from "../../../hooks/queries/room/useRoomQuery.tsx";
 import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActionPanel.tsx";
 import { useTranslation } from "react-i18next";
+import {IDevice} from "../../../interfaces/IDevice.tsx";
+import DeviceCard from "../../../components/Cards/DeviceCard/DeviceCard.tsx";
 
 export default function Room() {
     const { t } = useTranslation();
@@ -33,24 +35,9 @@ export default function Room() {
                 </div>
             </PageHeader>
 
-            {devices?.length === 0 ? (
-                <div className={styles.emptyState}>
-                    <p>{t("room.emptyState")}</p>
-                </div>
-            ) : (
-                <div className={styles.wrapper}>
-                    <div className={`${styles.measurementContainer} ${styles.background}`}>
-                        <p className={styles.deviceTitle}>Urządzenia pomiarowe</p>
-                        <div className={styles.measurement}>
-                        </div>
-                    </div>
-                    <div className={`${styles.deviceContainer} ${styles.background}`}>
-                        <p className={styles.deviceTitle}>Urządzenia</p>
-                        <div className={styles.devices}>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <div className={styles.devices}>
+                {devices.map((device: IDevice) => <DeviceCard key={device.id} id={device.id} name={device.name} isOnline={device.is_online} svgId={device.svg_id}/>)}
+            </div>
         </PageContainer>
     );
 }

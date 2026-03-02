@@ -15,7 +15,6 @@ export default function Device() {
     const deviceId = parseInt(params.id ?? "0");
     const { device } = useDeviceQuery(deviceId);
     if (!device) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
-    console.log(device);
     return (
         <PageContainer>
           <PageHeader title={device.name} subtitle={`${t("devicePage.headerSubtitle")} ${device.peripherals.length}`} >

@@ -14,10 +14,11 @@ export const MessageEvent = {
 export const MessageAction = {
     UPDATE_STATE: "update_state",
     UPDATE_PERIPHERAL: "update_peripheral",
+    TOGGLE: "toggle",
+
     ON: "on",
     OFF: "off",
     BLINK: "blink",
-    TOGGLE: "toggle",
     ADD_TAG: "add_tag",
     SET_VALUE: "set_value",
     SET_COLOR: "set_color",
