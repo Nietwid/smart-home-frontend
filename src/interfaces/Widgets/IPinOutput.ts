@@ -6,7 +6,6 @@ export interface IPinOutputWidgetState {
 }
 export interface IPinOutputWidgetConfig extends BaseConfig{
     pin:number;
-    name?: string;
 }
 
 export interface IPinOutputWidget extends IPeripheral {

@@ -133,7 +133,7 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
                 className={styles.toggle}
                 checked={rstate.is_on}
                 onChange={handleToggle}
-                loading={isLoading}
+                loading={isLoading || pending.includes(MessageAction.TOGGLE)}
             />
             <ButtonSave loading={isLoading} onSave={handleSave}/>
         </BaseWidget>
