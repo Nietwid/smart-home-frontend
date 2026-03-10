@@ -12,7 +12,6 @@ import LampPage from "../pages/Lamps/LampPage/LampPage.tsx";
 import ButtonPage from "../pages/Button/ButtonPage/ButtonPage.tsx";
 import DevicesPage from "../pages/Devices/DevicesPage/DevicesPage.tsx";
 import DevicePage from "../pages/Devices/DevicePage/DevicePage.tsx";
-import DeviceEventWizard from "../pages/DeviceEventWizard/DeviceEventWizard.tsx";
 import SelectCameraPage from "../pages/Camera/SelectCameraPage/SelectCameraPage.tsx";
 import SettingsPage from "../pages/Settings/SettingsPage/SettingsPage.tsx";
 import SettingsDevice from "../pages/Settings/SettingsDevice/SettingsDevice.tsx";
@@ -55,7 +54,6 @@ export default createBrowserRouter([
             { path: "settings/", element: <SettingsPage /> },
 
 
-            { path: ":deviceFun/:id/event/wizard/", element: <DeviceEventWizard /> },
             { path: "temperature/:id/", element:<TempHumPage/>},
             { path: "light/:id/", element:<LightPage/>},
             { path: "stairs/:id/", element:<StairsPage/>},

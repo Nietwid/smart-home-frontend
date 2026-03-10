@@ -1,0 +1,18 @@
+.body{
+    width: 100%;
+
+}
+
+.wrapper{
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.error {
+    border: 1px solid red;
+    border-radius: 5px;
+}

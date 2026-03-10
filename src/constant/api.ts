@@ -9,7 +9,7 @@ export const api = {
   hardwareSchema: baseURL + "/api/hardware/schemas",
   peripherals: baseURL + "/api/peripherals/",
   triggerActionEvent: baseURL + "/api/peripherals/trigger/",
-
+  rule: baseURL + "/api/rule/",
   home: baseURL + "/api/home/",
 
   room: baseURL + "/api/room/",

@@ -1,4 +1,5 @@
 import IEvent from "./IEvent";
+import IPeripheral from "./IPeripheral.ts";
 
 export interface IDeviceRoom {
   name: string;
@@ -17,5 +18,5 @@ export interface IDevice {
   events: IEvent[];
   chip_type:string;
   svg_id:string;
-  peripherals: any;
+  peripherals: IPeripheral[];
 }

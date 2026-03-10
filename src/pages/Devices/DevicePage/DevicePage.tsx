@@ -8,9 +8,13 @@ import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActio
 import IPeripheral from "../../../interfaces/IPeripheral.ts";
 import peripheralFactory from "../../../utils/peripheralFactory.tsx";
 import styles from "./DevicePage.module.css"
+import RuleForm from "../../../components/RuleForm/RuleForm.tsx";
+import {useState} from "react";
+import {Button} from "rsuite";
 export default function Device() {
 
     const { t } = useTranslation();
+    const [openForm, setOpenForm] = useState<boolean>(false);
     const params = useParams();
     const deviceId = parseInt(params.id ?? "0");
     const { device } = useDeviceQuery(deviceId);
@@ -18,6 +22,9 @@ export default function Device() {
     return (
         <PageContainer>
           <PageHeader title={device.name} subtitle={`${t("devicePage.headerSubtitle")} ${device.peripherals.length}`} >
+              <Button appearance="subtle" onClick={()=>setOpenForm(true)}>
+                  {t("button.addEvent")}
+              </Button>
               <DeviceActionPanel
                   buttons={[
                       { label: t("button.deviceSettings"), to: `/devices/${device.id}/settings/`, type: "default"},
@@ -29,6 +36,8 @@ export default function Device() {
                   showWifi={true}
               />
           </PageHeader>
+            <RuleForm open={openForm} onClose={()=>setOpenForm(false)} />
+
             <div className={styles.wrapper}>
                 {device.peripherals.map((peripheral:IPeripheral) => peripheralFactory(peripheral))}
             </div>

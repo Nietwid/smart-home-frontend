@@ -1,9 +1,21 @@
 {
+  "ruleForm": {
+    "title": "Configure an event for your device",
+    "triggerSection": "Configure trigger",
+    "selectTriggerDevice": "Device",
+    "selectTriggerPeripheral": "Peripheral",
+    "selectTrigger": "Event",
+    "actionSection": "Configure action",
+    "selectTargetDevice": "Device",
+    "selectTargetPeripheral": "Peripheral",
+    "selectTargetAction": "Action"
+  },
   "devicePage":{
     "headerSubtitle": "Number of peripherals"
   },
   "button": {
     "select": "Select",
+    "addEvent": "Add new event trigger",
     "deviceSettings": "Device settings",
     "deviceSettingsTooltip": "Change device settings",
     "deviceEvent": "Event Settings",
@@ -15,6 +27,8 @@
     "addPeripheral": "Add new peripherals",
     "editPeripheral": "Edit peripheral"
   },
+
+
 
 
   "chatbot": {
