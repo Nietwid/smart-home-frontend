@@ -7,7 +7,6 @@ import reducer from "./reducer.ts";
 import buildBody from "./buildBody.ts";
 import {RuleFormState} from "./ruleFormState.ts";
 import isRuleFormValid from "./isRuleValid.ts";
-import {bool} from "prop-types";
 import useRuleMutation from "../../hooks/queries/useRuleMutation.tsx";
 
 
@@ -46,7 +45,6 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
     const triggerDevicePeripheral= state.triggerDevice?.peripherals
         .filter(per=> per.available_event.length > 0)
         ?.map(per=>({label:per.name, value:per})) ?? []
-
     const triggerPeripheralEvents= state.triggerPeripheral?.available_event.map(i=> ({label:i, value:i}))??[]
 
     const targetDevices = deviceData.map(i=> ({label:i.name, value:i}))
@@ -74,15 +72,15 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
         }
 
        const data = buildBody(
-            state.targetDevice.id,
-            state.targetPeripheral.id,
-            state.triggerEvent,
-            state.targetPeripheral.id,
-            state.targetAction,
+           state.triggerDevice.id,
+           state.triggerPeripheral.id,
+           state.triggerEvent,
+           state.targetPeripheral.id,
+           state.targetAction
         )
         mutation.mutate(data)
     }
-
+    console.log(mutation.error?.details)
     return <Modal open={open}>
         <Modal.Header>
             <Modal.Title>{t("ruleForm.title")}</Modal.Title>
