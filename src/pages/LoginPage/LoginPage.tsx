@@ -34,7 +34,6 @@ export default function LoginPage() {
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
-                    "ngrok-skip-browser-warning": "1234",
                 },
                 body: JSON.stringify(formValue),
             });

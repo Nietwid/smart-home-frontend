@@ -6,7 +6,7 @@ export const api = {
   logout: baseURL + "/api/logout/",
   registration: baseURL + "/api/registration/",
   changePassword: baseURL + "/api/change-password/",
-  hardwareSchema: baseURL + "/api/hardware/schemas",
+  hardwareSchema: baseURL + "/api/hardware/schemas/",
   peripherals: baseURL + "/api/peripherals/",
   triggerActionEvent: baseURL + "/api/peripherals/trigger/",
   rule: baseURL + "/api/rule/",

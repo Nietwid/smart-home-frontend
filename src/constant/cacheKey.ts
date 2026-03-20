@@ -7,5 +7,5 @@ export default {
     FIRMWARE_DEVICE:"firmwareDevice",
     TEMPERATURE_HISTORY:"temperatureHistory",
     HUMIDITY_HISTORY:"humidityHistory",
-    SCHEMA_NAMES:"schemaNames",
+    HARDWARE_SCHEMAS: "hardwareSchemas",
 }

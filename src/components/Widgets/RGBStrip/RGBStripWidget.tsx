@@ -17,19 +17,19 @@ interface IRGBStripWidget extends IPeripheral {
 }
 
 function setNewState(state: IRGBStripState,config:IRGBStripConfig):IRGBStripState{
-    let rPin:number = state.r_pin.duty_cycle;
-    let gPin:number = state.g_pin.duty_cycle;
-    let bPin:number = state.b_pin.duty_cycle;
+    let rPin:number = state.r_duty_cycle;
+    let gPin:number = state.g_duty_cycle;
+    let bPin:number = state.b_duty_cycle;
 
     if (rPin === 0 && gPin === 0 && bPin === 0) {
-        rPin = Math.pow(2, config.r_pin.resolution_bits)
-        gPin = Math.pow(2, config.g_pin.resolution_bits)
-        bPin = Math.pow(2, config.b_pin.resolution_bits)
+        rPin = Math.pow(2, config.resolution_bits)
+        gPin = Math.pow(2, config.resolution_bits)
+        bPin = Math.pow(2, config.resolution_bits)
     }
     return {
-        r_pin: {duty_cycle: rPin },
-        g_pin: {duty_cycle: gPin },
-        b_pin: {duty_cycle: bPin },
+        r_duty_cycle: rPin,
+        g_duty_cycle: gPin,
+        b_duty_cycle: bPin,
         brightness: state.brightness,
         is_on: state.is_on,
     }
@@ -68,9 +68,9 @@ function reducer(state:IRGBStripState, action:TAction){
         case "set/color":
             return {
                 ...state,
-                r_pin:{duty_cycle:action.payload.rgb.r},
-                g_pin:{duty_cycle:action.payload.rgb.g},
-                b_pin:{duty_cycle:action.payload.rgb.b},
+                r_duty_cycle:action.payload.rgb.r,
+                g_duty_cycle:action.payload.rgb.g,
+                b_duty_cycle:action.payload.rgb.b,
             };
             case "set/brightness":
                 return {
@@ -91,9 +91,9 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
     const isLoading = mutation.isPending || pending.includes(MessageAction.UPDATE_STATE)
     const [hsva, setHsva] = useState<HsvaColor>(rgbaToHsva(
         {
-            r:rstate.r_pin.duty_cycle,
-            g:rstate.g_pin.duty_cycle,
-            b:rstate.b_pin.duty_cycle,
+            r:rstate.r_duty_cycle,
+            g:rstate.g_duty_cycle,
+            b:rstate.b_duty_cycle,
             a:1
         }
     ));
@@ -106,7 +106,6 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
         const data = peripheralAction(id, MessageAction.TOGGLE, {});
         mutation.mutate(data)
     }
-
     return (
         <BaseWidget name={config?.name} size="xl">
             <Wheel
@@ -128,6 +127,7 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
                 renderTooltip={value => `${value}%`}
                 onChange={(value)=> dispatch({ type:"set/brightness",payload:{brightness:value}})}
                 disabled={isLoading}
+                value={rstate.brightness}
             />
             <Toggle
                 className={styles.toggle}
