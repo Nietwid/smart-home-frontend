@@ -14,6 +14,7 @@
     "headerSubtitle": "Number of peripherals"
   },
   "button": {
+    "updatePeripheral": "Update peripherals",
     "select": "Select",
     "addEvent": "Add new event trigger",
     "deviceSettings": "Device settings",

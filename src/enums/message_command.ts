@@ -15,7 +15,7 @@ export const MessageAction = {
     UPDATE_STATE: "update_state",
     UPDATE_PERIPHERAL: "update_peripheral",
     TOGGLE: "toggle",
-
+    SYNC_START: "sync_start",
     ON: "on",
     OFF: "off",
     BLINK: "blink",

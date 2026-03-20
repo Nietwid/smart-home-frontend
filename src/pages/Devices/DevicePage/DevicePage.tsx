@@ -11,20 +11,37 @@ import styles from "./DevicePage.module.css"
 import RuleForm from "../../../components/RuleForm/RuleForm.tsx";
 import {useState} from "react";
 import {Button} from "rsuite";
+import {cpuAction} from "../../../utils/commandBuilders.ts";
+import {MessageAction} from "../../../enums/message_command.ts";
+import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
+import SyncType from "../../../constant/syncType.ts";
+
+
 export default function Device() {
 
     const { t } = useTranslation();
     const [openForm, setOpenForm] = useState<boolean>(false);
     const params = useParams();
     const deviceId = parseInt(params.id ?? "0");
+    const mutation = useTriggerActionEventMutation()
     const { device } = useDeviceQuery(deviceId);
+    async function startSync() {
+        if (!device) return;
+        const data = cpuAction(device.mac, MessageAction.SYNC_START, {sync_type:SyncType.PERIPHERAL});
+        await mutation.mutateAsync(data)
+    }
     if (!device) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
     return (
         <PageContainer>
           <PageHeader title={device.name} subtitle={`${t("devicePage.headerSubtitle")} ${device.peripherals.length}`} >
-              <Button appearance="subtle" onClick={()=>setOpenForm(true)}>
-                  {t("button.addEvent")}
-              </Button>
+              {device.required_action.includes(MessageAction.UPDATE_PERIPHERAL) ?
+                  <Button appearance="subtle" onClick={startSync}>
+                      {t("button.updatePeripheral")}
+                  </Button>:
+                  <Button appearance="subtle" onClick={()=>setOpenForm(true)}>
+                      {t("button.addEvent")}
+                  </Button>
+              }
               <DeviceActionPanel
                   buttons={[
                       { label: t("button.deviceSettings"), to: `/devices/${device.id}/settings/`, type: "default"},

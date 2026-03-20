@@ -19,4 +19,6 @@ export interface IDevice {
   chip_type:string;
   svg_id:string;
   peripherals: IPeripheral[];
+  required_action: string[];
+  mac:string;
 }

@@ -9,6 +9,7 @@ import { websocketUrl } from "../constant/urls";
 import displayToaster from "../utils/displayToaster.tsx";
 import updatePeripheralPending from "../utils/updatePeripheralPending.ts";
 import updateDevicePending from "../utils/updateDevicePending.ts";
+import updateRequiredAction from "../utils/updateRequiredAction.ts";
 
 interface WebSocketType {
   send: (data: object) => void;
@@ -44,6 +45,9 @@ export default function WebSocketProvider({children}:{children: React.ReactNode}
       const data = JSON.parse(event.data);
       console.log(data)
       switch (data.action) {
+        case MessageType.UPDATE_DEVICE_REQUIRED_ACTION:
+          updateRequiredAction(queryClient, data.data)
+          break;
         case MessageType.UPDATE_PERIPHERAL_PENDING:
           updatePeripheralPending(queryClient, data.data)
           break;
