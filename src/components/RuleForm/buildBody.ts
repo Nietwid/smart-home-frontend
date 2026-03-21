@@ -5,6 +5,7 @@ export default function buildBody(
     triggerEvent:string,
     targetPeripheralId:number,
     targetAction:string,
+    extraSettings:Object,
 ){
     return {
         "device": triggerDeviceId,
@@ -17,7 +18,8 @@ export default function buildBody(
         "actions": [
             {
                 "peripheral": targetPeripheralId,
-                "action": targetAction
+                "action": targetAction,
+                "extra_settings":extraSettings
             }
         ]
     }

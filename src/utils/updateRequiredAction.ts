@@ -15,7 +15,7 @@ export default function updateRequiredAction(queryClient: QueryClient, data:data
                     d.id === data.device_id
                         ? {
                             ...d,
-                            required_actions: data.actions
+                            required_action: data.actions
                         }
                         : d
                 ),

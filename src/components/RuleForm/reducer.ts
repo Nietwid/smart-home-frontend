@@ -9,6 +9,7 @@ type RuleFormAction =
     | { type: "setTarget/device"; payload: IDevice | null }
     | { type: "setTarget/peripheral"; payload: IPeripheral | null }
     | { type: "setTarget/action"; payload: string | null }
+    | { type: "set/extraSettings"; payload: object }
 
 
 
@@ -54,6 +55,11 @@ export default function reducer(state: RuleFormState, action: RuleFormAction): R
             return {
                 ...state,
                 targetAction: action.payload
+            }
+        case "set/extraSettings":
+            return {
+                ...state,
+                extraSettings: action.payload
             }
 
         default:

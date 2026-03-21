@@ -31,6 +31,7 @@ export default function Device() {
         await mutation.mutateAsync(data)
     }
     if (!device) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
+    console.log(device)
     return (
         <PageContainer>
           <PageHeader title={device.name} subtitle={`${t("devicePage.headerSubtitle")} ${device.peripherals.length}`} >
@@ -55,9 +56,9 @@ export default function Device() {
           </PageHeader>
             <RuleForm open={openForm} onClose={()=>setOpenForm(false)} />
 
-            <div className={styles.wrapper}>
+            {device.required_action.includes(MessageAction.UPDATE_PERIPHERAL) ? <div>UPDATE</div> : <div className={styles.wrapper}>
                 {device.peripherals.map((peripheral:IPeripheral) => peripheralFactory(peripheral))}
-            </div>
+            </div>}
         </PageContainer>
     );
 }

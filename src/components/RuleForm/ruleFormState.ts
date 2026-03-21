@@ -9,4 +9,5 @@ export type RuleFormState = {
     targetDevice: IDevice | null
     targetPeripheral: IPeripheral | null
     targetAction: string | null
+    extraSettings: object
 }

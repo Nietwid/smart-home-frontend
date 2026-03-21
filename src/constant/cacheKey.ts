@@ -8,4 +8,6 @@ export default {
     TEMPERATURE_HISTORY:"temperatureHistory",
     HUMIDITY_HISTORY:"humidityHistory",
     HARDWARE_SCHEMAS: "hardwareSchemas",
+    EXTRA_SETTINGS: "extractSettings",
+
 }

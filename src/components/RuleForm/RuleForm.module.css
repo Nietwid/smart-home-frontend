@@ -16,3 +16,10 @@
     border: 1px solid red;
     border-radius: 5px;
 }
+
+:global(.has-error) {
+    input {
+        border-color: red;
+        background-color: red;
+    }
+}

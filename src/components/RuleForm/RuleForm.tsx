@@ -1,24 +1,26 @@
 import {Button, Modal,SelectPicker} from "rsuite";
 import {useTranslation} from "react-i18next";
 import usePrefetchDeviceQuery from "../../hooks/queries/device/usePrefetchDeviceQuery.tsx";
-import {useReducer, useState} from "react";
+import {useReducer, useRef, useState} from "react";
 import styles from "./RuleForm.module.css"
 import reducer from "./reducer.ts";
 import buildBody from "./buildBody.ts";
 import {RuleFormState} from "./ruleFormState.ts";
 import isRuleFormValid from "./isRuleValid.ts";
 import useRuleMutation from "../../hooks/queries/useRuleMutation.tsx";
-
-
+import useActionExtraSettings from "../../hooks/queries/useActionExtraSettings.tsx";
+import validator from "@rjsf/validator-ajv8";
+import Form from "@rjsf/core";
+import mapErrorsToRjsf from "./mapErrorsToRjsf.ts";
 
 const initialState: RuleFormState = {
     triggerDevice: null,
     triggerPeripheral: null,
     triggerEvent: null,
-
     targetDevice: null,
     targetPeripheral: null,
-    targetAction: null
+    targetAction: null,
+    extraSettings: {},
 }
 
 interface RuleFormProps {
@@ -26,20 +28,22 @@ interface RuleFormProps {
     onClose: () => void;
 }
 
-
 export default function RuleForm({open, onClose}: RuleFormProps) {
     const {deviceData} = usePrefetchDeviceQuery()
     const [state, dispatch] = useReducer(reducer, initialState)
-    const [errors, setErrors] = useState({
+    const {createRule} = useRuleMutation()
+    const {extraSettingSchema} =  useActionExtraSettings(state.targetPeripheral?.name || null, state.targetAction)
+    const mutation = createRule()
+    const formRef = useRef(null);
+    const [errorsForm, setErrorsForm] = useState({
         triggerDevice: false,
         triggerPeripheral: false,
         triggerEvent:false,
         targetDevice: false,
         targetPeripheral: false,
-        targetAction:false
+        targetAction: false,
+        extraSettings: false
     })
-    const {createRule} = useRuleMutation()
-    const mutation = createRule()
     const {t} = useTranslation();
 
     const triggerDevicePeripheral= state.triggerDevice?.peripherals
@@ -54,29 +58,33 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
         label: `${p.name}  ${p.config?.name ? `- ${p.config.name}` : "" }`,
         value: p
     })) ?? []
-    const targetPeripheralAction= state.targetPeripheral?.available_action.map(i=> ({label:i, value:i}))??[]
 
+    const targetPeripheralAction= state.targetPeripheral?.available_action.map(i=> ({label:i, value:i}))??[]
     function handleSave(){
-        setErrors(
+        setErrorsForm(
             {
                 triggerDevice: !Boolean(state.triggerDevice),
                 triggerPeripheral: !Boolean(state.triggerPeripheral),
                 triggerEvent:!Boolean(state.triggerEvent),
                 targetDevice: !Boolean(state.targetDevice),
                 targetPeripheral: !Boolean(state.targetPeripheral),
-                targetAction:!Boolean(state.targetAction)
+                targetAction: !Boolean(state.targetAction),
+                extraSettings: errorsForm.extraSettings
             }
         )
-        if(!isRuleFormValid(state)) {
+        if(Object.values(errorsForm).every(v=> !v)) {
             return;
         }
+
+        if (!isRuleFormValid(state)) return;
 
        const data = buildBody(
            state.triggerDevice.id,
            state.triggerPeripheral.id,
            state.triggerEvent,
            state.targetPeripheral.id,
-           state.targetAction
+           state.targetAction,
+           state.extraSettings
         )
         mutation.mutate(data)
     }
@@ -89,7 +97,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                <p>{t("ruleForm.triggerSection")}</p>
                <SelectPicker
                    block
-                   className={errors.triggerDevice ? styles.error : ""}
+                   className={errorsForm.triggerDevice ? styles.error : ""}
                    data={deviceData.map( device=> ({label:device.name, value:device}))}
                    label={t("ruleForm.selectTriggerDevice")}
                    onChange={(value) => {
@@ -98,7 +106,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                />
                <SelectPicker
                    block
-                   className={errors.triggerPeripheral ? styles.error : ""}
+                   className={errorsForm.triggerPeripheral ? styles.error : ""}
                    disabled={!state.triggerDevice}
                    data={triggerDevicePeripheral}
                    label={t("ruleForm.selectTriggerPeripheral")}
@@ -108,7 +116,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                />
                <SelectPicker
                    block
-                   className={errors.triggerEvent ? styles.error : ""}
+                   className={errorsForm.triggerEvent ? styles.error : ""}
                    label={t("ruleForm.selectTrigger")}
                    disabled={!state.triggerPeripheral}
                    data={triggerPeripheralEvents}
@@ -121,7 +129,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                 <p>{t("ruleForm.actionSection")}</p>
                 <SelectPicker
                    block
-                   className={errors.targetDevice ? styles.error : ""}
+                   className={errorsForm.targetDevice ? styles.error : ""}
                    label={t("ruleForm.selectTargetDevice")}
                    data={targetDevices}
                    onChange={(value) => {
@@ -130,7 +138,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                 />
                 <SelectPicker
                    block
-                   className={errors.targetPeripheral ? styles.error : ""}
+                   className={errorsForm.targetPeripheral ? styles.error : ""}
                    label={t("ruleForm.selectTargetPeripheral")}
                    disabled={!state.targetDevice}
                    data={targetDevicePeripherals}
@@ -140,7 +148,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                 />
                 <SelectPicker
                    block
-                   className={errors.targetAction ? styles.error : ""}
+                   className={errorsForm.targetAction ? styles.error : ""}
                    label={t("ruleForm.selectTargetAction")}
                    disabled={!state.targetPeripheral}
                    data={targetPeripheralAction}
@@ -148,6 +156,21 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                        dispatch({ type: "setTarget/action", payload: value })
                    }}
                 />
+                { extraSettingSchema &&
+                    <Form
+                        ref={formRef}
+                        className={`${styles.rjsfForm} ${errorsForm.extraSettings ? styles.rjsfFormError : ''}`}
+                        showErrorList={false}
+                        schema={extraSettingSchema}
+                        validator={validator}
+                        liveValidate={true}
+                        extraErrors={mapErrorsToRjsf(mutation.error?.details || {})}
+                        onChange={({ formData, errors}) => {
+                            dispatch({ type: "set/extraSettings", payload: formData })
+                            setErrorsForm({...errorsForm, extraSettings: errors.length > 0})
+                        }}
+                    ><></></Form>
+                }
            </div>
         </Modal.Body>
         <Modal.Footer>

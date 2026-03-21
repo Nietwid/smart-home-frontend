@@ -18,7 +18,6 @@ export default function DeviceAddPeripheral() {
     const [schemaKey, setSchemaKey] = useState<string>("");
 
     if (!device || !schemas ) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
-    console.log(schemas)
     function handleOnChange(value: string | null, _: SyntheticEvent<Element, Event>) {
         if (!value) {
             setDisplayForm(false);
