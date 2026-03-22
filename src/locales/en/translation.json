@@ -15,6 +15,7 @@
   },
   "button": {
     "updatePeripheral": "Update peripherals",
+    "updateRule": "Update rules",
     "select": "Select",
     "addEvent": "Add new event trigger",
     "deviceSettings": "Device settings",

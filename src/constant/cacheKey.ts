@@ -9,5 +9,5 @@ export default {
     HUMIDITY_HISTORY:"humidityHistory",
     HARDWARE_SCHEMAS: "hardwareSchemas",
     EXTRA_SETTINGS: "extractSettings",
-
+    EVENT_CONDITIONS: "eventConditions",
 }

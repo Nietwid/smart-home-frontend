@@ -14,6 +14,7 @@ export const MessageEvent = {
 export const MessageAction = {
     UPDATE_STATE: "update_state",
     UPDATE_PERIPHERAL: "update_peripheral",
+    UPDATE_RULE: "update_rule",
     TOGGLE: "toggle",
     SYNC_START: "sync_start",
     ON: "on",

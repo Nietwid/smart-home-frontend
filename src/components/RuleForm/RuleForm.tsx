@@ -12,6 +12,7 @@ import useActionExtraSettings from "../../hooks/queries/useActionExtraSettings.t
 import validator from "@rjsf/validator-ajv8";
 import Form from "@rjsf/core";
 import mapErrorsToRjsf from "./mapErrorsToRjsf.ts";
+import useEventConditionQuery from "../../hooks/queries/useEventConditionQuery.tsx";
 
 const initialState: RuleFormState = {
     triggerDevice: null,
@@ -21,6 +22,7 @@ const initialState: RuleFormState = {
     targetPeripheral: null,
     targetAction: null,
     extraSettings: {},
+    condition:{}
 }
 
 interface RuleFormProps {
@@ -33,6 +35,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
     const [state, dispatch] = useReducer(reducer, initialState)
     const {createRule} = useRuleMutation()
     const {extraSettingSchema} =  useActionExtraSettings(state.targetPeripheral?.name || null, state.targetAction)
+    const {conditionSchema} =  useEventConditionQuery(state.triggerPeripheral?.name || null, state.triggerEvent)
     const mutation = createRule()
     const formRef = useRef(null);
     const [errorsForm, setErrorsForm] = useState({
@@ -42,13 +45,15 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
         targetDevice: false,
         targetPeripheral: false,
         targetAction: false,
-        extraSettings: false
+        extraSettings: false,
+        condition:false
     })
     const {t} = useTranslation();
 
     const triggerDevicePeripheral= state.triggerDevice?.peripherals
-        .filter(per=> per.available_event.length > 0)
-        ?.map(per=>({label:per.name, value:per})) ?? []
+        .filter(p=> p.available_event.length > 0)
+        ?.map((p:any)=>({ label: `${p.name}  ${p.config?.name ? `- ${p.config.name}` : "" }`, value:p})) ?? []
+
     const triggerPeripheralEvents= state.triggerPeripheral?.available_event.map(i=> ({label:i, value:i}))??[]
 
     const targetDevices = deviceData.map(i=> ({label:i.name, value:i}))
@@ -69,13 +74,13 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                 targetDevice: !Boolean(state.targetDevice),
                 targetPeripheral: !Boolean(state.targetPeripheral),
                 targetAction: !Boolean(state.targetAction),
-                extraSettings: errorsForm.extraSettings
+                extraSettings: errorsForm.extraSettings,
+                condition:errorsForm.condition
             }
         )
-        if(Object.values(errorsForm).every(v=> !v)) {
+        if(!Object.values(errorsForm).some(v=> !v)) {
             return;
         }
-
         if (!isRuleFormValid(state)) return;
 
        const data = buildBody(
@@ -84,11 +89,13 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
            state.triggerEvent,
            state.targetPeripheral.id,
            state.targetAction,
-           state.extraSettings
+           state.extraSettings,
+           state.condition
         )
         mutation.mutate(data)
     }
-    return <Modal open={open}>
+    console.log(mutation.error?.details)
+    return <Modal open={open} onClose={onClose}>
         <Modal.Header>
             <Modal.Title>{t("ruleForm.title")}</Modal.Title>
         </Modal.Header>
@@ -124,6 +131,20 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                        dispatch({ type: "setTrigger/event", payload: value })
                    }}
                />
+               { conditionSchema &&
+                   <Form
+                       ref={formRef}
+                       className={`${styles.rjsfForm} ${errorsForm.extraSettings ? styles.rjsfFormError : ''}`}
+                       showErrorList={false}
+                       schema={conditionSchema}
+                       validator={validator}
+                       onChange={({ formData, errors}) => {
+                           dispatch({ type: "set/condition", payload: formData })
+                           setErrorsForm({...errorsForm, condition: errors.length > 0})
+                       }}
+                       liveValidate={true}
+                   ><></></Form>
+               }
            </div>
             <div className={styles.wrapper}>
                 <p>{t("ruleForm.actionSection")}</p>

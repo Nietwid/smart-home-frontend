@@ -8,6 +8,7 @@ export const api = {
   changePassword: baseURL + "/api/change-password/",
   hardwareSchema: baseURL + "/api/hardware/schemas/",
   actionExtraSettings: baseURL + "/api/hardware/action/settings",
+  eventCondition: baseURL + "/api/hardware/event/condition",
   peripherals: baseURL + "/api/peripherals/",
   triggerActionEvent: baseURL + "/api/peripherals/trigger/",
   rule: baseURL + "/api/rule/",

@@ -5,9 +5,6 @@ import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAni
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery.tsx";
 import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActionPanel.tsx";
-import IPeripheral from "../../../interfaces/IPeripheral.ts";
-import peripheralFactory from "../../../utils/peripheralFactory.tsx";
-import styles from "./DevicePage.module.css"
 import RuleForm from "../../../components/RuleForm/RuleForm.tsx";
 import {useState} from "react";
 import {Button} from "rsuite";
@@ -15,6 +12,8 @@ import {cpuAction} from "../../../utils/commandBuilders.ts";
 import {MessageAction} from "../../../enums/message_command.ts";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
 import SyncType from "../../../constant/syncType.ts";
+import UpdatePeripheralRequired from "./UpdatePeripheralRequired.tsx";
+import DevicePeripheralWrapper from "./DevicePeripheralWrapper.tsx";
 
 
 export default function Device() {
@@ -25,9 +24,9 @@ export default function Device() {
     const deviceId = parseInt(params.id ?? "0");
     const mutation = useTriggerActionEventMutation()
     const { device } = useDeviceQuery(deviceId);
-    async function startSync() {
+    async function startSync(type:SyncType) {
         if (!device) return;
-        const data = cpuAction(device.mac, MessageAction.SYNC_START, {sync_type:SyncType.PERIPHERAL});
+        const data = cpuAction(device.mac, MessageAction.SYNC_START, {sync_type:type});
         await mutation.mutateAsync(data)
     }
     if (!device) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
@@ -35,14 +34,14 @@ export default function Device() {
     return (
         <PageContainer>
           <PageHeader title={device.name} subtitle={`${t("devicePage.headerSubtitle")} ${device.peripherals.length}`} >
-              {device.required_action.includes(MessageAction.UPDATE_PERIPHERAL) ?
-                  <Button appearance="subtle" onClick={startSync}>
-                      {t("button.updatePeripheral")}
-                  </Button>:
                   <Button appearance="subtle" onClick={()=>setOpenForm(true)}>
                       {t("button.addEvent")}
                   </Button>
-              }
+              {/*{device.required_action.includes(MessageAction.UPDATE_RULE) &&*/}
+                  <Button appearance="subtle" onClick={()=>startSync(SyncType.RULE)}>
+                      {t("button.updateRule")}
+                  </Button>
+              {/*}*/}
               <DeviceActionPanel
                   buttons={[
                       { label: t("button.deviceSettings"), to: `/devices/${device.id}/settings/`, type: "default"},
@@ -56,9 +55,10 @@ export default function Device() {
           </PageHeader>
             <RuleForm open={openForm} onClose={()=>setOpenForm(false)} />
 
-            {device.required_action.includes(MessageAction.UPDATE_PERIPHERAL) ? <div>UPDATE</div> : <div className={styles.wrapper}>
-                {device.peripherals.map((peripheral:IPeripheral) => peripheralFactory(peripheral))}
-            </div>}
+            {device.required_action.includes(MessageAction.UPDATE_PERIPHERAL) ?
+                <UpdatePeripheralRequired onClick={startSync}/> :
+                <DevicePeripheralWrapper peripherals={device.peripherals}/>
+            }
         </PageContainer>
     );
 }
