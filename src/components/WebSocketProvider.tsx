@@ -10,6 +10,7 @@ import displayToaster from "../utils/displayToaster.tsx";
 import updatePeripheralPending from "../utils/updatePeripheralPending.ts";
 import updateDevicePending from "../utils/updateDevicePending.ts";
 import updateRequiredAction from "../utils/updateRequiredAction.ts";
+import addTagResultHandler from "../utils/addTagResultHandler.ts";
 
 interface WebSocketType {
   send: (data: object) => void;
@@ -47,6 +48,9 @@ export default function WebSocketProvider({children}:{children: React.ReactNode}
       switch (data.action) {
         case MessageType.UPDATE_DEVICE_REQUIRED_ACTION:
           updateRequiredAction(queryClient, data.data)
+          break;
+        case MessageType.ADD_TAG_RESULT:
+          addTagResultHandler(queryClient, data.data)
           break;
         case MessageType.UPDATE_PERIPHERAL_PENDING:
           updatePeripheralPending(queryClient, data.data)

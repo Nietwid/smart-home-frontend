@@ -1,0 +1,60 @@
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.sectionTitle h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+.sectionDesc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 20px !important;
+    }
+
+    .sectionTitle h3 {
+        font-size: 20px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .container {
+        gap: 16px;
+    }
+
+    .section {
+        padding: 16px !important;
+    }
+
+    .sectionTitle {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+
+    .emptyState {
+        padding: 40px 16px;
+    }
+
+    .emptyIcon {
+        font-size: 48px;
+    }
+}

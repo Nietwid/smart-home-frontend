@@ -8,7 +8,7 @@ export default function buildBody(
     extraSettings:object,
     conditions:object
 ){
-    return {
+    const base = {
         "device": triggerDeviceId,
         "triggers": [
             {
@@ -16,11 +16,6 @@ export default function buildBody(
                 "event": triggerEvent
             }
         ],
-        "conditions": [{
-            ...conditions,
-            "peripheral": triggerPeripheralId,
-            "event": triggerEvent
-        }],
         "actions": [
             {
                 "peripheral": targetPeripheralId,
@@ -29,4 +24,14 @@ export default function buildBody(
             }
         ]
     }
+    console.log(conditions)
+    if (Object.keys(conditions).length > 0) {
+        base["conditions"] = [{
+            ...conditions,
+            "peripheral": triggerPeripheralId,
+            "event": triggerEvent
+        }]
+    }
+    return base
+
 }

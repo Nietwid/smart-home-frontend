@@ -94,7 +94,6 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
         )
         mutation.mutate(data)
     }
-    console.log(mutation.error?.details)
     return <Modal open={open} onClose={onClose}>
         <Modal.Header>
             <Modal.Title>{t("ruleForm.title")}</Modal.Title>

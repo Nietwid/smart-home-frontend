@@ -11,6 +11,7 @@ export const api = {
   eventCondition: baseURL + "/api/hardware/event/condition",
   peripherals: baseURL + "/api/peripherals/",
   triggerActionEvent: baseURL + "/api/peripherals/trigger/",
+  rfidCard: baseURL + "/api/peripherals/rfid-card/",
   rule: baseURL + "/api/rule/",
   home: baseURL + "/api/home/",
 
@@ -18,7 +19,6 @@ export const api = {
   favourite: baseURL + "/api/favourite/",
   aquarium: baseURL + "/api/aquarium/",
   rfid: baseURL + "/api/rfid/",
-  card: baseURL + "/api/rfid/card/",
   lamp: baseURL + "/api/lamp/",
   stairs: baseURL + "/api/stairs/",
   button: baseURL + "/api/button/",

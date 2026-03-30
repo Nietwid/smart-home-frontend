@@ -10,4 +10,5 @@ export default {
     HARDWARE_SCHEMAS: "hardwareSchemas",
     EXTRA_SETTINGS: "extractSettings",
     EVENT_CONDITIONS: "eventConditions",
+    RFID_CARDS: "rfidCards",
 }

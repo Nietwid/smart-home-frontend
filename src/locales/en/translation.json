@@ -1,4 +1,14 @@
 {
+  "addCardForm": {
+    "addCardTitle": " Add new card",
+    "pendingMessage": "Hold the card near the reader...",
+    "instruction": "Enter the card name and hold it near the RFID reader.",
+    "cardNamePlaceholder": "Card name",
+    "errorNameRequired": "This field is required",
+    "error400": "Failed to add card, please try again.",
+    "error409": "This card is already registered.",
+    "success": "Card added successfully."
+  },
   "ruleForm": {
     "title": "Configure an event for your device",
     "triggerSection": "Configure trigger",
@@ -142,15 +152,7 @@
   "rfidCard": {
     "cardAmount": "Number of cards"
   },
-  "addCardForm": {
-    "addCardTitle": " Add new card",
-    "pendingMessage": "Hold the card near the reader...",
-    "instruction": "Enter the card name and hold it near the RFID reader.",
-    "cardNamePlaceholder": "Card name",
-    "errorNameRequired": "This field is required",
-    "error400": "Failed to add card, please try again.",
-    "error409": "This card is already registered."
-  },
+
   "cardCard": {
     "lastUsed": "Last used",
     "delete": "Delete",
