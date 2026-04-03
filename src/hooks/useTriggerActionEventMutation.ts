@@ -5,7 +5,7 @@ import {api} from "../constant/api.ts";
 export default function useTriggerActionEventMutation(){
     const {updateData} = useFetch();
     return useMutation<any, ApiError, any>({
-        mutationFn:(data:any) => updateData(api.triggerActionEvent, data),
+        mutationFn:(data:any) => updateData(api.triggerActionEvent(), data),
         }
     )
 }

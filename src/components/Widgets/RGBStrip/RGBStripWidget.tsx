@@ -10,83 +10,17 @@ import styles from "./RGBStripWidget.module.css";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
 import {peripheralAction} from "../../../utils/commandBuilders.ts";
 import {MessageAction} from "../../../enums/message_command.ts";
+import reducer from "./reducer.ts";
+import marks from "./marks.ts";
+import initState from "./initState.ts";
 
 interface IRGBStripWidget extends IPeripheral {
     state: IRGBStripState
     config: IRGBStripConfig
 }
 
-function setNewState(state: IRGBStripState,config:IRGBStripConfig):IRGBStripState{
-    let rPin:number = state.r_duty_cycle;
-    let gPin:number = state.g_duty_cycle;
-    let bPin:number = state.b_duty_cycle;
-
-    if (rPin === 0 && gPin === 0 && bPin === 0) {
-        rPin = Math.pow(2, config.resolution_bits)
-        gPin = Math.pow(2, config.resolution_bits)
-        bPin = Math.pow(2, config.resolution_bits)
-    }
-    return {
-        r_duty_cycle: rPin,
-        g_duty_cycle: gPin,
-        b_duty_cycle: bPin,
-        brightness: state.brightness,
-        is_on: state.is_on,
-    }
-}
-
-type TAction =
-    { type: "set/color", payload:{rgb: { r: number; g: number; b: number }}} |
-    { type: "set/brightness", payload:{brightness: number}}|
-    { type: "set/isOn", payload:{isOn: boolean}}
-
-const marks = [
-    {
-        value: 0,
-        label: '0%'
-    },
-    {
-        value: 25,
-        label: '25%'
-    },
-    {
-        value: 50,
-        label: '50%'
-    },
-    {
-        value: 75,
-        label: '75%'
-    },
-    {
-        value: 100,
-        label: '100%'
-    }
-];
-
-function reducer(state:IRGBStripState, action:TAction){
-    switch(action.type){
-        case "set/color":
-            return {
-                ...state,
-                r_duty_cycle:action.payload.rgb.r,
-                g_duty_cycle:action.payload.rgb.g,
-                b_duty_cycle:action.payload.rgb.b,
-            };
-            case "set/brightness":
-                return {
-                    ...state,
-                    brightness:action.payload.brightness,
-                }
-            case "set/isOn":
-                return {
-                    ...state,
-                    is_on:action.payload.isOn,
-                }
-    }
-}
-
 export default function RGBStripWidget({id, state, config, pending}:IRGBStripWidget){
-    const [rstate, dispatch] = useReducer(reducer, setNewState(state, config))
+    const [rstate, dispatch] = useReducer(reducer, initState(state, config))
     const mutation = useTriggerActionEventMutation()
     const isLoading = mutation.isPending || pending.includes(MessageAction.UPDATE_STATE)
     const [hsva, setHsva] = useState<HsvaColor>(rgbaToHsva(

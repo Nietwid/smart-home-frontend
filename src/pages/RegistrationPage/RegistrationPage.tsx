@@ -67,7 +67,7 @@ export default function RegistrationPage() {
         }
 
         try {
-            const response = await fetch(api.registration, {
+            const response = await fetch(api.registration(), {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -87,7 +87,6 @@ export default function RegistrationPage() {
                 setSuccess(true);
                 setTimeout(() => navigate("/login"), 2000);
             } else if (response.status === 400) {
-                // mapowanie błędów z backendu
                 setFormError(prev => ({
                     ...prev,
                     username: data.username || "",

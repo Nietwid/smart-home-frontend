@@ -6,7 +6,7 @@ import {useQuery} from "@tanstack/react-query";
 export default function useRfidCardQuery(peripheral_id:number) {
     const { readData } = useFetch();
     const { data, isLoading } = useQuery({
-        queryFn: () => readData(`${api.rfidCard}${peripheral_id}`),
+        queryFn: () => readData(api.rfidCards(peripheral_id)),
         queryKey: [CacheKey.RFID_CARDS, peripheral_id],
         staleTime: 10 * 60 * 1000,
         enabled: !!peripheral_id

@@ -7,7 +7,7 @@ export default function usePrefetchRoomQuery() {
   const { readData } = useFetch();
   const { data,isLoading,isError } = useQuery({
     queryKey: [CacheKey.ROOMS],
-    queryFn: () => readData(api.room),
+    queryFn: () => readData(api.room()),
     staleTime: 10 * 60 * 1000,
   });
   return {

@@ -1,4 +1,24 @@
 {
+  "cardManager": {
+    "addCard": "Add card",
+    "registeredCards": "Registered cards",
+    "allCardsDescription": "List of all cards assigned to this reader",
+    "noCardsDescription": "No RFID cards registered yet. Click the \"Add card\" button to add the first card.",
+    "noCardsTitle": "No cards",
+    "addCardButton": "Add card",
+    "searchPlaceholder": "Search cards"
+  },
+
+  "rfidCard": {
+    "cardAmount": "Number of cards"
+  },
+
+  "cardCard": {
+    "lastUsed": "Last used",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "confirmDelete": "card"
+  },
   "addCardForm": {
     "addCardTitle": " Add new card",
     "pendingMessage": "Hold the card near the reader...",
@@ -140,25 +160,7 @@
     "confirm": "Yes, delete",
     "cancel": "Cancel"
   },
-  "rfidPage": {
-    "addCard": "Add card",
-    "automaticEventsDescription": "Automatic events triggered by the RFID reader",
-    "registeredCards": "Registered cards",
-    "allCardsDescription": "List of all cards assigned to this reader",
-    "noCardsTitle": "No cards",
-    "noCardsDescription": "No RFID cards registered yet. Click the \"Add card\" button to add the first card.",
-    "addFirstCard": "Add the first card"
-  },
-  "rfidCard": {
-    "cardAmount": "Number of cards"
-  },
 
-  "cardCard": {
-    "lastUsed": "Last used",
-    "delete": "Delete",
-    "deleting": "Deleting...",
-    "confirmDelete": "card"
-  },
   "temperatureChart": {
     "tooNarrow": "The screen is too narrow to display the chart",
     "datePickerPlaceholder": "Select date range",

@@ -6,7 +6,7 @@ import CacheKey from "../../constant/cacheKey.ts";
 export default function useFavouriteQuery() {
   const { readData } = useFetch();
   const { data, isLoading } = useQuery({
-    queryFn: () => readData(api.favourite),
+    queryFn: () => readData(api.favourite()),
     queryKey: [CacheKey.FAVOURITES],
     staleTime: 10 * 60 * 1000,
   });

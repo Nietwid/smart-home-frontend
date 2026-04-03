@@ -8,7 +8,7 @@ export default function useHomeCodeQuery() {
     const {readData} = useFetch();
     const {data, status, isLoading} = useQuery<IHomeCodeResponse>({
         queryKey: ["home_code"],
-        queryFn: () => readData(api.home),
+        queryFn: () => readData(api.home()),
         staleTime: 30
     })
     return {data, status, isLoading}

@@ -7,7 +7,7 @@ export default function useLogoutMutation() {
     const { deleteData } = useFetch();
     const { logout } = useAuth();
     return useMutation({
-        mutationFn: () => deleteData(api.logout),
+        mutationFn: () => deleteData(api.logout()),
         onSuccess: () => logout(),
     });
 }

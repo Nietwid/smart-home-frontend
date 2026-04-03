@@ -10,7 +10,7 @@ export default function ChangePassworMutation() {
   const { createData } = useFetch();
   return useMutation({
     mutationFn: (data: IChangePassword) =>
-      createData(api.changePassword, {
+      createData(api.changePassword(), {
         current_password: data.currentPassword,
         new_password: data.newPassword,
         new_password2: data.newPassword2,

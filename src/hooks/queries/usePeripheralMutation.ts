@@ -10,7 +10,7 @@ export default function usePeripheralMutation(){
             ApiError,
             any
         >({
-            mutationFn: (data:Record<string, any>) => createData(api.peripherals,data),
+            mutationFn: (data:Record<string, any>) => createData(api.peripherals(), data),
             onSuccess: (data) => console.log(data),
             onError: (error) => setErrorCallback(error?.details ?? {}),
         })

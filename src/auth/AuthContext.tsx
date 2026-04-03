@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 };
 
 async function fetchToken() {
-  const response = await fetch(api.refreshToken, {
+  const response = await fetch(api.refreshToken(), {
     credentials: "include",
   });
 

@@ -14,7 +14,7 @@ export default function useRoomMutation(){
     const queryClient = useQueryClient();
     function updateRoom(id: number){
         return useMutation({
-            mutationFn:(data:IRoomUpdate) => updateData(`${api.room}${id}/`, data),
+            mutationFn:(data:IRoomUpdate) => updateData(api.room(id), data),
             onSuccess: (response) => {
                 console.log(response)
                 updateRoomData(queryClient, response);
@@ -23,7 +23,7 @@ export default function useRoomMutation(){
     }
     function deleteRoom(id: number){
         return useMutation({
-            mutationFn: () => deleteData(`${api.room}${id}/`),
+            mutationFn: () => deleteData(api.room(id)),
             onSuccess: (_:{status: number}) => {
                 const rooms = queryClient.getQueryData([CacheKey.ROOMS]) as {status: number, data: IRoom[]} | undefined;
                 if(!rooms) return;

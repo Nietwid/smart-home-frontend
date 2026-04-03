@@ -6,7 +6,7 @@ import CacheKey from "../../constant/cacheKey.ts";
 export default function useActionExtraSettings(name:string | null, action:string | null) {
   const { readData } = useFetch();
   const { data, isLoading } = useQuery({
-    queryFn: () => readData(`${api.actionExtraSettings}?name=${name}&action=${action}`),
+    queryFn: () => readData(api.actionExtraSettings(name, action)),
     queryKey: [CacheKey.EXTRA_SETTINGS, name, action],
     staleTime: 10 * 60 * 1000,
     enabled: !!name && !!action

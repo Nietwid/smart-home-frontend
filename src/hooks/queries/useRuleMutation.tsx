@@ -6,7 +6,7 @@ export default function useRuleMutation() {
     const { createData } = useFetch();
     function createRule() {
         return useMutation<any, ApiError, any>({
-            mutationFn: (data: any) => createData(`${api.rule}`, data),
+            mutationFn: (data: any) => createData(api.rule(), data),
         });
     }
 

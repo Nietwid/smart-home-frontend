@@ -6,7 +6,7 @@ import CacheKey from "../../constant/cacheKey.ts";
 export default function useCamerasQuery() {
     const {readData} = useFetch();
     const {data, isLoading} = useQuery({
-        queryFn: () => readData(api.cameras),
+        queryFn: () => readData(api.cameras()),
         queryKey: [CacheKey.CAMERAS],
         staleTime: 10 * 60 * 1000
     });

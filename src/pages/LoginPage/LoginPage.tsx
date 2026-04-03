@@ -29,7 +29,7 @@ export default function LoginPage() {
         setLoading(true);
         setLoginError("");
         try {
-            const response = await fetch(api.login, {
+            const response = await fetch(api.login(), {
                 method: "POST",
                 credentials: "include",
                 headers: {
