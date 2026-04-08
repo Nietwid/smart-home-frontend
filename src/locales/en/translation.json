@@ -10,7 +10,10 @@
   },
 
   "rfidCard": {
-    "cardAmount": "Number of cards"
+    "cardAmount": "Number of cards",
+    "cardManagerButton": "Cards",
+    "noCard": "Lack of card",
+    "parsing": "Parsing..."
   },
 
   "cardCard": {

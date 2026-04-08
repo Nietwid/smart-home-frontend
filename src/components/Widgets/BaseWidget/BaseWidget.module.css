@@ -10,7 +10,7 @@
 
 .name{
     position: absolute;
-    top:5px;
+    top:-18px;
     left:50%;
     transform: translate(-50%,0);
     padding:0 20px;
