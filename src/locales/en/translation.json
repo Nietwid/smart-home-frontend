@@ -1,4 +1,23 @@
 {
+  "measurementHistoryManager": {
+    "temperatureLabel": "Temperature (°C)",
+    "humidityLabel": "Humidity (%)",
+    "noData": "No data for the selected range",
+    "noDataTitle": "Lack of data to display",
+    "sectionTitle": "Statistics for the selected period",
+    "avr": "Average",
+    "max": "Maximum",
+    "min": "Minimum"
+  },
+
+  "tempHumWidget": {
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "lastUpdate": "Last update",
+    "noData": "No data available",
+    "historicalData": "Historical data"
+  },
+
   "cardManager": {
     "addCard": "Add card",
     "registeredCards": "Registered cards",

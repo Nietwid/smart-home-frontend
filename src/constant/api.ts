@@ -34,6 +34,18 @@ export const api = {
       id ? `${baseURL}/api/room/${id}/` : `${baseURL}/api/room/`,
   favourite: (id:number|null = null) =>
       id ? `${baseURL}/api/favourite/${id}/` : `${baseURL}/api/favourite/`,
+
+  measurement: (peripheralId: number, event: string, startDate: string | null, endDate: string | null) => {
+    const params = new URLSearchParams({
+      peripheral_id: peripheralId.toString(),
+      event: event,
+    });
+
+    if (startDate) params.append('start_date', startDate);
+    if (endDate) params.append('end_date', endDate);
+
+    return `${baseURL}/sensor/api/v1/measurement?${params.toString()}`;
+  }
 };
 
 // export const api = {

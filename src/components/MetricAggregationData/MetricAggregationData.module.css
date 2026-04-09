@@ -1,0 +1,29 @@
+.aggregationSection {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.title {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    color: var(--rs-text-secondary);
+}
+
+.groupWrapper {
+    flex: 1 1 500px;
+    margin-bottom: 0.5rem;
+}
+
+.groupLabel {
+    margin-bottom: 1rem;
+    padding-left: 8px;
+    border-left: 4px solid var(--rs-primary-500);
+    font-size: 1rem;
+}
+
+.statsContainer{
+    display: flex;
+    gap: 1rem;
+}
