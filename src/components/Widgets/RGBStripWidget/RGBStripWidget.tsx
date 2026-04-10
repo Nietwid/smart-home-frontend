@@ -1,9 +1,8 @@
 import {useReducer,  useState} from "react";
-import {Slider, Toggle} from "rsuite";
+import {Button, Slider, Toggle} from "rsuite";
 import BaseWidget from "../BaseWidget/BaseWidget.tsx";
 import Wheel from "@uiw/react-color-wheel";
 import {HsvaColor, rgbaToHsva} from "@uiw/color-convert";
-import ButtonSave from "../../ui/Buttons/ButtonSave/ButtonSave.tsx";
 import {IRGBStripWidget} from "../../../interfaces/Widgets/IRGBStrip.ts";
 import styles from "./RGBStripWidget.module.css";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
@@ -12,6 +11,7 @@ import {MessageAction} from "../../../enums/message_command.ts";
 import reducer from "./reducer.ts";
 import marks from "./marks.ts";
 import initState from "./initState.ts";
+import {useTranslation} from "react-i18next";
 
 export default function RGBStripWidget({id, state, config, pending}:IRGBStripWidget){
     const [rstate, dispatch] = useReducer(reducer, initState(state, config))
@@ -25,6 +25,8 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
             a:1
         }
     ));
+    const {t} = useTranslation();
+
     function handleSave(){
         const data = peripheralAction(id, MessageAction.UPDATE_STATE, rstate);
         mutation.mutate(data)
@@ -63,7 +65,15 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
                 onChange={handleToggle}
                 loading={isLoading || pending.includes(MessageAction.TOGGLE)}
             />
-            <ButtonSave loading={isLoading} onSave={handleSave}/>
+            <Button
+                appearance="primary"
+                size="lg"
+                loading={isLoading}
+                onClick={handleSave}
+                className={styles.saveButton}
+            >
+                💾 {t("buttons.saveButton")}
+            </Button>
         </BaseWidget>
     )
 }

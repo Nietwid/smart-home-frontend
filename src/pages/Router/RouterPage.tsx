@@ -5,7 +5,7 @@ import WifiStrength from "../../components/ui/WiFiStrength/WiFiStrength";
 import styles from "./RouterPage.module.css";
 import AddRouter from "../../components/AddRouter/AddRouter.tsx";
 import PageHeader from "../../components/ui/Headers/PageHeader/PageHeader.tsx";
-import PageContainer from "../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../components/ui/PageContainer/PageContainer.tsx";
 import {useTranslation} from "react-i18next";
 
 export default function RouterPage() {

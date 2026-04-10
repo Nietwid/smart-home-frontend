@@ -1,5 +1,5 @@
 import styles from './SelectCameraPage.module.css'
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useCamerasQuery from "../../../hooks/queries/useCamerasQuery.tsx";
 import {useEffect, useState} from "react";

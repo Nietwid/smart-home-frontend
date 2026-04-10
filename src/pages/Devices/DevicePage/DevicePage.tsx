@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router-dom";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer.tsx";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery.tsx";

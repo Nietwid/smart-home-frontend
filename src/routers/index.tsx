@@ -7,7 +7,6 @@ import RouterPage from "../pages/Router/RouterPage.tsx";
 import SelectRoom from "../pages/Rooms/SelectRoom/SelectRoom.tsx";
 import Room from "../pages/Rooms/Room/Room.tsx";
 import DeviceAddPage from "../pages/Devices/DeviceAddPage/DeviceAddPage.tsx";
-import LampPage from "../pages/Lamps/LampPage/LampPage.tsx";
 import DevicesPage from "../pages/Devices/DevicesPage/DevicesPage.tsx";
 import DevicePage from "../pages/Devices/DevicePage/DevicePage.tsx";
 import SelectCameraPage from "../pages/Camera/SelectCameraPage/SelectCameraPage.tsx";
@@ -15,8 +14,6 @@ import SettingsPage from "../pages/Settings/SettingsPage/SettingsPage.tsx";
 import SettingsDevice from "../pages/Settings/SettingsDevice/SettingsDevice.tsx";
 import SettingsRoom from "../pages/Settings/SettingsRoom/SettingsRoom.tsx";
 import AddCameraPage from "../pages/Camera/AddCameraPage/AddCameraPage.tsx";
-import TempHumPage from "../pages/TempHumPage/TempHumPage.tsx";
-import StairsPage from "../pages/StairsPage/StairsPage.tsx";
 import SettingsCamera from "../pages/Settings/SettingsCamera/SettingsCamera.tsx";
 import DeviceAddPeripheral from "../pages/Devices/DeviceAddPeripheral/DeviceAddPeripheral.tsx";
 import DeviceEditPeripheral from "../pages/Devices/DeviceEditPeripheral/DeviceEditPeripheral.tsx";
@@ -49,11 +46,6 @@ export default createBrowserRouter([
             { path: "camera/add/", element:<AddCameraPage/> },
             { path: "camera/settings/:id", element:<SettingsCamera/> },
             { path: "settings/", element: <SettingsPage /> },
-
-
-            { path: "temperature/:id/", element:<TempHumPage/>},
-            { path: "stairs/:id/", element:<StairsPage/>},
-            { path: "lamp/:id/", element: <LampPage /> },
         ],
     },
 ]);

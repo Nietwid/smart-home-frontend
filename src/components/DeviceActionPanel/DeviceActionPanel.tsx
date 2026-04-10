@@ -1,4 +1,4 @@
-import {Button, Tooltip, Whisper} from "rsuite";
+import {Button} from "rsuite";
 import {Link} from "react-router-dom";
 import WifiStrength from "../ui/WiFiStrength/WiFiStrength.tsx";
 import styles from "./DeviceActionPanel.module.css";

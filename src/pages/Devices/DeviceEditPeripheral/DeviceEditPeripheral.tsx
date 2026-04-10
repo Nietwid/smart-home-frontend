@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery.tsx";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
 import IPeripheral from "../../../interfaces/IPeripheral.ts";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import {useTranslation} from "react-i18next";
 import PeripheralCard from "../../../components/Cards/PeripheralCard/PeripheralCard.tsx";

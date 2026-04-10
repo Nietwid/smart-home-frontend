@@ -2,7 +2,7 @@ import {IRoom} from "../../interfaces/IRoom.tsx";
 import RoomCard from "../../components/Cards/RoomCard/RoomCard.tsx";
 import {IDevice} from "../../interfaces/IDevice.tsx";
 import useFavouriteQuery from "../../hooks/queries/useFavouriteQuery.tsx";
-import PageContainer from "../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../components/ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useDevicesQuery from "../../hooks/queries/device/useDevicesQuery.tsx";
 import useRoomsQuery from "../../hooks/queries/room/useRoomsQuery.tsx";

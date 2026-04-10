@@ -6,7 +6,7 @@ import { TSettings } from "../../../type/TSettings.ts";
 import ChangeHomeForm from "../../../components/ChangeHomeForm/ChangeHomeForm.tsx";
 import HomeCode from "../../../components/HomeCode/HomeCode.tsx";
 import HomeLeave from "../../../components/HomeLeave/HomeLeave.tsx";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import {useTranslation} from "react-i18next";
 

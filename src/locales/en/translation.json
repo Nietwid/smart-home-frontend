@@ -1,4 +1,11 @@
 {
+  "assignedDevice": {
+    "assignedSuccess": "Device has been assigned to the room",
+    "assignedError": "Failed to assign device to the room",
+    "noDevices": "No devices available",
+    "availableDevices": "Available devices",
+    "assign": "Assign device"
+  },
   "measurementHistoryManager": {
     "temperatureLabel": "Temperature (°C)",
     "humidityLabel": "Humidity (%)",
@@ -9,7 +16,6 @@
     "max": "Maximum",
     "min": "Minimum"
   },
-
   "tempHumWidget": {
     "temperature": "Temperature",
     "humidity": "Humidity",
@@ -17,7 +23,6 @@
     "noData": "No data available",
     "historicalData": "Historical data"
   },
-
   "cardManager": {
     "addCard": "Add card",
     "registeredCards": "Registered cards",
@@ -27,14 +32,12 @@
     "addCardButton": "Add card",
     "searchPlaceholder": "Search cards"
   },
-
   "rfidCard": {
     "cardAmount": "Number of cards",
     "cardManagerButton": "Cards",
     "noCard": "Lack of card",
     "parsing": "Parsing..."
   },
-
   "cardCard": {
     "lastUsed": "Last used",
     "delete": "Delete",
@@ -78,10 +81,27 @@
     "add": "Add",
     "cancel": "Cancel",
     "edit": "Edit",
+    "back": "Back",
     "addPeripheral": "Add new peripherals",
     "editPeripheral": "Edit peripheral"
   },
-
+  "selectRoom": {
+    "title": "Rooms",
+    "device": "device"
+  },
+  "room": {
+    "addDeviceButton": "Add Device",
+    "editTooltip": "Edit room settings",
+    "addDeviceTooltip": "Add a new device to the room",
+    "emptyState": "No devices found"
+  },
+  "router": {
+    "title": "Router",
+    "ip": "IP",
+    "mac": "MAC",
+    "assignedDevices": "Assigned devices",
+    "activeDevices": "Active devices"
+  },
 
 
 
@@ -96,10 +116,7 @@
     }
   },
 
-  "selectRoom": {
-    "title": "Rooms",
-    "device": "device"
-  },
+
   "deviceEventWizard": {
     "title": "Add Action",
     "subtitle": "Configure an event for your device",
@@ -305,23 +322,11 @@
   "addButton": "Add Camera",
   "addTooltip": "Add a new RTSP camera"
   },
-  "router": {
-    "title": "Router",
-    "ip": "IP",
-    "mac": "MAC",
-    "assignedDevices": "Assigned devices",
-    "activeDevices": "Active devices"
-  },
+
   "device": {
     "title": "Devices"
   },
-  "room": {
-    "editButton": "Edit",
-    "addDeviceButton": "Add Device",
-    "editTooltip": "Edit room settings",
-    "addDeviceTooltip": "Add a new device to the room",
-    "emptyState": "No devices found"
-  },
+
   "home": {
     "title": "Dashboard",
     "subtitle": "Welcome back to Smart Home"

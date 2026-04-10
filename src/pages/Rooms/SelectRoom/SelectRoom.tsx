@@ -7,10 +7,8 @@ import AddRoom from "../../../components/AddRoom/AddRoom.tsx";
 import RoomCard from "../../../components/Cards/RoomCard/RoomCard.tsx";
 
 import usePrefetchRoomQuery from "../../../hooks/queries/room/usePrefetchRoomQuery.tsx";
-import QueryInput from "../../../components/ui/QueryInput/QueryInput.tsx";
-import CardContainer from "../../../components/ui/containers/CardContainer/CardContainer.tsx";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import styles from "./SelectRoom.module.css";
 import {Button} from "rsuite";
@@ -26,33 +24,26 @@ export default function SelectRoom() {
         setDataToDisplay(roomData);
     }, [roomData]);
 
-  function handleFilter(value: string) {
-      const filter = value.toLowerCase();
-      setDataToDisplay(roomData.filter((device) => {
-        return device.name.toLowerCase().includes(filter);
-      }));
-  }
- if (!roomData) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
-  return (
-    <PageContainer>
-      <PageHeader title={t("selectRoom.title")} className={styles.header}>
-          <div className={styles.buttonContainer}>
-              <QueryInput onChange={handleFilter}/>
-              <Button
-                  appearance="default"
-                  onClick={() => setOpenAddRoom(true)}
-                  className={styles.addButton}
-              >
-                  {t("buttons.addButton")}
-              </Button>
-          </div>
-      </PageHeader>
-      <AddRoom show={openAddRoom} onClose={() => setOpenAddRoom(false)} />
-      <CardContainer>
-        {dataToDisplay.map((room: IRoom) => (
-          <RoomCard room={room} key={room.id} />
-        ))}
-      </CardContainer>
-    </PageContainer>
-  );
+    if (!roomData) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
+        return (
+        <PageContainer>
+          <PageHeader title={t("selectRoom.title")} className={styles.header}>
+              <div className={styles.buttonContainer}>
+                  <Button
+                      appearance="default"
+                      onClick={() => setOpenAddRoom(true)}
+                      className={styles.addButton}
+                  >
+                      {t("buttons.addButton")}
+                  </Button>
+              </div>
+          </PageHeader>
+          <AddRoom show={openAddRoom} onClose={() => setOpenAddRoom(false)} />
+            <div className={styles.cardContainer}>
+                {dataToDisplay.map((room: IRoom) => (
+                    <RoomCard room={room} key={room.id} />
+                ))}
+            </div>
+        </PageContainer>
+    );
 }

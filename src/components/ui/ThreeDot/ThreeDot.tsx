@@ -1,7 +1,6 @@
 import styles from './ThreeDot.module.css'
 import {Link} from "react-router-dom";
 import SvgIcon from "../SvgIcon/SvgIcon.tsx";
-import threeDot from "../../../../public/static/svg/threeDot.svg"
 
 interface ThreeDotProps {
     to:string

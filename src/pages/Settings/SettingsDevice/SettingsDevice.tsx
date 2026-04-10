@@ -11,7 +11,7 @@ import {
     Toggle,
     SelectPicker
 } from "rsuite";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation";
 import WifiStrength from "../../../components/ui/WiFiStrength/WiFiStrength";

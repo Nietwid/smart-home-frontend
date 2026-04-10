@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import {useMemo} from "react";
 import styles from "./Room.module.css";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useDevicesQuery from "../../../hooks/queries/device/useDevicesQuery.tsx";
 import useRoomQuery from "../../../hooks/queries/room/useRoomQuery.tsx";
@@ -27,7 +27,7 @@ export default function Room() {
                 <div className={styles.buttonContainer}>
                     <DeviceActionPanel
                         buttons={[
-                            { label: t("room.editButton"), to: `/rooms/${state.id}/settings`, type: "primary", tooltip: t("room.editTooltip") },
+                            { label: t("button.edit"), to: `/rooms/${state.id}/settings`, type: "primary", tooltip: t("room.editTooltip") },
                             { label: t("room.addDeviceButton"), to: `/rooms/${state.id}/add`, type: "default", tooltip: t("room.addDeviceTooltip") },
                         ]}
                         showWifi={false}
