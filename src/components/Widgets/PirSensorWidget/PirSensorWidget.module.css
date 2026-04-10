@@ -1,0 +1,41 @@
+.container {
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+}
+
+.statusCircle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--rs-text-secondary);
+    border: 2px solid var(--rs-border-secondary);
+    transition: all 0.4s ease;
+}
+
+.icon {
+    font-size: 2.5rem;
+}
+
+.motionDetected {
+    background-color: rgba(255, 146, 43, 0.1);
+    color: #ff922b;
+    border-color: #ff922b;
+    box-shadow: 0 0 0 0 rgba(255, 146, 43, 0.4);
+    animation: pulseRadar 1.5s infinite;
+}
+
+@keyframes pulseRadar {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 146, 43, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 146, 43, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 146, 43, 0);
+    }
+}

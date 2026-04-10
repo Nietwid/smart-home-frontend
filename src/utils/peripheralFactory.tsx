@@ -8,6 +8,7 @@ import Aht10Widget from "../components/Widgets/Aht10Widget/Aht10Widget.tsx";
 import BistableButtonWidget from "../components/Widgets/ButtonBistableWidget/ButtonBistableWidget.tsx"
 import ButtonMonostableWidget from "../components/Widgets/ButtonMonostableWidget/ButtonMonostableWidget.tsx";
 import PinPwmWidget from "../components/Widgets/PinPwmWidget/PinPwmWidget.tsx";
+import PirSensorWidget from "../components/Widgets/PirSensorWidget/PirSensorWidget.tsx";
 
 export default function peripheralFactory(peripheral:IPeripheral){
     console.log(peripheral.name)
@@ -27,7 +28,7 @@ export default function peripheralFactory(peripheral:IPeripheral){
         case "pca9685":
             return null;
         case "pir_sensor":
-            return null;
+            return <PirSensorWidget key={peripheral.id} {...peripheral}/>;
         case "relay":
             return null;
         case "rgb_strip":
