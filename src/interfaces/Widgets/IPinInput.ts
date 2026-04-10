@@ -2,7 +2,7 @@ import BaseConfig from "./Base.ts";
 import IPeripheral from "../IPeripheral.ts";
 
 export interface IPinInputWidgetState {
-    value:boolean;
+    is_on:boolean;
 }
 export interface IPinInputWidgetConfig extends BaseConfig{
     pin:number;

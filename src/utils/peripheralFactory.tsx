@@ -5,6 +5,7 @@ import PinInput from "../components/Widgets/PinInput/PinInput.tsx";
 import SequentialLightWidget from "../components/Widgets/SequentialLight/SequentialLightWidget.tsx";
 import Rc522 from "../components/Widgets/Rc522/Rc522.tsx";
 import Aht10Widget from "../components/Widgets/Aht10Widget/Aht10Widget.tsx";
+import BistableButtonWidget from "../components/Widgets/ButtonBistableWidget/ButtonBistableWidget.tsx"
 
 export default function peripheralFactory(peripheral:IPeripheral){
     switch(peripheral.name){
@@ -12,6 +13,8 @@ export default function peripheralFactory(peripheral:IPeripheral){
             return <PinOutputWidget key={peripheral.id} {...peripheral}/>;
         case "pin_input":
             return <PinInput key={peripheral.id} {...peripheral}/>;
+        case "button_bistable":
+            return <BistableButtonWidget key={peripheral.id} {...peripheral}/>;
         case "pin_pwm":
             return null;
         case "rgb_strip":
