@@ -9,9 +9,9 @@ import BistableButtonWidget from "../components/Widgets/ButtonBistableWidget/But
 import ButtonMonostableWidget from "../components/Widgets/ButtonMonostableWidget/ButtonMonostableWidget.tsx";
 import PinPwmWidget from "../components/Widgets/PinPwmWidget/PinPwmWidget.tsx";
 import PirSensorWidget from "../components/Widgets/PirSensorWidget/PirSensorWidget.tsx";
+import RelayWidget from "../components/Widgets/RelayWidget/RelayWidget.tsx";
 
 export default function peripheralFactory(peripheral:IPeripheral){
-    console.log(peripheral.name)
     switch(peripheral.name){
         case "pin_output":
             return <PinOutputWidget key={peripheral.id} {...peripheral}/>;
@@ -30,7 +30,7 @@ export default function peripheralFactory(peripheral:IPeripheral){
         case "pir_sensor":
             return <PirSensorWidget key={peripheral.id} {...peripheral}/>;
         case "relay":
-            return null;
+            return <RelayWidget key={peripheral.id} {...peripheral}/>;
         case "rgb_strip":
             return <RGBStripWidget key={peripheral.id} {...peripheral}/>;
         case "sequential_light":

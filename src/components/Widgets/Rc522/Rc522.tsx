@@ -9,7 +9,7 @@ import useRfidCardQuery from "../../../hooks/queries/useRfidCardQuery.tsx";
 import styles from "./Rc522.module.css";
 import {useTranslation} from "react-i18next";
 
-export default function Rc522({id, state, config, pending}:IRc522Widget){
+export default function Rc522({id, config, pending}:IRc522Widget){
     const { t } = useTranslation();
     const [showCardManager, setShowCardManager] = useState(false);
     const isAddingCard = pending.includes(DEVICE_PENDING.ADD_TAG);
