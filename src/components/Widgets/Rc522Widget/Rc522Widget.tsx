@@ -27,7 +27,7 @@ export default function Rc522Widget({id, config, pending}:IRc522Widget){
         return date.toLocaleTimeString([], {day:'2-digit',month:'2-digit',year:'2-digit', hour: '2-digit', minute: '2-digit' });
     };
     return (
-        <BaseWidget name={config?.name} size="md">
+        <BaseWidget name={config?.name} w={2}>
             <div className={styles.container}>
                 <div className={styles.infoSection}>
                     {lastUsedCard && (

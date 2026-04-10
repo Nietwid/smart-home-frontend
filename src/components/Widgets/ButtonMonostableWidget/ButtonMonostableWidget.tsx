@@ -34,7 +34,7 @@ export default function ButtonMonostableWidget({ id, state, config, pending }: I
     const isOn = state.is_on;
     const isPending = mutation.isPending || pending.includes(MessageAction.HOLD) ||  pending.includes(MessageAction.CLICK);;
     return (
-        <BaseWidget name={config?.name} size="md">
+        <BaseWidget name={config?.name} >
             <PowerIcon
                 onPointerDown={triggerEvent}
                 onPointerUp={cleanupEvent}

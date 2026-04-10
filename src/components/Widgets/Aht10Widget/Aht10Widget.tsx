@@ -12,7 +12,7 @@ export default function Aht10Widget({id, state, config}:IAht10Widget) {
 
 
     return (
-        <BaseWidget name={config?.name} size="lg" ratio="2/1">
+        <BaseWidget name={config?.name} w={3} h={2}>
             <div className={styles.container}>
                 <div className={styles.dataGrid}>
                     <div className={styles.dataItem}>

@@ -22,7 +22,7 @@ export default function SequentialLightWidget({id, state, config, pending}:IPinO
         await mutation.mutateAsync(data)
     }
     return (
-        <BaseWidget name={config?.name} size="md">
+        <BaseWidget name={config?.name}>
             <Toggle checked={value} onChange={handleToggle} loading={isLoading} />
             <Button loading={isLoading} onClick={handleBlink} >BLINK</Button>
         </BaseWidget>

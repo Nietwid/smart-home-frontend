@@ -9,7 +9,7 @@ export default function PirSensorWidget({ state, config }: IPirSensorWidget) {
     const isMotion = state.is_on;
 
     return (
-        <BaseWidget name={config.name} size="md">
+        <BaseWidget name={config.name}>
             <div className={styles.container}>
                 <Stack direction="column" justifyContent="center" alignItems="center" spacing={10} style={{ height: '100%' }}>
                     <div className={`${styles.statusCircle} ${isMotion ? styles.motionDetected : ''}`}>

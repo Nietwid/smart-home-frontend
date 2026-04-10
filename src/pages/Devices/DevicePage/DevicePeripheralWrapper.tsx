@@ -6,7 +6,7 @@ interface IProps {
 
 }
 export default function DevicePeripheralWrapper({peripherals}: IProps) {
-    return <div className={styles.wrapper}>
+    return <div className={styles.gridContainer}>
         {peripherals.map((peripheral:IPeripheral) => peripheralFactory(peripheral))}
     </div>
 }

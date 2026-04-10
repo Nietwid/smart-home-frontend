@@ -1,7 +1,7 @@
-import styles from "../../ui/containers/DeviceCardContainer/DeviceCardContainer.module.css";
 import ThreeDot from "../../ui/ThreeDot/ThreeDot.tsx";
 import Header from "../../ui/Headers/Header/Header.tsx";
 import SvgIcon from "../../ui/SvgIcon/SvgIcon.tsx";
+import styles from "./DeviceCard.module.css";
 interface IProps {
     id:number;
     name: string;

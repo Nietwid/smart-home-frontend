@@ -36,11 +36,11 @@ export default function Device() {
                   <Button appearance="subtle" onClick={()=>setOpenForm(true)}>
                       {t("button.addEvent")}
                   </Button>
-              {/*{device.required_action.includes(MessageAction.UPDATE_RULE) &&*/}
+              {device.required_action.includes(MessageAction.UPDATE_RULE) &&
                   <Button appearance="subtle" onClick={()=>startSync(SyncType.RULE)}>
                       {t("button.updateRule")}
                   </Button>
-              {/*}*/}
+              }
               <DeviceActionPanel
                   buttons={[
                       { label: t("button.deviceSettings"), to: `/devices/${device.id}/settings/`, type: "default"},
@@ -54,10 +54,10 @@ export default function Device() {
           </PageHeader>
             <RuleForm open={openForm} onClose={()=>setOpenForm(false)} />
 
-            {/*{device.required_action.includes(MessageAction.UPDATE_PERIPHERAL) ?*/}
-                <UpdatePeripheralRequired onClick={startSync}/> :
+            {device.required_action.includes(MessageAction.UPDATE_PERIPHERAL) ?
+                <UpdatePeripheralRequired onClick={startSync}/>:
                 <DevicePeripheralWrapper peripherals={device.peripherals}/>
-            {/*}*/}
+            }
         </PageContainer>
     );
 }

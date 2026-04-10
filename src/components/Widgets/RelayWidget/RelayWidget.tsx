@@ -24,7 +24,7 @@ export default function RelayWidget({id, state, config, pending}:IRelayWidget){
     }
 
     return (
-        <BaseWidget name={config?.name} size="md">
+        <BaseWidget name={config?.name}>
             {/*<IconButton*/}
             {/*    icon={<GearIcon className={styles.icon} />}*/}
             {/*    appearance="link"*/}

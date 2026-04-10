@@ -15,7 +15,7 @@ export default function BistableButtonWidget({ id, state, config, pending }: IBi
     };
     const isPending = mutation.isPending || pending.includes(MessageAction.TOGGLE);
     return (
-        <BaseWidget name={config?.name} size="md">
+        <BaseWidget name={config?.name} >
             <PowerIcon onClick={handleChange} className={`${styles.icon} ${isOn ? styles.active : ''} ${isPending ? styles.pending : ''}`} />
         </BaseWidget>
     );

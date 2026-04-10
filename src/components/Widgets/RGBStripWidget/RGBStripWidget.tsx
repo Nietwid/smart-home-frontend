@@ -37,7 +37,7 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
         mutation.mutate(data)
     }
     return (
-        <BaseWidget name={config?.name} size="xl">
+        <BaseWidget name={config?.name} w={3} h={3}>
             <Wheel
                 color={hsva}
                 onChange={(color) => {
@@ -66,13 +66,12 @@ export default function RGBStripWidget({id, state, config, pending}:IRGBStripWid
                 loading={isLoading || pending.includes(MessageAction.TOGGLE)}
             />
             <Button
-                appearance="primary"
-                size="lg"
+                width={250}
                 loading={isLoading}
                 onClick={handleSave}
                 className={styles.saveButton}
             >
-                💾 {t("buttons.saveButton")}
+                {t("buttons.saveButton")}
             </Button>
         </BaseWidget>
     )

@@ -5,8 +5,8 @@
 }
 
 .statusCircle {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -17,7 +17,7 @@
 }
 
 .icon {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
 }
 
 .motionDetected {

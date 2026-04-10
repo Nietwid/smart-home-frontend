@@ -17,7 +17,7 @@ export default function PinOutputWidget({id, state, config, pending}:IPinOutputW
         await mutation.mutateAsync(data)
     }
     return (
-        <BaseWidget name={config?.name} size="md">
+        <BaseWidget name={config?.name}>
             <Toggle checked={value} onChange={handleToggle} loading={isLoading} />
         </BaseWidget>
     );

@@ -1,43 +1,33 @@
-import {Center} from "rsuite";
-import styles from "./BaseWidget.module.css"
+import {Center, Stack} from "rsuite";
+import styles from "./BaseWidget.module.css";
+
 interface Props {
     children: React.ReactNode;
     name?: string;
-    size?: Size;
-    ratio?: Ratio;
+    w?: number;
+    h?: number;
     className?: string;
 }
 
-type Size = 'xs' | 'sm' | 'md' | 'normal' | 'lg' | 'xl' | '2xl';
-type Ratio = '1' | '4/3' | '3/2' | '16/9' | '2/1' | '1/2' | '3/4' | "3/1" | "4/1";
-
-const sizeMap: Record<Size, { width: string; height?: string }> = {
-    xs:     { width: '4rem',  height: '4rem'   },   // 64px
-    sm:     { width: '5rem',  height: '5rem'   },   // 80px
-    md:     { width: '8rem',  height: '8rem'   },   // 128px
-    normal: { width: '13rem', height: '13rem'  },   // ≈208px (w-52)
-    lg:     { width: '20rem', height: '20rem'  },   // 320px
-    xl:     { width: '26rem', height: '26rem'  },
-    '2xl':  { width: '32rem', height: '32rem'  },
-};
-
-export default function BaseWidget({name, children, size = 'normal', ratio = '1', className = ''}: Props) {
-    const dims = sizeMap[size];
-    const isSquare = ratio === '1';
-
+export default function BaseWidget({ name, children, w = 1, h = 1, className = '' }: Props) {
     return (
         <Center
-            className={`relative ${styles.center} ${className}`}
+            className={`${styles.widget} ${className}`}
             style={{
-                width: dims.width,
-                height: isSquare ? dims.height : 'auto',
-                aspectRatio: isSquare ? undefined : ratio,
-            }}
+                '--col-span': w,
+                '--row-span': h,
+            } as React.CSSProperties}
         >
-            {name && (
-                <p className={styles.name}>{name}</p>
-            )}
+            {name && <p className={styles.name}>{name}</p>}
+            <Stack
+                direction="column"
+                spacing={10}
+                justifyContent="center"
+                alignItems="center"
+                style={{ width: '100%', height: '100%' }}
+            >
                 {children}
+            </Stack>
         </Center>
     );
 }

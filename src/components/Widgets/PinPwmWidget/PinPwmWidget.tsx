@@ -19,7 +19,7 @@ export default function PinPwmWidget({id, state, config, pending}:IPwmWidget){
         mutation.mutate(data)
     }
     return (
-        <BaseWidget name={config?.name} size="xl" ratio="4/1">
+        <BaseWidget name={config?.name} w={4}>
             <Slider
                 className={styles.slider}
                 graduated
