@@ -1,4 +1,5 @@
 import BaseConfig from "./Base.ts";
+import IPeripheral from "../IPeripheral.ts";
 
 export interface IRGBStripConfig extends BaseConfig {
     r_pin:number
@@ -16,3 +17,7 @@ export interface IRGBStripState  {
     b_duty_cycle: number
 }
 
+export interface IRGBStripWidget extends IPeripheral {
+    state: IRGBStripState
+    config: IRGBStripConfig
+}

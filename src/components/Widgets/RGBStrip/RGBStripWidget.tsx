@@ -1,11 +1,10 @@
 import {useReducer,  useState} from "react";
 import {Slider, Toggle} from "rsuite";
 import BaseWidget from "../BaseWidget/BaseWidget.tsx";
-import IPeripheral from "../../../interfaces/IPeripheral.ts";
 import Wheel from "@uiw/react-color-wheel";
 import {HsvaColor, rgbaToHsva} from "@uiw/color-convert";
 import ButtonSave from "../../ui/Buttons/ButtonSave/ButtonSave.tsx";
-import {IRGBStripState, IRGBStripConfig} from "../../../interfaces/Widgets/IRGBStrip.ts";
+import {IRGBStripWidget} from "../../../interfaces/Widgets/IRGBStrip.ts";
 import styles from "./RGBStripWidget.module.css";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
 import {peripheralAction} from "../../../utils/commandBuilders.ts";
@@ -13,11 +12,6 @@ import {MessageAction} from "../../../enums/message_command.ts";
 import reducer from "./reducer.ts";
 import marks from "./marks.ts";
 import initState from "./initState.ts";
-
-interface IRGBStripWidget extends IPeripheral {
-    state: IRGBStripState
-    config: IRGBStripConfig
-}
 
 export default function RGBStripWidget({id, state, config, pending}:IRGBStripWidget){
     const [rstate, dispatch] = useReducer(reducer, initState(state, config))

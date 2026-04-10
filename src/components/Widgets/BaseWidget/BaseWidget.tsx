@@ -9,7 +9,7 @@ interface Props {
 }
 
 type Size = 'xs' | 'sm' | 'md' | 'normal' | 'lg' | 'xl' | '2xl';
-type Ratio = '1' | '4/3' | '3/2' | '16/9' | '2/1' | '1/2' | '3/4';
+type Ratio = '1' | '4/3' | '3/2' | '16/9' | '2/1' | '1/2' | '3/4' | "3/1" | "4/1";
 
 const sizeMap: Record<Size, { width: string; height?: string }> = {
     xs:     { width: '4rem',  height: '4rem'   },   // 64px
