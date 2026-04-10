@@ -16,6 +16,8 @@ export const MessageAction = {
     UPDATE_PERIPHERAL: "update_peripheral",
     UPDATE_RULE: "update_rule",
     TOGGLE: "toggle",
+    CLICK: "click",
+    HOLD: "hold",
     SYNC_START: "sync_start",
     ON: "on",
     OFF: "off",
