@@ -1,5 +1,6 @@
-import IPeripheral from "../IPeripheral.ts";
-import BaseConfig from "./Base.ts";
+import BaseConfig from "./Base";
+import IPeripheral from "../IPeripheral";
+
 
 export interface IPinOutputWidgetState {
     is_on:boolean;
