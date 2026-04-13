@@ -1,9 +1,11 @@
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import useFetch, {ApiError} from "../useFetch.tsx";
 import {api} from "../../constant/api.ts";
+import CacheKey from "../../constant/cacheKey.ts";
+
 export default function usePeripheralMutation(){
     const {createData, updateData, deleteData} = useFetch()
-
+    const queryClient = useQueryClient();
     function createPeripheralMutation(setErrorCallback:any){
         return useMutation<
             any,
@@ -15,5 +17,16 @@ export default function usePeripheralMutation(){
             onError: (error) => setErrorCallback(error?.details ?? {}),
         })
     }
-    return {createPeripheralMutation}
+
+    function deletePeripheralMutation(id:number){
+        return useMutation<
+            any,
+            ApiError,
+            any
+        >({
+            mutationFn: () => deleteData(api.peripherals(id)),
+            onSuccess: () => queryClient.invalidateQueries({queryKey:[CacheKey.DEVICES]})
+        })
+    }
+    return {createPeripheralMutation,deletePeripheralMutation}
 }

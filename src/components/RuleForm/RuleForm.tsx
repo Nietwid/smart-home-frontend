@@ -13,6 +13,7 @@ import validator from "@rjsf/validator-ajv8";
 import Form from "@rjsf/core";
 import mapErrorsToRjsf from "./mapErrorsToRjsf.ts";
 import useEventConditionQuery from "../../hooks/queries/useEventConditionQuery.tsx";
+import {customWidget, customTemplates} from "./customWidget.tsx"
 
 const initialState: RuleFormState = {
     triggerDevice: null,
@@ -178,12 +179,16 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                 />
                 { extraSettingSchema &&
                     <Form
+                        key={state.targetAction}
                         ref={formRef}
                         className={`${styles.rjsfForm} ${errorsForm.extraSettings ? styles.rjsfFormError : ''}`}
                         showErrorList={false}
                         schema={extraSettingSchema}
                         validator={validator}
                         liveValidate={true}
+                        formData={state.extraSettings}
+                        widgets={customWidget}
+                        templates={customTemplates}
                         extraErrors={mapErrorsToRjsf(mutation.error?.details || {})}
                         onChange={({ formData, errors}) => {
                             dispatch({ type: "set/extraSettings", payload: formData })

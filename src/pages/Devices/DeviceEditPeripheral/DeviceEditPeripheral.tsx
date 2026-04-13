@@ -6,6 +6,7 @@ import PageContainer from "../../../components/ui/PageContainer/PageContainer.ts
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import {useTranslation} from "react-i18next";
 import PeripheralCard from "../../../components/Cards/PeripheralCard/PeripheralCard.tsx";
+import styles from "./DeviceEditPeripheral.module.css";
 
 export default function DeviceEditPeripheral() {
     const params = useParams();
@@ -16,6 +17,8 @@ export default function DeviceEditPeripheral() {
     return <PageContainer>
         <PageHeader title={device.name} subtitle={`${t("devicePage.headerSubtitle")} ${device.peripherals.length}`} >
         </PageHeader>
-        {device.peripherals.map((peripheral:IPeripheral) => <PeripheralCard {...peripheral} key={peripheral.id}/> )}
+        <div className={styles.cardContainer}>
+            {device.peripherals.map((peripheral:IPeripheral) => <PeripheralCard {...peripheral} key={peripheral.id}/> )}
+        </div>
     </PageContainer>
 }

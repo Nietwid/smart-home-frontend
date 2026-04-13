@@ -7,13 +7,13 @@ export const api = {
   registration: () => `${baseURL}/api/registration/`,
   changePassword: () => `${baseURL}/api/change-password/`,
 
-  hardwareSchema: () => `${baseURL}/api/hardware/schemas/`,
+  hardwareSchema: () => `${baseURL}/api/hardware/schemas`,
   actionExtraSettings: (name:string, action:string) =>
-      `${baseURL}/api/hardware/action/settings/?name=${name}&action=${action}`,
+      `${baseURL}/api/hardware/action/settings?name=${name}&action=${action}`,
   eventCondition: (name:string, event:string)=>
       `${baseURL}/api/hardware/event/condition/?name=${name}&event=${event}`,
-  peripherals: (id = null) =>
-      id ? `${baseURL}/api/peripherals/${id}/` : `${baseURL}/api/peripherals/`,
+  peripherals: (id:number|null = null) =>
+      id ? `${baseURL}/api/peripherals/${id}` : `${baseURL}/api/peripherals`,
   triggerActionEvent: () => `${baseURL}/api/peripherals/trigger/`,
 
   rfidCards: (peripheralId:number) =>

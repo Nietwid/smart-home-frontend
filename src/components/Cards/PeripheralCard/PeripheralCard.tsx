@@ -1,9 +1,10 @@
-import { Card, Panel, Divider } from "rsuite";
-
-interface IPeripheral {
-    name: string;
-    config: any;
-}
+import { Card, Divider } from "rsuite";
+import DeleteIcon from "/static/svg/delete.svg";
+import styles from "../CardCard/CardCard.module.css";
+import ConfirmDelete from "../../ConfirmDelete/ConfirmDelete.tsx";
+import {useState} from "react";
+import usePeripheralMutation from "../../../hooks/queries/usePeripheralMutation.ts";
+import IPeripheral from "../../../interfaces/IPeripheral.ts";
 
 function RenderConfig({ data }: { data: any }) {
     if (data === null || data === undefined) {
@@ -38,26 +39,44 @@ function RenderConfig({ data }: { data: any }) {
     );
 }
 
-export default function PeripheralCard({name, config}: IPeripheral){
+export default function PeripheralCard({id, name, config}: IPeripheral){
+    const [confirmDelete, setConfirmDelete] = useState(false);
+    const {deletePeripheralMutation} = usePeripheralMutation();
+    const mutation = deletePeripheralMutation(id);
     return (
         <Card
             bordered
             style={{
-                width: 400,
                 marginBottom: 20,
                 boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                 borderRadius: 12
             }}
         >
-            <Panel header={<h5 style={{ margin: 0 }}>{name}</h5>}>
-
-                <Divider />
-
-                <div>
+            <Card.Header >
+                {name}
+                <img
+                    src={DeleteIcon}
+                    className={styles.deleteIcon}
+                    alt={name}
+                    onClick={() => setConfirmDelete(true)}
+                />
+            </Card.Header>
+            <Divider/>
+            <Card.Body>
                     <strong>Configuration:</strong>
                     <RenderConfig data={config} />
-                </div>
-            </Panel>
+            </Card.Body>
+            <Card.Footer>
+                <ConfirmDelete
+                    show={confirmDelete}
+                    name={`${name} ${config?.name}`}
+                    onCancel={() => setConfirmDelete(false)}
+                    onConfirm={() => {
+                        mutation.mutate();
+                        setConfirmDelete(false);
+                    }}
+                />
+            </Card.Footer>
         </Card>
     );
 }
