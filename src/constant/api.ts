@@ -7,13 +7,13 @@ export const api = {
   registration: () => `${baseURL}/api/registration/`,
   changePassword: () => `${baseURL}/api/change-password/`,
 
-  hardwareSchema: () => `${baseURL}/api/hardware/schemas`,
+  hardwareSchema: () => `${baseURL}/api/hardware/schemas/`,
   actionExtraSettings: (name:string, action:string) =>
-      `${baseURL}/api/hardware/action/settings?name=${name}&action=${action}`,
+      `${baseURL}/api/hardware/action/settings/?name=${name}&action=${action}`,
   eventCondition: (name:string, event:string)=>
       `${baseURL}/api/hardware/event/condition/?name=${name}&event=${event}`,
   peripherals: (id:number|null = null) =>
-      id ? `${baseURL}/api/peripherals/${id}` : `${baseURL}/api/peripherals`,
+      id ? `${baseURL}/api/peripherals/${id}` : `${baseURL}/api/peripherals/`,
   triggerActionEvent: () => `${baseURL}/api/peripherals/trigger/`,
 
   rfidCards: (peripheralId:number) =>
@@ -24,8 +24,9 @@ export const api = {
   device: ()=> baseURL + "/api/device/",
   unassignedDevice: ()=> baseURL + "/api/device/?unassigned=true",
   router: ()=> baseURL + "/api/device/router/",
-  cameras: ()=> baseURL + "/api/cameras/",
-
+  cameras: (id:number|null = null) =>
+      id? baseURL + `/api/cameras/${id}/`: `${baseURL}/api/cameras/`,
+  cameraStream: (id:number) => `${baseURL}/stream/${id}/index.m3u8`,
   rule: (id:number|null = null) =>
       id ? `${baseURL}/api/rule/${id}/` : `${baseURL}/api/rule/`,
   home: (id:number|null = null) =>
@@ -73,7 +74,6 @@ export const api = {
 //   buttonType: baseURL + "/api/device/button-type/",
 //   event: baseURL + "/api/event/",
 //   action: baseURL + "/api/event/action/",
-//   cameraStream: baseURL + "/stream/",
 //   getUpdateLamp: baseURL + "/api/lamp/", // +id
 //   tempHum:baseURL + "/api/temperature/",
 //   getAllEvents: baseURL + "/api/device/get/event/",

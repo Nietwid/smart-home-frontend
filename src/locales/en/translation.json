@@ -1,4 +1,22 @@
 {
+  "addCameraPage": {
+    "success": "Camera added successfully",
+    "title": "Add Camera",
+    "subtitle": "Fill in the camera details to add it to the system. Make sure you provide the correct IP address and port.",
+    "name": "Name",
+    "namePlaceholder": "Enter camera name",
+    "ipAddress": "IP Address",
+    "ipAddressPlaceholder": "Enter IP address (e.g. 192.168.1.100)",
+    "port": "Port",
+    "portPlaceholder": "Enter port (e.g. 554)",
+    "username": "Username",
+    "usernamePlaceholder": "Enter username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "path": "Path",
+    "pathPlaceholder": "Enter RTSP path (e.g. /stream1)",
+    "addButton": "Add Camera"
+  },
   "sequentialLight": {
     "blinkButton": "Blink",
     "brightness": "Brightness",

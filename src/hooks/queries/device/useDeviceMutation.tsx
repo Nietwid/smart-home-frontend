@@ -5,6 +5,7 @@ import { api } from "../../../constant/api.ts";
 import updateFavouriteData from "../../../utils/updateFavouriteData.tsx";
 import IFavouriteData from "../../../interfaces/IFavouriteData.tsx";
 import CacheKey from "../../../constant/cacheKey.ts";
+import {useNavigate} from "react-router-dom";
 
 interface IDeviceUpdate {
   name?: string;
@@ -14,6 +15,7 @@ interface IDeviceUpdate {
 export default function useDeviceMutation() {
   const { updateData, deleteData } = useFetch();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   function updateDevice(id: number) {
     return useMutation({
@@ -43,6 +45,7 @@ export default function useDeviceMutation() {
           queryClient.invalidateQueries({ queryKey: [CacheKey.ROOMS] }),
           queryClient.invalidateQueries({ queryKey: [CacheKey.DEVICES] })
         ]);
+        navigate("/");
       }
     })
   }

@@ -4,6 +4,8 @@ import useCameraMutation from "../../../hooks/queries/useCameraMutation.tsx";
 import { ICameraCreate } from "../../../interfaces/ICamera.tsx";
 import { ICustomError } from "../../../interfaces/ICustomError.tsx";
 import styles from "./AddCameraPage.module.css";
+import displayToaster from "../../../utils/displayToaster.tsx";
+import {useTranslation} from "react-i18next";
 
 interface IError {
     name?: string;
@@ -26,8 +28,7 @@ export default function AddCameraPage() {
     const [error, setError] = useState<IError>({});
     const { createCamera } = useCameraMutation();
     const mutation = createCamera();
-    const toaster = useToaster();
-
+    const {t} = useTranslation();
     useEffect(() => {
         if (mutation.isError) {
             const customError = mutation.error as ICustomError;
@@ -41,12 +42,7 @@ export default function AddCameraPage() {
         setError({});
         mutation.mutate(formValue, {
             onSuccess: () => {
-                toaster.push(
-                    <Message type="success" showIcon closable>
-                        Kamera została dodana pomyślnie 🎉
-                    </Message>,
-                    { placement: "topCenter", duration: 3000 }
-                );
+                displayToaster(t("addCameraPage.success"))
                 setFormValue({
                     name: "",
                     ip_address: "",
@@ -62,68 +58,66 @@ export default function AddCameraPage() {
     return (
         <div className={styles.pageWrapper}>
             <Panel bordered shaded className={styles.panel}>
-                <h3 className={styles.title}>Dodaj kamerę</h3>
-                <p className={styles.subtitle}>
-                    Wypełnij dane kamery, aby dodać ją do systemu. Upewnij się, że podajesz prawidłowy adres IP i port.
-                </p>
+                <h3 className={styles.title}>{t("addCameraPage.title")}</h3>
+                <p className={styles.subtitle}>{t("addCameraPage.subtitle")}</p>
 
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={handleSubmit}>
                     <Form.Group controlId="name">
-                        <Form.ControlLabel>Nazwa</Form.ControlLabel>
+                        <Form.ControlLabel>{t("addCameraPage.name")}</Form.ControlLabel>
                         <Form.Control
                             name="name"
                             type="text"
-                            placeholder="Wpisz nazwę kamery"
+                            placeholder={t("addCameraPage.namePlaceholder")}
                             errorMessage={error?.name || undefined}
                         />
                     </Form.Group>
 
                     <Form.Group controlId="ip_address">
-                        <Form.ControlLabel>Adres IP</Form.ControlLabel>
+                        <Form.ControlLabel>{t("addCameraPage.ipAddress")}</Form.ControlLabel>
                         <Form.Control
                             name="ip_address"
                             type="text"
-                            placeholder="Wpisz adres IP (np. 192.168.1.100)"
+                            placeholder={t("addCameraPage.ipAddressPlaceholder")}
                             errorMessage={error?.ip_address || undefined}
                         />
                     </Form.Group>
 
                     <Form.Group controlId="port">
-                        <Form.ControlLabel>Port</Form.ControlLabel>
+                        <Form.ControlLabel>{t("addCameraPage.port")}</Form.ControlLabel>
                         <Form.Control
                             name="port"
                             type="number"
-                            placeholder="Wpisz port (np. 554)"
+                            placeholder={t("addCameraPage.portPlaceholder")}
                             errorMessage={error?.port || undefined}
                         />
                     </Form.Group>
 
                     <Form.Group controlId="username">
-                        <Form.ControlLabel>Nazwa użytkownika</Form.ControlLabel>
+                        <Form.ControlLabel>{t("addCameraPage.username")}</Form.ControlLabel>
                         <Form.Control
                             name="username"
                             type="text"
-                            placeholder="Wpisz nazwę użytkownika"
+                            placeholder={t("addCameraPage.usernamePlaceholder")}
                             errorMessage={error?.username || undefined}
                         />
                     </Form.Group>
 
                     <Form.Group controlId="password">
-                        <Form.ControlLabel>Hasło</Form.ControlLabel>
+                        <Form.ControlLabel>{t("addCameraPage.password")}</Form.ControlLabel>
                         <Form.Control
                             name="password"
                             type="password"
-                            placeholder="Wpisz hasło"
+                            placeholder={t("addCameraPage.passwordPlaceholder")}
                             errorMessage={error?.password || undefined}
                         />
                     </Form.Group>
 
                     <Form.Group controlId="path">
-                        <Form.ControlLabel>Ścieżka</Form.ControlLabel>
+                        <Form.ControlLabel>{t("addCameraPage.path")}</Form.ControlLabel>
                         <Form.Control
                             name="path"
                             type="text"
-                            placeholder="Wpisz ścieżkę RTSP (np. /stream1)"
+                            placeholder={t("addCameraPage.pathPlaceholder")}
                             errorMessage={error?.path || undefined}
                         />
                     </Form.Group>
@@ -135,7 +129,7 @@ export default function AddCameraPage() {
                         block
                         className={styles.submitButton}
                     >
-                        Dodaj kamerę
+                        {t("addCameraPage.addButton")}
                     </Button>
                 </Form>
             </Panel>
