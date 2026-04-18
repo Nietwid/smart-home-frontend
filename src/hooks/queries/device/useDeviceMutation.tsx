@@ -20,7 +20,7 @@ export default function useDeviceMutation() {
   function updateDevice(id: number) {
     return useMutation({
       mutationFn: (data: IDeviceUpdate) =>
-        updateData(`${api.device}${id}/`, data),
+        updateData(api.device(id), data),
       onSuccess: async (response) => {
         await Promise.all([
           queryClient.invalidateQueries({ queryKey: [CacheKey.ROOMS] }),
@@ -39,7 +39,7 @@ export default function useDeviceMutation() {
 
   function deleteDevice(id: number) {
     return useMutation({
-      mutationFn: () => deleteData(`${api.device}${id}/`),
+      mutationFn: () => deleteData(api.device(id)),
       onSuccess: async () =>{
         await Promise.all([
           queryClient.invalidateQueries({ queryKey: [CacheKey.ROOMS] }),

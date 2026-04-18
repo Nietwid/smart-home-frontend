@@ -44,7 +44,6 @@ export default function SequentialLightWidget({id, state, config, pending}:ISequ
             lighting_time: lightingTime
         });
         await mutation.mutateAsync(data)
-
     }
     return (
         <BaseWidget name={config?.name} className={styles.container} w={3} h={3}>

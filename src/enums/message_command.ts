@@ -12,6 +12,7 @@ export const MessageEvent = {
 } as const
 
 export const MessageAction = {
+    UPDATE_FIRMWARE:"update_firmware",
     UPDATE_STATE: "update_state",
     UPDATE_PERIPHERAL: "update_peripheral",
     UPDATE_RULE: "update_rule",

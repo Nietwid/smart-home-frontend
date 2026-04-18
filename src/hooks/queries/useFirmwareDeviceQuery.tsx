@@ -7,7 +7,7 @@ export default function useFirmwareDeviceQuery() {
   const { readData } = useFetch();
   const { data } = useQuery({
     queryKey: [cacheKey.FIRMWARE_DEVICE],
-    queryFn: () => readData(api.firmwareList),
+    queryFn: () => readData(api.firmwareList()),
     staleTime: 24 * 60 * 60 * 1000,
   });
   return { status: data?.status, firmwareList: data?.data };

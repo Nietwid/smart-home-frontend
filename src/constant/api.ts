@@ -13,7 +13,7 @@ export const api = {
   eventCondition: (name:string, event:string)=>
       `${baseURL}/api/hardware/event/condition/?name=${name}&event=${event}`,
   peripherals: (id:number|null = null) =>
-      id ? `${baseURL}/api/peripherals/${id}` : `${baseURL}/api/peripherals/`,
+      id ? `${baseURL}/api/peripherals/${id}/` : `${baseURL}/api/peripherals/`,
   triggerActionEvent: () => `${baseURL}/api/peripherals/trigger/`,
 
   rfidCards: (peripheralId:number) =>
@@ -21,7 +21,7 @@ export const api = {
   rfidCardDetail: (peripheralId:number, cardId:number) =>
       `${baseURL}/api/peripherals/${peripheralId}/card/${cardId}/`,
 
-  device: ()=> baseURL + "/api/device/",
+  device: (id:number | null = null)=> id? `${baseURL}/api/device/${id}/`:`${baseURL}/api/device/`,
   unassignedDevice: ()=> baseURL + "/api/device/?unassigned=true",
   router: ()=> baseURL + "/api/device/router/",
   cameras: (id:number|null = null) =>
@@ -35,6 +35,7 @@ export const api = {
       id ? `${baseURL}/api/room/${id}/` : `${baseURL}/api/room/`,
   favourite: (id:number|null = null) =>
       id ? `${baseURL}/api/favourite/${id}/` : `${baseURL}/api/favourite/`,
+  firmwareList:()=> baseURL + "/api/firmware/",
 
   measurement: (peripheralId: number, event: string, startDate: string | null, endDate: string | null) => {
     const params = new URLSearchParams({
@@ -77,7 +78,6 @@ export const api = {
 //   getUpdateLamp: baseURL + "/api/lamp/", // +id
 //   tempHum:baseURL + "/api/temperature/",
 //   getAllEvents: baseURL + "/api/device/get/event/",
-//   firmwareList: baseURL + "/api/firmware/",
 //   firmwareUpdate: baseURL + "/api/firmware/update/",
 //   temperatureHistory:baseURL + "/sensor/api/v1/temperature",
 //   humidityHistory:baseURL + "/sensor/api/v1/humidity",

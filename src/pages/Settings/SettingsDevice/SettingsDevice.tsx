@@ -23,10 +23,12 @@ import useFavouriteMutation from "../../../hooks/queries/useFavouriteMutation.ts
 import {useTranslation} from "react-i18next";
 import useFirmwareDeviceQuery from "../../../hooks/queries/useFirmwareDeviceQuery.tsx";
 import IFirmwareDevice from "../../../interfaces/IFirmwareDevice.ts";
-import useUpdateFirmwareDeviceMutation from "../../../hooks/queries/useUpdateFirmwareDeviceMutation.tsx";
 import displayToaster from "../../../utils/displayToaster.tsx";
 import isFavourite from "../../../utils/isFavourite.ts";
 import {useQueryClient} from "@tanstack/react-query";
+import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
+import {cpuAction} from "../../../utils/commandBuilders.ts";
+import {MessageAction} from "../../../enums/message_command.ts";
 
 export default function SettingsDevice() {
     const { t } = useTranslation();
@@ -49,8 +51,8 @@ export default function SettingsDevice() {
     const [showRemoveFromRoomModal, setShowRemoveFromRoomModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
-    const updateFirmwareMutation = useUpdateFirmwareDeviceMutation();
-    // Update state when device data loads
+    const mutation = useTriggerActionEventMutation();
+
     useEffect(() => {
         setIsSetFavourite(isFavourite(id,queryClient,"device"))
     }, [isFavourite(id,queryClient,"device")]);
@@ -128,14 +130,14 @@ export default function SettingsDevice() {
 
     const handleUpdateFirmware = () =>{
         if (!device?.id) return
-        updateFirmwareMutation.mutate({id:device.id})
+        const data = cpuAction(device.mac, MessageAction.UPDATE_FIRMWARE);
+        mutation.mutate(data)
     }
 
     if (isLoading || !device) {
         return <LoadingAnimation size="xlarge" type="spinner" glow={true} />;
     }
-    if(firmwareList) updateAvailable = firmwareList.some((e:IFirmwareDevice)=>e.to_device === `${device.fun}_${device.chip_type}` && e.version > device.firmware_version)
-
+    if(firmwareList) updateAvailable = firmwareList.some((e:IFirmwareDevice)=>e.to_device === device.chip_type && e.version > device.firmware_version)
     const roomOptions = roomData?.map((room: any) => ({
         label: room.name,
         value: room.id,
@@ -191,7 +193,7 @@ export default function SettingsDevice() {
                             <span className={styles.infoValue}>{device.firmware_version}</span>
                         </List.Item>
                     </List>
-                    {device.is_online && updateAvailable && <Button
+                    {updateAvailable && <Button
                         appearance="ghost"
                         size="lg"
                         onClick={() => handleUpdateFirmware()}
