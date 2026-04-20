@@ -152,10 +152,6 @@ export default function SettingsDevice() {
     return (
         <PageContainer className={styles.container}>
             <PageHeader title={t("settingsDevice.title")}>
-                <WifiStrength
-                    size="large"
-                    strength={device.is_online ? device.wifi_strength : -100}
-                />
             </PageHeader>
 
             <div className={styles.content}>

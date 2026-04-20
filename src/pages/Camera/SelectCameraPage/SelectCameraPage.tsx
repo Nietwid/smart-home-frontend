@@ -28,7 +28,6 @@ export default function SelectCameraPage() {
                             label: t("camera.addButton"),
                             to: `add/`,
                             type: "primary",
-                            tooltip: t("camera.addTooltip")
                         },
                     ]}
                     showWifi={false}

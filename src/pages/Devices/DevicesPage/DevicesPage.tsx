@@ -18,7 +18,6 @@ export default function Devices() {
       </PageHeader>
         <div className={styles.wrapper}>
             {deviceData.map((device: IDevice) => <DeviceCard key={device.id} id={device.id} name={device.name} isOnline={device.is_online} svgId={device.svg_id}/>)}
-
         </div>
     </PageContainer>
   );
