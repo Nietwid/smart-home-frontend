@@ -13,8 +13,25 @@
 
 .cameraGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
+  width: 100%;
+}
+
+.cameraThumbnail {
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 3 / 2;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.cameraThumbnail :global(.rs-card),
+.cameraThumbnail img,
+.cameraThumbnail video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .deviceSection {
