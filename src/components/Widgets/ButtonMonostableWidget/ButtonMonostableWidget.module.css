@@ -1,0 +1,16 @@
+.icon{
+    font-size: 3rem;
+}
+.pending {
+    cursor: wait;
+    opacity: 0.6;
+}
+.icon.active {
+    color: #fff;
+    filter: drop-shadow(0 0 0.75rem var(--rs-primary-500));
+}
+
+.icon:active:not(.pending) {
+    transform: scale(0.9);
+    transition-duration: 0.05s;
+}

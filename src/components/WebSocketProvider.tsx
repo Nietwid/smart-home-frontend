@@ -7,6 +7,11 @@ import MessageType from "../constant/message_type";
 import updateRouterData from "../utils/updateRouterData";
 import { websocketUrl } from "../constant/urls";
 import displayToaster from "../utils/displayToaster.tsx";
+import updatePeripheralPending from "../utils/updatePeripheralPending.ts";
+import updateDevicePending from "../utils/updateDevicePending.ts";
+import updateRequiredAction from "../utils/updateRequiredAction.ts";
+import addTagResultHandler from "../utils/addTagResultHandler.ts";
+import updatePeripheralState from "../utils/updatePeripheralState.ts";
 
 interface WebSocketType {
   send: (data: object) => void;
@@ -40,7 +45,26 @@ export default function WebSocketProvider({children}:{children: React.ReactNode}
     };
     ws.onmessage = async (event) => {
       const data = JSON.parse(event.data);
+      console.log(data)
       switch (data.action) {
+        case MessageType.UPDATE_DEVICE_REQUIRED_ACTION:
+          updateRequiredAction(queryClient, data.data)
+          break;
+        case MessageType.ADD_TAG_RESULT:
+          addTagResultHandler(queryClient, data.data)
+          break;
+        case MessageType.UPDATE_PERIPHERAL_PENDING:
+          updatePeripheralPending(queryClient, data.data)
+          break;
+        case MessageType.UPDATE_PERIPHERAL_STATE:
+          updatePeripheralState(queryClient, data.data)
+          break;
+        case MessageType.UPDATE_DEVICE_PENDING:
+          updateDevicePending(queryClient, data.data)
+          break;
+        case MessageType.DISPLAY_TOASTER:
+          displayToaster(data.data.message, "error")
+          break;
         case MessageType.UPDATE_ROUTER:
           updateRouterData(queryClient, data.data, data.status);
           break;

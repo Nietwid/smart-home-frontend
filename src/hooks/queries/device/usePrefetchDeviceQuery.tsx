@@ -8,7 +8,7 @@ export default function usePrefetchDeviceQuery() {
   const { readData } = useFetch();
   const { data,isLoading,isError } = useQuery({
     queryKey: [CacheKey.DEVICES],
-    queryFn: () => readData(api.device),
+    queryFn: () => readData(api.device()),
     staleTime: 10 * 60 * 1000,
   });
   return { status: data?.status, deviceData: data?.data as IDevice[],isLoading,isError };

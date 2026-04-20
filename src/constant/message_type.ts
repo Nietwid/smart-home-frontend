@@ -1,4 +1,12 @@
 enum MessageType {
+  UPDATE_PERIPHERAL_STATE = "update_peripheral_state",
+  UPDATE_PERIPHERAL_PENDING = "update_peripheral_pending",
+  UPDATE_DEVICE_REQUIRED_ACTION= "update_device_required_action",
+  UPDATE_DEVICE_PENDING = "update_device_pending",
+  DISPLAY_TOASTER = "display_toaster",
+  ADD_TAG_RESULT = "add_tag_result",
+
+
   UPDATE_ROUTER = "update_router",
   UPDATE_DEVICE = "update_device",
   NEW_DEVICE_CONNECTED = "new_device_connected",

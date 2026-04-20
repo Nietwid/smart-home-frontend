@@ -29,7 +29,7 @@ export default function useUnassignedDeviceMutation() {
   function selectDevice() {
     return useMutation({
       mutationFn: (data: { deviceId: number; roomId: number }) =>
-        createData(`${api.device}`, {
+        createData(api.device(), {
           device_id: data.deviceId,
           room_id: data.roomId,
         }),

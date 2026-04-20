@@ -11,7 +11,7 @@ import {
     Toggle,
     SelectPicker
 } from "rsuite";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation";
 import WifiStrength from "../../../components/ui/WiFiStrength/WiFiStrength";
@@ -23,10 +23,12 @@ import useFavouriteMutation from "../../../hooks/queries/useFavouriteMutation.ts
 import {useTranslation} from "react-i18next";
 import useFirmwareDeviceQuery from "../../../hooks/queries/useFirmwareDeviceQuery.tsx";
 import IFirmwareDevice from "../../../interfaces/IFirmwareDevice.ts";
-import useUpdateFirmwareDeviceMutation from "../../../hooks/queries/useUpdateFirmwareDeviceMutation.tsx";
 import displayToaster from "../../../utils/displayToaster.tsx";
 import isFavourite from "../../../utils/isFavourite.ts";
 import {useQueryClient} from "@tanstack/react-query";
+import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
+import {cpuAction} from "../../../utils/commandBuilders.ts";
+import {MessageAction} from "../../../enums/message_command.ts";
 
 export default function SettingsDevice() {
     const { t } = useTranslation();
@@ -41,7 +43,7 @@ export default function SettingsDevice() {
 
     const updateMutation = updateDevice(id);
     const deleteMutation = deleteDevice(id);
-    const favouriteMutation = useFavouriteMutation(()=>{console.log("favourite")});
+    const favouriteMutation = useFavouriteMutation(()=>{});
     const [deviceName, setDeviceName] = useState(device?.name || "");
     const [selectedRoom, setSelectedRoom] = useState<number | null>(device?.room || null);
     const [isSetFavourite, setIsSetFavourite] = useState(false);
@@ -49,8 +51,8 @@ export default function SettingsDevice() {
     const [showRemoveFromRoomModal, setShowRemoveFromRoomModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
-    const updateFirmwareMutation = useUpdateFirmwareDeviceMutation();
-    // Update state when device data loads
+    const mutation = useTriggerActionEventMutation();
+
     useEffect(() => {
         setIsSetFavourite(isFavourite(id,queryClient,"device"))
     }, [isFavourite(id,queryClient,"device")]);
@@ -59,10 +61,11 @@ export default function SettingsDevice() {
         if (device) {
             setDeviceName(device.name);
             setSelectedRoom(device.room);
-            setIsSetFavourite(device.is_favourite);
         }
     });
+
     let updateAvailable = false;
+
     const handleSaveName = async () => {
         if (!deviceName.trim()) {
             displayToaster(t("settingsDevice.nameEmpty"),"warning")
@@ -74,7 +77,6 @@ export default function SettingsDevice() {
             await updateMutation.mutateAsync({ name: deviceName });
             displayToaster(t("settingsDevice.nameUpdated"))
         } catch (error) {
-            console.log(updateMutation)
             displayToaster(t("settingsDevice.nameUpdateError"),"error")
         } finally {
             setIsUpdating(false);
@@ -99,7 +101,6 @@ export default function SettingsDevice() {
             displayToaster(checked ? t("settingsDevice.favouriteAdded") : t("settingsDevice.favouriteRemoved"))
         } catch (error) {
             displayToaster(t("settingsDevice.favouriteError"),"error")
-            setIsSetFavourite(device?.is_favourite || false);
         }
     };
 
@@ -109,7 +110,7 @@ export default function SettingsDevice() {
             await updateMutation.mutateAsync({ room: null });
             setSelectedRoom(null);
             displayToaster(t("settingsDevice.removedFromRoom"))
-            navigate("/device");
+            navigate("/");
         } catch (error) {
             displayToaster(t("settingsDevice.deleteError"),"error")
         }
@@ -120,7 +121,7 @@ export default function SettingsDevice() {
         try {
             await deleteMutation.mutateAsync();
             displayToaster(t("settingsDevice.deleteSuccess"))
-            navigate("/device");
+            navigate("/");
         } catch (error) {
             displayToaster(t("settingsDevice.deleteError"),"error")
         }
@@ -128,14 +129,15 @@ export default function SettingsDevice() {
 
     const handleUpdateFirmware = () =>{
         if (!device?.id) return
-        updateFirmwareMutation.mutate({id:device.id})
+        const data = cpuAction(device.mac, MessageAction.UPDATE_FIRMWARE);
+        mutation.mutate(data)
     }
 
     if (isLoading || !device) {
         return <LoadingAnimation size="xlarge" type="spinner" glow={true} />;
     }
-    if(firmwareList) updateAvailable = firmwareList.some((e:IFirmwareDevice)=>e.to_device === `${device.fun}_${device.chip_type}` && e.version > device.firmware_version)
 
+    if(firmwareList) updateAvailable = firmwareList.some((e:IFirmwareDevice)=>e.to_device === device.chip_type && e.version > device.firmware_version)
     const roomOptions = roomData?.map((room: any) => ({
         label: room.name,
         value: room.id,
@@ -150,10 +152,6 @@ export default function SettingsDevice() {
     return (
         <PageContainer className={styles.container}>
             <PageHeader title={t("settingsDevice.title")}>
-                <WifiStrength
-                    size="large"
-                    strength={device.is_online ? device.wifi_strength : -100}
-                />
             </PageHeader>
 
             <div className={styles.content}>
@@ -170,7 +168,7 @@ export default function SettingsDevice() {
                     <List>
                         <List.Item className={styles.infoItem}>
                             <span className={styles.infoLabel}>{t("settingsDevice.type")}:</span>
-                            <span className={styles.infoValue}>{device.fun || "N/A"}</span>
+                            <span className={styles.infoValue}>{device.chip_type || "N/A"}</span>
                         </List.Item>
                         <List.Item className={styles.infoItem}>
                             <span className={styles.infoLabel}>{t("settingsDevice.status")}:</span>
@@ -191,7 +189,7 @@ export default function SettingsDevice() {
                             <span className={styles.infoValue}>{device.firmware_version}</span>
                         </List.Item>
                     </List>
-                    {device.is_online && updateAvailable && <Button
+                    {updateAvailable && <Button
                         appearance="ghost"
                         size="lg"
                         onClick={() => handleUpdateFirmware()}

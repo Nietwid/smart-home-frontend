@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Panel, Input, InputGroup, Button, Modal, toaster, Message, Divider, Toggle } from "rsuite";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader";
 import useRoomQuery from "../../../hooks/queries/room/useRoomQuery.tsx";
 import useRoomMutation from "../../../hooks/queries/room/useRoomMutation.tsx";

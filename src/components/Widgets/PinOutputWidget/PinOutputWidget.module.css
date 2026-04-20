@@ -1,0 +1,14 @@
+.center{
+    position: relative;
+    border: 1px solid gray;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+.name{
+    position: absolute;
+    top:5px;
+    left:50%;
+    transform: translate(-50%,0);
+    padding:0 20px;
+}

@@ -29,12 +29,11 @@ export default function LoginPage() {
         setLoading(true);
         setLoginError("");
         try {
-            const response = await fetch(api.login, {
+            const response = await fetch(api.login(), {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
-                    "ngrok-skip-browser-warning": "1234",
                 },
                 body: JSON.stringify(formValue),
             });

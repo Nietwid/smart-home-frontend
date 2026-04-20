@@ -6,7 +6,7 @@ export default function useRouterQuery() {
   const { readData } = useFetch();
   const { data } = useQuery({
     queryKey: ["router"],
-    queryFn: () => readData(api.router),
+    queryFn: () => readData(api.router()),
     staleTime: 10 * 60 * 1000,
   });
   return { status: data?.status, routerData: data?.data };

@@ -1,0 +1,95 @@
+.section {
+    width: 80% !important;
+}
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.sectionTitle h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+.sectionDesc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rs-border-secondary);
+}
+
+.searchInput {
+    max-width: 300px;
+    flex: 1;
+}
+
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+    padding-top: 20px;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 40px;
+    color: var(--rs-text-secondary);
+}
+
+@media (max-width: 768px) {
+    .section {
+        width: 100% !important;
+        padding: 20px !important;
+    }
+    .sectionTitle h3 {
+        font-size: 20px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .container {
+        gap: 16px;
+    }
+
+    .section {
+        padding: 16px !important;
+    }
+
+    .sectionTitle {
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .emptyState {
+        padding: 40px 16px;
+    }
+
+    .emptyIcon {
+        font-size: 48px;
+    }
+}

@@ -1,51 +1,46 @@
-.container {
+.wrapper {
+    background: var(--rs-bg-card);
+    border: 1px solid var(--rs-border-secondary);
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.actionButton {
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+    transform: translateY(-1px);
+}
+
+.wifiWrapper {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    gap: 12px;
+    padding: 6px 12px;
+    background: var(--rs-bg-well);
+    border-radius: 20px;
 }
 
-
-.buttonGroup {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-}
-
-.button {
+.wifiLabel {
+    font-size: 12px;
     font-weight: 600;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: var(--rs-text-secondary);
 }
 
-.button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
-}
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 10px;
+    }
 
-.wifi {
-    margin-left: 1rem;
-}
-
-@media (max-width: 640px) {
-    .container {
+    .statusSection {
         width: 100%;
-        flex-direction: column;
-        align-items: center;
-        flex-wrap: wrap;
-        margin:0;
-        padding: 0;
-    }
-
-    .buttonGroup {
-        flex-direction: column;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .wifi {
-        margin-left: 0;
-        display: flex;
         justify-content: center;
+        border-top: 1px solid var(--rs-border-secondary);
+        padding-top: 10px;
+        margin-top: 5px;
     }
 }

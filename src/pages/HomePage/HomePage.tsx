@@ -1,68 +1,69 @@
-import {IRoom} from "../../interfaces/IRoom.tsx";
-import RoomCard from "../../components/Cards/RoomCard/RoomCard.tsx";
-import {IDevice} from "../../interfaces/IDevice.tsx";
-import getDeviceComponent from "../../utils/getDeviceCard.tsx";
-import useFavouriteQuery from "../../hooks/queries/useFavouriteQuery.tsx";
-import PageContainer from "../../components/ui/containers/PageContainer/PageContainer.tsx";
+import { useTranslation } from "react-i18next";
+import {Text} from "rsuite";
+
+import PageContainer from "../../components/ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../../components/ui/Headers/PageHeader/PageHeader.tsx";
+import RoomCard from "../../components/Cards/RoomCard/RoomCard.tsx";
+import DeviceCard from "../../components/Cards/DeviceCard/DeviceCard.tsx";
+import CameraCardHls from "../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
+
+import useFavouriteQuery from "../../hooks/queries/useFavouriteQuery.tsx";
 import useDevicesQuery from "../../hooks/queries/device/useDevicesQuery.tsx";
 import useRoomsQuery from "../../hooks/queries/room/useRoomsQuery.tsx";
-import { useTranslation } from "react-i18next";
-import styles from "./HomePage.module.css";
 import useCamerasQuery from "../../hooks/queries/useCamerasQuery.tsx";
-import MEASUREMENT_DEVICE_FUN from "../../constant/MEASUREMENT_DEVICE_FUN.ts"
-import CameraCardHls from "../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
-import {ICamera} from "../../interfaces/ICamera.tsx";
-import countToGridSize from "../../utils/countToGridSize.ts";
+
+import styles from "./HomePage.module.css";
+
 export default function HomePage() {
     const { t } = useTranslation();
     const { favouriteData } = useFavouriteQuery();
-    const {cameraData} = useCamerasQuery();
+    const { cameraData } = useCamerasQuery();
+
     const { devices } = useDevicesQuery(favouriteData?.devices || []);
     const { rooms } = useRoomsQuery(favouriteData?.rooms || []);
-    if (!devices || !rooms || !cameraData) return null;
-    const cameras = cameraData.filter(camera => (favouriteData?.cameras || []).includes(camera.id))
-    const gridSize = countToGridSize(cameras.length)
-    const measuredDevice:IDevice[] = devices.filter(device => MEASUREMENT_DEVICE_FUN.includes(device.fun));
-    const normalDevice:IDevice[] = devices.filter(device => !MEASUREMENT_DEVICE_FUN.includes(device.fun));
-    return (
-      <PageContainer>
-        <div className={styles.grid}>
-            <PageHeader className={styles.header} title={t("home.title")} subtitle={t("home.subtitle")}>
-            </PageHeader>
 
-            <div className={`${styles.deviceContainer} ${styles.background}`}>
-                <p className={styles.deviceTitle}>Urządzenia</p>
-                <div className={styles.devices}>
-                    {normalDevice.map((device: IDevice) => getDeviceComponent(device))}
+    if (!devices || !rooms || !cameraData) return null;
+
+    const favoriteCameras = cameraData.filter(camera =>
+        (favouriteData?.cameras || []).includes(camera.id)
+    );
+
+    return (
+        <PageContainer>
+            <PageHeader title={t("home.title")} subtitle={t("home.subtitle")} />
+
+            <div className={styles.dashboardMosaic}>
+
+                {favoriteCameras.length > 0 && (
+                    <div className={styles.cameraSection}>
+                        <Text weight="bold" className={styles.capsLabel}>{t("home.cameras")}</Text>
+                        <div className={styles.cameraGrid}>
+                            {favoriteCameras.map(camera => (
+                                <CameraCardHls key={camera.id} {...camera} />
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                <div className={styles.deviceSection}>
+                    <Text weight="bold" className={styles.capsLabel}>{t("home.devices")}</Text>
+                    <div className={styles.deviceGrid}>
+                        {devices.map(device => (
+                            <DeviceCard key={device.id} id={device.id} name={device.name} isOnline={device.is_online} svgId={device.svg_id}/>
+                        ))}
+                    </div>
                 </div>
-            </div>
-            <div className={`${styles.measurementContainer} ${styles.background}`}>
-                <p className={styles.deviceTitle}>Urządzenia pomiarowe</p>
-                <div className={styles.measurement}>
-                    {measuredDevice.map((device: IDevice) => getDeviceComponent(device))}
+
+                <div className={styles.roomSection}>
+                    <Text weight="bold" className={styles.capsLabel}>{t("home.rooms")}</Text>
+                    <div className={styles.roomGrid}>
+                        {rooms.map(room => (
+                            <RoomCard key={room.id} room={room} />
+                        ))}
+                    </div>
                 </div>
+
             </div>
-            <div className={`${styles.roomContainer} ${styles.background}`}>
-                <p className={styles.roomTitle}>Pokoje</p>
-                <div className={styles.rooms}>
-                    {rooms.map((room: IRoom) => (
-                        <RoomCard key={room.id} room={room} />
-                    ))}
-                </div>
-            </div>
-            <div className={styles.cameraContainer}
-                 style={
-                     {
-                         gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
-                         gridTemplateRows: `repeat(${gridSize}, minmax(0, 1fr))`,
-                     } as React.CSSProperties
-                 }>
-                    {cameras?.map((camera:ICamera) => (
-                        <CameraCardHls key={camera.id} id={camera.id} name={camera.name}/>
-                    ))}
-            </div>
-        </div>
-      </PageContainer>
+        </PageContainer>
     );
 }

@@ -1,12 +1,14 @@
 import {useNavigate, useParams} from "react-router-dom";
-import { Panel, Button, Message, toaster, List } from "rsuite";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer";
+import { Panel, Button, List } from "rsuite";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation";
 import useUnassignedDeviceQuery from "../../../hooks/queries/useUnassignedDeviceQuery.tsx";
 import useUnassignedDeviceMutation from "../../../hooks/queries/useUnassignedDeviceMutation.tsx";
 import { IDevice } from "../../../interfaces/IDevice.tsx";
 import styles from "./DeviceAddPage.module.css";
+import displayToaster from "../../../utils/displayToaster.tsx";
+import {useTranslation} from "react-i18next";
 
 export default function DeviceAddPage() {
     const params = useParams();
@@ -15,23 +17,14 @@ export default function DeviceAddPage() {
     const { selectDevice } = useUnassignedDeviceMutation();
     const mutation = selectDevice();
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
-    const handleAddDevice = async (deviceId: number, deviceName: string) => {
+    const handleAddDevice = async (deviceId: number) => {
         try {
             await mutation.mutateAsync({ deviceId, roomId });
-            toaster.push(
-                <Message closable type="success" showIcon>
-                    Urządzenie {deviceName} zostało przypisane do pokoju
-                </Message>,
-                { placement: "topCenter", duration: 3000 }
-            );
+            displayToaster(t("assignedDevice.assignedSuccess"));
         } catch (error) {
-            toaster.push(
-                <Message closable type="error" showIcon>
-                    Błąd podczas przypisywania urządzenia
-                </Message>,
-                { placement: "topCenter", duration: 3000 }
-            );
+            displayToaster(t("assignedDevice.assignedError"));
         }
     };
 
@@ -41,21 +34,19 @@ export default function DeviceAddPage() {
 
     return (
         <PageContainer className={styles.container}>
-            <PageHeader title="Przypisz urządzenie" className={styles.headers}>
-                <div>
-                    <Button appearance="default"  onClick={() => navigate(-1)}>
-                        Wróć
-                    </Button>
-                </div>
+            <PageHeader title={t("assignedDevice.assign")} className={styles.headers}>
+                <Button appearance="default"  onClick={() => navigate(-1)}>
+                    {t("button.back")}
+                </Button>
             </PageHeader>
             <div className={styles.content}>
-                {(status === 404 || unassignedDeviceData.length === 0) && <p className={styles.noDevices}>Brak nowo dodanych urządzeń</p>}
+                {(status === 404 || unassignedDeviceData.length === 0) && <p className={styles.noDevices}>{t("assignedDevice.noDevices")}</p>}
                 {status === 200 && unassignedDeviceData?.length > 0 && (
                     <Panel
                         header={
                             <div className={styles.panelHeader}>
                                 <span className={styles.panelIcon}>📱</span>
-                                <span className={styles.panelTitle}>Dostępne urządzenia</span>
+                                <span className={styles.panelTitle}>{t("assignedDevice.availableDevices")}</span>
                             </div>
                         }
                         bordered
@@ -67,7 +58,6 @@ export default function DeviceAddPage() {
                                     <div className={styles.deviceRow}>
                                         <div className={styles.deviceInfo}>
                                             <span className={styles.deviceName}>{device.name}</span>
-                                            <span className={styles.deviceFun}>{device.fun || "N/A"}</span>
                                             <span className={styles.deviceLastSeen}>
                                             {device.last_seen
                                                 ? new Date(device.last_seen).toLocaleTimeString("pl-PL", {
@@ -80,10 +70,10 @@ export default function DeviceAddPage() {
                                         <Button
                                             appearance="primary"
                                             size="lg"
-                                            onClick={() => handleAddDevice(device.id, device.name)}
+                                            onClick={() => handleAddDevice(device.id)}
                                             className={styles.assignButton}
                                         >
-                                            Przypisz
+                                            {t("assignedDevice.assign")}
                                         </Button>
                                     </div>
                                 </List.Item>

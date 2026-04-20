@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Panel, Form, ButtonToolbar, Button, Message } from "rsuite";
 import useRouterMutation from "../../hooks/queries/useRouterMutation";
 import styles from "./AddRouter.module.css";
-import PageContainer from "../ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../ui/Headers/PageHeader/PageHeader.tsx";
 
 export default function AddRouter() {

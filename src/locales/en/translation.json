@@ -1,4 +1,170 @@
 {
+  "addRoom": {
+    "title": "Add new room",
+    "nameInputPlaceholder": "Enter room name",
+    "public": "Public",
+    "private": "Private"
+  },
+  "addCameraPage": {
+    "success": "Camera added successfully",
+    "title": "Add Camera",
+    "subtitle": "Fill in the camera details to add it to the system. Make sure you provide the correct IP address and port.",
+    "name": "Name",
+    "namePlaceholder": "Enter camera name",
+    "ipAddress": "IP Address",
+    "ipAddressPlaceholder": "Enter IP address (e.g. 192.168.1.100)",
+    "port": "Port",
+    "portPlaceholder": "Enter port (e.g. 554)",
+    "username": "Username",
+    "usernamePlaceholder": "Enter username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "path": "Path",
+    "pathPlaceholder": "Enter RTSP path (e.g. /stream1)",
+    "addButton": "Add Camera"
+  },
+  "sequentialLight": {
+    "blinkButton": "Blink",
+    "brightness": "Brightness",
+    "speed": "Speed",
+    "lightningTime": "Lighting Time (s)"
+  },
+  "assignedDevice": {
+    "assignedSuccess": "Device has been assigned to the room",
+    "assignedError": "Failed to assign device to the room",
+    "noDevices": "No devices available",
+    "availableDevices": "Available devices",
+    "assign": "Assign device"
+  },
+  "measurementHistoryManager": {
+    "temperatureLabel": "Temperature (°C)",
+    "humidityLabel": "Humidity (%)",
+    "noData": "No data for the selected range",
+    "noDataTitle": "Lack of data to display",
+    "sectionTitle": "Statistics for the selected period",
+    "avr": "Average",
+    "max": "Maximum",
+    "min": "Minimum"
+  },
+  "tempHumWidget": {
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "lastUpdate": "Last update",
+    "noData": "No data available",
+    "historicalData": "Historical data"
+  },
+  "cardManager": {
+    "addCard": "Add card",
+    "registeredCards": "Registered cards",
+    "allCardsDescription": "List of all cards assigned to this reader",
+    "noCardsDescription": "No RFID cards registered yet. Click the \"Add card\" button to add the first card.",
+    "noCardsTitle": "No cards",
+    "addCardButton": "Add card",
+    "searchPlaceholder": "Search cards"
+  },
+  "rfidCard": {
+    "cardAmount": "Number of cards",
+    "cardManagerButton": "Cards",
+    "noCard": "Lack of card",
+    "parsing": "Parsing..."
+  },
+  "cardCard": {
+    "lastUsed": "Last used",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "confirmDelete": "card"
+  },
+  "addCardForm": {
+    "addCardTitle": " Add new card",
+    "pendingMessage": "Hold the card near the reader...",
+    "instruction": "Enter the card name and hold it near the RFID reader.",
+    "cardNamePlaceholder": "Card name",
+    "errorNameRequired": "This field is required",
+    "error400": "Failed to add card, please try again.",
+    "error409": "This card is already registered.",
+    "success": "Card added successfully."
+  },
+  "ruleCard": {
+    "unnamedRule": "Unnamed rule",
+    "local": "Local",
+    "toggleEnabled": "Toggle rule enabled",
+    "when": "When",
+    "then": "Then",
+    "from": "from",
+    "trigger": "trigger",
+    "created": "Created"
+  },
+  "rulePage": {
+    "title": "Rules",
+    "subtitle": "Configure rules for your devices",
+    "addRule": "Add new rule",
+    "addRuleTooltip": "Add a new rule",
+    "noRules": "No rules found",
+    "noRulesDescription": "No rules have been configured yet. Click the \"Add rule\" button to add the first rule.",
+    "noRulesTitle": "No rules",
+    "addRuleButton": "Add rule",
+    "searchPlaceholder": "Search rules",
+    "updateRule": "Update rules",
+    "addEvent": "Add new event trigger",
+    "addFirst": "Add first event"
+  },
+  "ruleForm": {
+    "title": "Configure an event for your device",
+    "triggerSection": "Configure trigger",
+    "selectTriggerDevice": "Device",
+    "selectTriggerPeripheral": "Peripheral",
+    "selectTrigger": "Event",
+    "actionSection": "Configure action",
+    "selectTargetDevice": "Device",
+    "selectTargetPeripheral": "Peripheral",
+    "selectTargetAction": "Action"
+  },
+  "devicePage":{
+    "headerSubtitle": "Number of peripherals"
+  },
+  "button": {
+    "updatePeripheral": "Update peripherals",
+    "select": "Select",
+    "deviceSettings": "Device settings",
+    "deviceSettingsTooltip": "Change device settings",
+    "deviceEvent": "Event Settings",
+    "deviceEventTooltip": "Configure events for this device",
+    "save": "Save",
+    "add": "Add",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "back": "Back",
+    "addPeripheral": "Add new peripherals",
+    "editPeripheral": "Edit peripheral",
+    "rules": "Rules"
+  },
+  "selectRoom": {
+    "title": "Rooms",
+    "device": "device"
+  },
+  "room": {
+    "addDeviceButton": "Add Device",
+    "editTooltip": "Edit room settings",
+    "addDeviceTooltip": "Add a new device to the room",
+    "emptyState": "No devices found"
+  },
+  "router": {
+    "title": "Router",
+    "ip": "IP",
+    "mac": "MAC",
+    "assignedDevices": "Assigned devices",
+    "activeDevices": "Active devices"
+  },
+  "home": {
+    "title": "Dashboard",
+    "subtitle": "Welcome back to Smart Home",
+    "cameras": "Cameras",
+    "rooms": "Rooms",
+    "devices": "Devices"
+  },
+
+
+
   "chatbot": {
     "warning": "Please use simple and clear commands"
   },
@@ -8,20 +174,6 @@
       "hold": "Hold",
       "click": "Click"
     }
-  },
-  "buttons": {
-    "select": "Select",
-    "deviceSettings": "Device settings",
-    "deviceSettingsTooltip": "Change device settings",
-    "deviceEvent": "Event Settings",
-    "deviceEventTooltip": "Configure events for this device",
-    "saveButton": "Save",
-    "addButton": "Add",
-    "cancelButton": "Cancel"
-  },
-  "selectRoom": {
-    "title": "Rooms",
-    "device": "device"
   },
   "deviceEventWizard": {
     "title": "Add Action",
@@ -105,33 +257,7 @@
     "confirm": "Yes, delete",
     "cancel": "Cancel"
   },
-  "rfidPage": {
-    "addCard": "Add card",
-    "automaticEventsDescription": "Automatic events triggered by the RFID reader",
-    "registeredCards": "Registered cards",
-    "allCardsDescription": "List of all cards assigned to this reader",
-    "noCardsTitle": "No cards",
-    "noCardsDescription": "No RFID cards registered yet. Click the \"Add card\" button to add the first card.",
-    "addFirstCard": "Add the first card"
-  },
-  "rfidCard": {
-    "cardAmount": "Number of cards"
-  },
-  "addCardForm": {
-    "addCardTitle": " Add new card",
-    "pendingMessage": "Hold the card near the reader...",
-    "instruction": "Enter the card name and hold it near the RFID reader.",
-    "cardNamePlaceholder": "Card name",
-    "errorNameRequired": "This field is required",
-    "error400": "Failed to add card, please try again.",
-    "error409": "This card is already registered."
-  },
-  "cardCard": {
-    "lastUsed": "Last used",
-    "delete": "Delete",
-    "deleting": "Deleting...",
-    "confirmDelete": "card"
-  },
+
   "temperatureChart": {
     "tooNarrow": "The screen is too narrow to display the chart",
     "datePickerPlaceholder": "Select date range",
@@ -254,27 +380,11 @@
   "addButton": "Add Camera",
   "addTooltip": "Add a new RTSP camera"
   },
-  "router": {
-    "title": "Router",
-    "ip": "IP",
-    "mac": "MAC",
-    "assignedDevices": "Assigned devices",
-    "activeDevices": "Active devices"
-  },
+
   "device": {
     "title": "Devices"
   },
-  "room": {
-    "editButton": "Edit",
-    "addDeviceButton": "Add Device",
-    "editTooltip": "Edit room settings",
-    "addDeviceTooltip": "Add a new device to the room",
-    "emptyState": "No devices found"
-  },
-  "home": {
-    "title": "Dashboard",
-    "subtitle": "Welcome back to Smart Home"
-  },
+
   "login": {
     "title": "Smart Home",
     "subtitle": "Sign in to your account",

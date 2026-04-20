@@ -1,9 +1,9 @@
 import styles from './SelectCameraPage.module.css'
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer.tsx";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer.tsx";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader.tsx";
 import useCamerasQuery from "../../../hooks/queries/useCamerasQuery.tsx";
 import {useEffect, useState} from "react";
-import {ICamera} from "../../../interfaces/ICamera.tsx";
+import {ICamera} from "../../../interfaces/ICamera.ts";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation.tsx";
 import DeviceActionPanel from "../../../components/DeviceActionPanel/DeviceActionPanel.tsx";
 import {useTranslation} from "react-i18next";
@@ -28,7 +28,6 @@ export default function SelectCameraPage() {
                             label: t("camera.addButton"),
                             to: `add/`,
                             type: "primary",
-                            tooltip: t("camera.addTooltip")
                         },
                     ]}
                     showWifi={false}

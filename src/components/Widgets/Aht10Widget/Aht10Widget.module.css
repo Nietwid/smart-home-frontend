@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+}
+
+.dataGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.dataItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.label {
+    font-size: 0.85rem;
+    color: var(--rs-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--rs-text-primary);
+}
+
+.unit {
+    font-size: 1rem;
+    font-weight: normal;
+    margin-left: 2px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lastUpdate {
+    font-size: 0.75rem;
+    color: var(--rs-text-secondary);
+    font-style: italic;
+}
+
+.managerButton {
+    width: 100%;
+}

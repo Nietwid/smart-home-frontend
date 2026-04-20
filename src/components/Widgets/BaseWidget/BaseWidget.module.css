@@ -1,0 +1,37 @@
+.widget {
+    position: relative;
+    background: var(--rs-bg-card);
+    border-radius: 12px;
+    padding: 10px;
+    transition: transform 0.2s;
+    width: 100%;
+    height: 100%;
+    border: 1px solid gray;
+    margin: 0;
+    gap: 10px;
+    display: grid;
+    grid-column: span min(var(--col-span), 3);
+    grid-row: span var(--row-span);
+    background: var(--rs-bg-card);
+}
+.name{
+    position: absolute;
+    top:-18px;
+    left:50%;
+    transform: translate(-50%,0);
+    padding:0 20px;
+}
+
+.threeDot{
+    position: absolute;
+    top:-15px;
+    left:-5px;
+}
+
+@media (min-width: 768px) {
+    .widget {
+        grid-column: span var(--col-span);
+        gap: 20px;
+        margin: 20px;
+    }
+}

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Divider } from "rsuite";
-import PageContainer from "../../../components/ui/containers/PageContainer/PageContainer";
+import PageContainer from "../../../components/ui/PageContainer/PageContainer";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader";
 import {useTranslation} from "react-i18next";
 import styles from "./SettingsCamera.module.css"

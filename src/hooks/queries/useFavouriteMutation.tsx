@@ -10,7 +10,7 @@ export default function useFavouriteMutation(
   const queryClient = useQueryClient();
   const { updateData } = useFetch();
   return useMutation({
-    mutationFn: (data: IFavouriteData) => updateData(api.favourite, data),
+    mutationFn: (data: IFavouriteData) => updateData(api.favourite(), data),
     onSuccess: (response, data: IFavouriteData) => {
       updateFavouriteData(queryClient, data, response.status);
       onClick && onClick(!data.is_favourite);

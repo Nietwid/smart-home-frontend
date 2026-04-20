@@ -1,25 +1,19 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import useFetch from "../useFetch";
 import { api } from "../../constant/api";
-import updateDeviceData from "../../utils/updateDeviceData.tsx";
+import CacheKey from "../../constant/cacheKey.ts";
 
 export default function useCardMutation() {
+  const { deleteData } = useFetch();
   const queryClient = useQueryClient();
-  const { deleteData, createData } = useFetch();
+  function mutationDelete(peripheralId:number, cardId: number) {
+    return useMutation({
+      mutationFn: () => deleteData(api.rfidCardDetail(peripheralId,cardId)),
+      onSuccess: () => {queryClient.invalidateQueries({
+        queryKey: [CacheKey.RFID_CARDS, peripheralId]
+      });},
+    });
+  }
 
-  function mutationDelete(cardId: number) {
-    return useMutation({
-      mutationFn: () => deleteData(`${api.card}${cardId}/`),
-    });
-  }
-  function mutationCreate(rfidId: number) {
-    return useMutation({
-      mutationFn: (name: string) =>
-        createData(`${api.card}`, { name, rfid: rfidId }),
-      onSuccess: (response) => {
-        updateDeviceData(queryClient, response.data,response.status);
-      },
-    });
-  }
-  return { mutationDelete, mutationCreate };
+  return { mutationDelete };
 }

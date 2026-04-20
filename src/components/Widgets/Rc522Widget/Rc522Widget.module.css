@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.infoSection {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.lastCardName {
+    display: block;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.lastAccess {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--rs-text-secondary);
+}
+
+.pairing {
+    color: var(--rs-primary-500);
+    font-weight: bold;
+}
+
