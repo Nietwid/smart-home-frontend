@@ -1,0 +1,75 @@
+.container {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--rs-border-secondary);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    background: var(--rs-bg-card);
+}
+
+.disabled {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+}
+
+.header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--rs-border-secondary);
+}
+
+.title {
+    color: var(--rs-text-primary);
+}
+
+.body {
+    padding: 16px 20px;
+}
+
+.section {
+    margin-bottom: 12px;
+}
+
+.sectionLabel {
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
+.logicRow {
+    padding: 8px 12px;
+    background: var(--rs-bg-well);
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.highlight {
+    font-weight: 600;
+    color: var(--rs-primary-500);
+}
+
+.eventLabel {
+    color: var(--rs-state-info);
+    font-weight: bold;
+}
+
+.tagGroup {
+    margin-top: 6px;
+}
+
+.divider {
+    margin: 12px 0;
+}
+
+.deleteIcon {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.deleteIcon:hover {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: invert(30%) sepia(100%) saturate(500%) hue-rotate(0deg);
+}

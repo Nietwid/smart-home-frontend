@@ -22,6 +22,7 @@ export const api = {
       `${baseURL}/api/peripherals/${peripheralId}/card/${cardId}/`,
 
   device: (id:number | null = null)=> id? `${baseURL}/api/device/${id}/`:`${baseURL}/api/device/`,
+  deviceRule: (id:number) =>`${baseURL}/api/device/${id}/rule/`,
   unassignedDevice: ()=> baseURL + "/api/device/?unassigned=true",
   router: ()=> baseURL + "/api/device/router/",
   cameras: (id:number|null = null) =>

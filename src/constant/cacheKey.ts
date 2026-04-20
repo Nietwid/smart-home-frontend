@@ -1,5 +1,6 @@
 export default {
     DEVICES: "devices",
+    DEVICE_RULES: "deviceRules",
     ROOMS: "rooms",
     FAVOURITES: "favourites",
     UNASSIGNED_DEVICE: "unassignedDevice",

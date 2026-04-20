@@ -84,6 +84,30 @@
     "error409": "This card is already registered.",
     "success": "Card added successfully."
   },
+  "ruleCard": {
+    "unnamedRule": "Unnamed rule",
+    "local": "Local",
+    "toggleEnabled": "Toggle rule enabled",
+    "when": "When",
+    "then": "Then",
+    "from": "from",
+    "trigger": "trigger",
+    "created": "Created"
+  },
+  "rulePage": {
+    "title": "Rules",
+    "subtitle": "Configure rules for your devices",
+    "addRule": "Add new rule",
+    "addRuleTooltip": "Add a new rule",
+    "noRules": "No rules found",
+    "noRulesDescription": "No rules have been configured yet. Click the \"Add rule\" button to add the first rule.",
+    "noRulesTitle": "No rules",
+    "addRuleButton": "Add rule",
+    "searchPlaceholder": "Search rules",
+    "updateRule": "Update rules",
+    "addEvent": "Add new event trigger",
+    "addFirst": "Add first event"
+  },
   "ruleForm": {
     "title": "Configure an event for your device",
     "triggerSection": "Configure trigger",
@@ -100,9 +124,7 @@
   },
   "button": {
     "updatePeripheral": "Update peripherals",
-    "updateRule": "Update rules",
     "select": "Select",
-    "addEvent": "Add new event trigger",
     "deviceSettings": "Device settings",
     "deviceSettingsTooltip": "Change device settings",
     "deviceEvent": "Event Settings",
@@ -113,7 +135,8 @@
     "edit": "Edit",
     "back": "Back",
     "addPeripheral": "Add new peripherals",
-    "editPeripheral": "Edit peripheral"
+    "editPeripheral": "Edit peripheral",
+    "rules": "Rules"
   },
   "selectRoom": {
     "title": "Rooms",

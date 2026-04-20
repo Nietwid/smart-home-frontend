@@ -17,6 +17,7 @@ import AddCameraPage from "../pages/Camera/AddCameraPage/AddCameraPage.tsx";
 import SettingsCamera from "../pages/Settings/SettingsCamera/SettingsCamera.tsx";
 import DeviceAddPeripheral from "../pages/Devices/DeviceAddPeripheral/DeviceAddPeripheral.tsx";
 import DeviceEditPeripheral from "../pages/Devices/DeviceEditPeripheral/DeviceEditPeripheral.tsx";
+import RulePage from "../pages/Rule/RulePage.tsx";
 
 export default createBrowserRouter([
     {
@@ -39,6 +40,7 @@ export default createBrowserRouter([
             { path: "rooms/:id/settings/", element: <SettingsRoom /> },
             { path: "devices/", element: <DevicesPage /> },
             { path: "devices/:id", element: <DevicePage /> },
+            { path: "devices/:id/rule/", element: <RulePage /> },
             { path: "devices/:id/settings/", element: <SettingsDevice /> },
             { path: "devices/:id/peripheral/edit/",element:<DeviceEditPeripheral/>},
             { path: "devices/:id/peripheral/add/",element:<DeviceAddPeripheral/>},
