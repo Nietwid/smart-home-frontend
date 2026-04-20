@@ -26,7 +26,6 @@ export default function Device() {
         await mutation.mutateAsync(data)
     }
     if (!device) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
-    console.log(device)
     return (
         <PageContainer>
           <PageHeader title={device.name} subtitle={`${t("devicePage.headerSubtitle")} ${device.peripherals.length}`} >

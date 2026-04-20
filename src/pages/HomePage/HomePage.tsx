@@ -39,7 +39,9 @@ export default function HomePage() {
                         <Text weight="bold" className={styles.capsLabel}>{t("home.cameras")}</Text>
                         <div className={styles.cameraGrid}>
                             {favoriteCameras.map(camera => (
-                                <CameraCardHls key={camera.id} {...camera} />
+                                <div key={camera.id} className={styles.cameraThumbnail}>
+                                    <CameraCardHls {...camera} />
+                                </div>
                             ))}
                         </div>
                     </div>
