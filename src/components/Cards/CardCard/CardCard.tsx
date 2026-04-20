@@ -1,4 +1,4 @@
-import { ICard } from "../../../interfaces/IRfid";
+import { ICard } from "../../../interfaces/IRfidCard.tsx";
 import { useState } from "react";
 import ConfirmDelete from "../../ConfirmDelete/ConfirmDelete";
 import useCardMutation from "../../../hooks/queries/useCardMutation";

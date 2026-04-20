@@ -11,6 +11,7 @@ import updatePeripheralPending from "../utils/updatePeripheralPending.ts";
 import updateDevicePending from "../utils/updateDevicePending.ts";
 import updateRequiredAction from "../utils/updateRequiredAction.ts";
 import addTagResultHandler from "../utils/addTagResultHandler.ts";
+import updatePeripheralState from "../utils/updatePeripheralState.ts";
 
 interface WebSocketType {
   send: (data: object) => void;
@@ -44,6 +45,7 @@ export default function WebSocketProvider({children}:{children: React.ReactNode}
     };
     ws.onmessage = async (event) => {
       const data = JSON.parse(event.data);
+      console.log(data)
       switch (data.action) {
         case MessageType.UPDATE_DEVICE_REQUIRED_ACTION:
           updateRequiredAction(queryClient, data.data)
@@ -53,6 +55,9 @@ export default function WebSocketProvider({children}:{children: React.ReactNode}
           break;
         case MessageType.UPDATE_PERIPHERAL_PENDING:
           updatePeripheralPending(queryClient, data.data)
+          break;
+        case MessageType.UPDATE_PERIPHERAL_STATE:
+          updatePeripheralState(queryClient, data.data)
           break;
         case MessageType.UPDATE_DEVICE_PENDING:
           updateDevicePending(queryClient, data.data)

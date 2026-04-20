@@ -1,4 +1,5 @@
 import { useAuth } from "../auth/AuthContext.tsx";
+import {CreateApiResponse, DeleteApiResponse, ReadApiResponse, UpdateApiResponse} from "../type/TApiResponse.ts";
 
 function getCsrfToken() {
   let cookieValue = null;
@@ -30,20 +31,14 @@ export class ApiError extends Error {
   }
 }
 interface useFetchReturn {
-  createData: (
-    url: string,
-    body: any
-  ) => Promise<{ status: number; data: any }>;
-  readData: (url: string) => Promise<{ status: number; data: any }>;
-  updateData: (
-    url: string,
-    body: any
-  ) => Promise<{ status: number; data: any }>;
-  deleteData: (url: string) => Promise<{ status: number }>;
+  createData: <T>(url: string, body: any) => Promise<CreateApiResponse<T>>;
+  readData: <T>(url: string) => Promise<UpdateApiResponse<T>>;
+  updateData: <T>(url: string, body: any) => Promise<ReadApiResponse<T>>;
+  deleteData: (url: string) => Promise<DeleteApiResponse>;
 }
 
 export default function useFetch(): useFetchReturn {
-  const { access,logout } = useAuth();
+  const { access, logout } = useAuth();
   const options = {
     credentials: "include" as RequestCredentials,
     headers: {
@@ -52,10 +47,10 @@ export default function useFetch(): useFetchReturn {
       "X-CSRFToken": getCsrfToken() || "",
     },
   };
-  async function createData(
+  async function createData<T>(
     url: string,
     body = null
-  ): Promise<{ status: number; data: unknown }> {
+  ): Promise<CreateApiResponse<T>> {
     const response = await fetch(url, {
       method: "POST",
       ...options,
@@ -73,7 +68,7 @@ export default function useFetch(): useFetchReturn {
     return { status: response.status, data: data };
   }
 
-  async function readData(url: string): Promise<{ status: number; data: any }> {
+  async function readData<T>(url: string): Promise<ReadApiResponse<T>> {
     const response = await fetch(url, {
       method: "GET",
       ...options,
@@ -82,10 +77,10 @@ export default function useFetch(): useFetchReturn {
     const data = await response.json();
     return { status: response.status, data: data };
   }
-  async function updateData(
+  async function updateData<T>(
     url: string,
     body = null
-  ): Promise<{ status: number; data: any }> {
+  ): Promise<UpdateApiResponse<T>> {
     const response = await fetch(url, {
       method: "PUT",
       ...options,
@@ -103,13 +98,12 @@ export default function useFetch(): useFetchReturn {
     return { status: response.status, data: data };
   }
 
-  async function deleteData(url: string): Promise<{ status: number }> {
+  async function deleteData(url: string): Promise<DeleteApiResponse> {
     const response = await fetch(url, {
       method: "DELETE",
       ...options,
     });
     if (response.status === 401) {logout()}
-    // constant data = await response.json();
     return { status: response.status };
   }
 

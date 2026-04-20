@@ -1,5 +1,4 @@
 import {Toggle} from "rsuite";
-import {useState} from "react";
 import useTriggerActionEventMutation from "../../../hooks/useTriggerActionEventMutation.ts";
 import {peripheralAction} from "../../../utils/commandBuilders.ts";
 import BaseWidget from "../BaseWidget/BaseWidget.tsx";
@@ -9,7 +8,6 @@ import {IRelayWidget} from "../../../interfaces/Widgets/IRelayWidget.ts";
 // import GearIcon from "@rsuite/icons/Gear";
 
 export default function RelayWidget({id, state, config, pending}:IRelayWidget){
-    const [value, setValue] = useState(state.is_on);
     // const [extraSettings, setExtraSettings] = useState(state.is_on);
     const mutation = useTriggerActionEventMutation()
     const isLoading =
@@ -17,12 +15,10 @@ export default function RelayWidget({id, state, config, pending}:IRelayWidget){
         pending.includes(MessageAction.TOGGLE) ||
         pending.includes(MessageAction.ON) ||
         pending.includes(MessageAction.OFF)
-    function handleToggle(isOn:boolean) {
-        setValue(isOn);
+    function handleToggle() {
         const data = peripheralAction(id,MessageAction.TOGGLE, {});
         mutation.mutate(data)
     }
-
     return (
         <BaseWidget name={config?.name}>
             {/*<IconButton*/}
@@ -33,7 +29,7 @@ export default function RelayWidget({id, state, config, pending}:IRelayWidget){
             {/*    className={styles.settingsWrapper}*/}
             {/*    disabled={isLoading}*/}
             {/*/>*/}
-            <Toggle checked={value} onChange={handleToggle} loading={isLoading} />
+            <Toggle checked={state.is_on} onChange={handleToggle} loading={isLoading} />
 
         </BaseWidget>
     );

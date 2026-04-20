@@ -5,7 +5,7 @@ import styles from "./CardManager.module.css";
 import CardCard from "../../../Cards/CardCard/CardCard.tsx";
 import useRfidCardQuery from "../../../../hooks/queries/useRfidCardQuery.tsx";
 import AddCardForm from "../AddCardForm/AddCardForm.tsx";
-import {ICard} from "../../../../interfaces/IRfid.tsx";
+import {ICard} from "../../../../interfaces/IRfidCard.tsx";
 import LoadingAnimation from "../../../ui/LoadingAnimation/LoadingAnimation.tsx";
 import SearchIcon from '@rsuite/icons/Search';
 interface IProps {

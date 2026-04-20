@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./HomePage.module.css";
 import useCamerasQuery from "../../hooks/queries/useCamerasQuery.tsx";
 import CameraCardHls from "../../components/Cards/CameraCard/Hls/CameraCardHls.tsx";
-import {ICamera} from "../../interfaces/ICamera.tsx";
+import {ICamera} from "../../interfaces/ICamera.ts";
 import countToGridSize from "../../utils/countToGridSize.ts";
 
 import DeviceCard from "../../components/Cards/DeviceCard/DeviceCard.tsx";

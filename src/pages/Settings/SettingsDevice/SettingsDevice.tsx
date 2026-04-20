@@ -43,7 +43,7 @@ export default function SettingsDevice() {
 
     const updateMutation = updateDevice(id);
     const deleteMutation = deleteDevice(id);
-    const favouriteMutation = useFavouriteMutation(()=>{console.log("favourite")});
+    const favouriteMutation = useFavouriteMutation(()=>{});
     const [deviceName, setDeviceName] = useState(device?.name || "");
     const [selectedRoom, setSelectedRoom] = useState<number | null>(device?.room || null);
     const [isSetFavourite, setIsSetFavourite] = useState(false);
@@ -61,10 +61,11 @@ export default function SettingsDevice() {
         if (device) {
             setDeviceName(device.name);
             setSelectedRoom(device.room);
-            setIsSetFavourite(device.is_favourite);
         }
     });
+
     let updateAvailable = false;
+
     const handleSaveName = async () => {
         if (!deviceName.trim()) {
             displayToaster(t("settingsDevice.nameEmpty"),"warning")
@@ -76,7 +77,6 @@ export default function SettingsDevice() {
             await updateMutation.mutateAsync({ name: deviceName });
             displayToaster(t("settingsDevice.nameUpdated"))
         } catch (error) {
-            console.log(updateMutation)
             displayToaster(t("settingsDevice.nameUpdateError"),"error")
         } finally {
             setIsUpdating(false);
@@ -101,7 +101,6 @@ export default function SettingsDevice() {
             displayToaster(checked ? t("settingsDevice.favouriteAdded") : t("settingsDevice.favouriteRemoved"))
         } catch (error) {
             displayToaster(t("settingsDevice.favouriteError"),"error")
-            setIsSetFavourite(device?.is_favourite || false);
         }
     };
 
@@ -111,7 +110,7 @@ export default function SettingsDevice() {
             await updateMutation.mutateAsync({ room: null });
             setSelectedRoom(null);
             displayToaster(t("settingsDevice.removedFromRoom"))
-            navigate("/device");
+            navigate("/");
         } catch (error) {
             displayToaster(t("settingsDevice.deleteError"),"error")
         }
@@ -122,7 +121,7 @@ export default function SettingsDevice() {
         try {
             await deleteMutation.mutateAsync();
             displayToaster(t("settingsDevice.deleteSuccess"))
-            navigate("/device");
+            navigate("/");
         } catch (error) {
             displayToaster(t("settingsDevice.deleteError"),"error")
         }
@@ -137,6 +136,7 @@ export default function SettingsDevice() {
     if (isLoading || !device) {
         return <LoadingAnimation size="xlarge" type="spinner" glow={true} />;
     }
+
     if(firmwareList) updateAvailable = firmwareList.some((e:IFirmwareDevice)=>e.to_device === device.chip_type && e.version > device.firmware_version)
     const roomOptions = roomData?.map((room: any) => ({
         label: room.name,
@@ -172,7 +172,7 @@ export default function SettingsDevice() {
                     <List>
                         <List.Item className={styles.infoItem}>
                             <span className={styles.infoLabel}>{t("settingsDevice.type")}:</span>
-                            <span className={styles.infoValue}>{device.fun || "N/A"}</span>
+                            <span className={styles.infoValue}>{device.chip_type || "N/A"}</span>
                         </List.Item>
                         <List.Item className={styles.infoItem}>
                             <span className={styles.infoLabel}>{t("settingsDevice.status")}:</span>

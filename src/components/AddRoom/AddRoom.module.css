@@ -45,6 +45,11 @@
     margin: 16px 0 !important;
 }
 
+.radioContainer{
+    display: flex;
+    gap: 12px;
+}
+
 @media (max-width: 768px) {
     .modalTitle {
         font-size: 18px !important;

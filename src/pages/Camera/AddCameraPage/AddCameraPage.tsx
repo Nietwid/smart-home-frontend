@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form, Button, Panel, Message, useToaster } from "rsuite";
 import useCameraMutation from "../../../hooks/queries/useCameraMutation.tsx";
-import { ICameraCreate } from "../../../interfaces/ICamera.tsx";
+import { ICameraCreate } from "../../../interfaces/ICamera.ts";
 import { ICustomError } from "../../../interfaces/ICustomError.tsx";
 import styles from "./AddCameraPage.module.css";
 import displayToaster from "../../../utils/displayToaster.tsx";

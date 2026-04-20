@@ -4,7 +4,7 @@ import {api} from "../../constant/api.ts";
 import CacheKey from "../../constant/cacheKey.ts";
 
 export default function usePeripheralMutation(){
-    const {createData, updateData, deleteData} = useFetch()
+    const {createData, deleteData} = useFetch()
     const queryClient = useQueryClient();
     function createPeripheralMutation(setErrorCallback:any){
         return useMutation<
@@ -13,7 +13,7 @@ export default function usePeripheralMutation(){
             any
         >({
             mutationFn: (data:Record<string, any>) => createData(api.peripherals(), data),
-            onSuccess: (data) => console.log(data),
+            onSuccess: (data) => {},
             onError: (error) => setErrorCallback(error?.details ?? {}),
         })
     }

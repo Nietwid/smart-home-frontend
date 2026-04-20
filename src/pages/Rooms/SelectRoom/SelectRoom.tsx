@@ -17,7 +17,7 @@ import {useTranslation} from "react-i18next";
 export default function SelectRoom() {
     const [dataToDisplay, setDataToDisplay] = useState<IRoom[]>([]);
     const [openAddRoom, setOpenAddRoom] = useState<boolean>(false);
-    const { roomData }: { roomData: IRoom[] } = usePrefetchRoomQuery()
+    const { roomData } = usePrefetchRoomQuery()
     const {t} = useTranslation();
     useEffect(() => {
         if (!roomData) return;
@@ -34,7 +34,7 @@ export default function SelectRoom() {
                       onClick={() => setOpenAddRoom(true)}
                       className={styles.addButton}
                   >
-                      {t("buttons.addButton")}
+                      {t("button.add")}
                   </Button>
               </div>
           </PageHeader>

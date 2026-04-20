@@ -1,4 +1,10 @@
 {
+  "addRoom": {
+    "title": "Add new room",
+    "nameInputPlaceholder": "Enter room name",
+    "public": "Public",
+    "private": "Private"
+  },
   "addCameraPage": {
     "success": "Camera added successfully",
     "title": "Add Camera",
@@ -139,8 +145,6 @@
       "click": "Click"
     }
   },
-
-
   "deviceEventWizard": {
     "title": "Add Action",
     "subtitle": "Configure an event for your device",

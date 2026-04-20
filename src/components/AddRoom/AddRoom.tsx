@@ -1,34 +1,20 @@
 import { useState } from "react";
 import { Modal, Button, Input, Radio, Message, Divider } from "rsuite";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import useFetch from "../../hooks/useFetch";
-import { api } from "../../constant/api";
-import { ICustomError } from "../../interfaces/ICustomError";
 import styles from "./AddRoom.module.css";
+import {IRoomAddData} from "../../interfaces/IRoom.tsx";
+import useRoomMutation from "../../hooks/queries/room/useRoomMutation.tsx";
+import {useTranslation} from "react-i18next";
 
-interface AddRoomProps {
+interface IProps {
     show: boolean;
     onClose: () => void;
 }
 
-interface RoomData {
-    name: string;
-    visibility: string;
-}
-
-export default function AddRoom({ show, onClose }: AddRoomProps) {
-    const queryClient = useQueryClient();
-    const [roomData, setRoomData] = useState<RoomData>({ name: "", visibility: "public" });
-    const { createData } = useFetch();
-
-    const mutation = useMutation({
-        mutationFn: (roomData: RoomData) => createData(api.room, roomData),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["rooms"] });
-            setRoomData({ name: "", visibility: "public" });
-            onClose();
-        },
-    });
+export default function AddRoom({ show, onClose }: IProps) {
+    const [roomData, setRoomData] = useState<IRoomAddData>({ name: "", visibility: "public" });
+    const { createRoom } = useRoomMutation();
+    const {t} = useTranslation();
+    const createRoomMutation = createRoom(handleCancel)
 
     const handleNameChange = (value: string) => {
         setRoomData({ ...roomData, name: value });
@@ -39,15 +25,16 @@ export default function AddRoom({ show, onClose }: AddRoomProps) {
     };
 
     const handleAdd = () => {
-        mutation.mutate(roomData);
+        createRoomMutation.mutate(roomData);
     };
 
-    const handleCancel = () => {
-        mutation.reset();
+    function handleCancel() {
+        createRoomMutation.reset();
+        setRoomData({ name: "", visibility: "public" });
         onClose();
-    };
+    }
 
-    const errors = mutation.error as ICustomError;
+    const errors = createRoomMutation.error;
 
     return (
         <Modal
@@ -58,12 +45,12 @@ export default function AddRoom({ show, onClose }: AddRoomProps) {
             backdrop="static"
         >
             <Modal.Header>
-                <Modal.Title className={styles.modalTitle}>🏠 Dodaj nowy pokój</Modal.Title>
+                <Modal.Title className={styles.modalTitle}>🏠 {t("addRoom.title")}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body className={styles.modalBody}>
                 <Input
-                    placeholder="Nazwa pokoju"
+                    placeholder={t("addRoom.nameInputPlaceholder")}
                     value={roomData.name}
                     onChange={handleNameChange}
                     size="lg"
@@ -78,22 +65,24 @@ export default function AddRoom({ show, onClose }: AddRoomProps) {
 
                 <Divider className={styles.divider} />
 
-                <Radio
-                    name="visibility"
-                    value="public"
-                    checked={roomData.visibility === "public"}
-                    onChange={() => handleVisibilityChange("public")}
-                >
-                    Ogólny
-                </Radio>
-                <Radio
-                    name="visibility"
-                    value="private"
-                    checked={roomData.visibility === "private"}
-                    onChange={() => handleVisibilityChange("private")}
-                >
-                    Prywatny
-                </Radio>
+                <div className={styles.radioContainer}>
+                    <Radio
+                        name="visibility"
+                        value="public"
+                        checked={roomData.visibility === "public"}
+                        onChange={() => handleVisibilityChange("public")}
+                    >
+                        {t("addRoom.public")}
+                    </Radio>
+                    <Radio
+                        name="visibility"
+                        value="private"
+                        checked={roomData.visibility === "private"}
+                        onChange={() => handleVisibilityChange("private")}
+                    >
+                        {t("addRoom.private")}
+                    </Radio>
+                </div>
 
                 {errors?.details?.visibility && (
                     <Message showIcon type="error">
@@ -104,10 +93,10 @@ export default function AddRoom({ show, onClose }: AddRoomProps) {
 
             <Modal.Footer className={styles.modalFooter}>
                 <Button onClick={handleCancel} appearance="subtle" size="lg">
-                    Anuluj
+                    {t("button.cancel")}
                 </Button>
                 <Button onClick={handleAdd} appearance="primary" size="lg" >
-                    Dodaj pokój
+                    {t("button.add")}
                 </Button>
             </Modal.Footer>
         </Modal>

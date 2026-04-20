@@ -11,4 +11,6 @@ export default {
     EXTRA_SETTINGS: "extractSettings",
     EVENT_CONDITIONS: "eventConditions",
     RFID_CARDS: "rfidCards",
+    HOME_CODE: "homeCode",
+    MEASUREMENT:"measurement"
 }

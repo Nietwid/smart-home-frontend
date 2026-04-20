@@ -7,3 +7,13 @@ export interface IRoom {
   is_favourite: boolean;
   device: number[];
 }
+
+export interface IRoomAddData {
+  name: string;
+  visibility: string;
+}
+
+export interface IRoomUpdate{
+  name?: string;
+  visibility?: "PU"|"PR"
+}

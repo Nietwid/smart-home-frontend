@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import useFetch from "../useFetch.tsx";
 import {api} from "../../constant/api.ts";
-import {ICameraCreate} from "../../interfaces/ICamera.tsx";
+import {ICameraCreate} from "../../interfaces/ICamera.ts";
 import CacheKey from "../../constant/cacheKey.ts";
 import {useNavigate} from "react-router-dom";
 

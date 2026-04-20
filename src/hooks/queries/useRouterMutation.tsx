@@ -7,7 +7,7 @@ export default function useRouterMutation() {
   const queryClient = useQueryClient();
   function createRouter() {
     return useMutation({
-      mutationFn: (mac: string) => createData(api.router, { mac }),
+      mutationFn: (mac: string) => createData(api.router(), { mac }),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["router"] });
       },
