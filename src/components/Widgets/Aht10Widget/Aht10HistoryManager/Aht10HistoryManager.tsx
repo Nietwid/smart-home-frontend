@@ -6,6 +6,7 @@ import MeasurementEvent from "../../../../constant/measurementEvent.ts";
 import MetricChart from "../../../MetricChart/MetricChart.tsx";
 import {useTranslation} from "react-i18next";
 import MetricAggregationData from "../../../MetricAggregationData/MetricAggregationData.tsx";
+import styles from "./Aht10HistoryManager.module.css";
 interface IProps{
     id:number
     open:boolean
@@ -40,7 +41,7 @@ export default function Aht10HistoryManager({id, open, onClose}:IProps) {
                     value={[startDate, endDate]}
                 />
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className={styles.modalBody}>
                 <MetricChart series={[
                 {
                     key: 'temperature',
