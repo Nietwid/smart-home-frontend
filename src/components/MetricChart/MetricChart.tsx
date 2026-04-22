@@ -5,11 +5,13 @@ import formatDate from "../../utils/formatDate.tsx";
 import styles from "./MetricChart.module.css"
 import {Stack, Text} from "rsuite";
 import {useTranslation} from "react-i18next";
+import convertUtcToTimezone from "../../utils/convertUtcToTimezone.ts";
 
 function prepareDynamicData(series: IMetricSeries[]) {
     const dataMap: { [key: string]: any } = {};
-
-    series.forEach(s => {
+    series.map(s=> {
+        return {...s, data: convertUtcToTimezone(s.data)}
+    }).forEach(s => {
         s.data?.forEach(item => {
             const ts = item.timestamp.replace("T", " ");
             if (!dataMap[ts]) dataMap[ts] = { timestamp: ts };

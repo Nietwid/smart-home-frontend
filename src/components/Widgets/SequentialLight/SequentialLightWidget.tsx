@@ -10,7 +10,6 @@ import styles from "./SequentialLightWidget.module.css";
 import {useTranslation} from "react-i18next";
 
 export default function SequentialLightWidget({id, state, config, pending}:ISequentialLightWidget){
-    const [isOn, setIsOn] = useState(state.is_on);
     const [brightness, setBrightness] = useState(state.brightness);
     const [speed, setSpeed] = useState(state.speed)
     const [lightingTime, setLightingTime] = useState(state.lighting_time)
@@ -21,13 +20,11 @@ export default function SequentialLightWidget({id, state, config, pending}:ISequ
         pending.includes(MessageAction.UPDATE_STATE)
 
     const {t} = useTranslation();
-
     function handleTime(value: string | number | null, _: SyntheticEvent<Element, Event>){
         if (value === null) return;
         if (typeof value === "string") setLightingTime(parseInt(value));
     }
-    async function handleToggle(isOn:boolean) {
-        setIsOn(isOn);
+    async function handleToggle() {
         const data = peripheralAction(id, MessageAction.TOGGLE, {});
         await mutation.mutateAsync(data)
     }
@@ -47,8 +44,8 @@ export default function SequentialLightWidget({id, state, config, pending}:ISequ
     }
     return (
         <BaseWidget name={config?.name} className={styles.container} w={3} h={3}>
-            <Toggle loading={isLoading} onChange={handleToggle} checked={isOn} className={styles.toggle}/>
-            <Button loading={isLoading} onClick={handleBlink} disabled={isOn} className={styles.blink}>{t("sequentialLight.blinkButton")}</Button>
+            <Toggle loading={isLoading} onChange={handleToggle} checked={state.is_on} className={styles.toggle}/>
+            <Button loading={isLoading} onClick={handleBlink} disabled={state.is_on} className={styles.blink}>{t("sequentialLight.blinkButton")}</Button>
             <div className={styles.container}>
                 <span>{t("sequentialLight.lightningTime")}</span>
                 <NumberInput value={lightingTime} onChange={handleTime} disabled={isLoading}/>
