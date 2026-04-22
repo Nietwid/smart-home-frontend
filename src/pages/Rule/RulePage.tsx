@@ -43,6 +43,7 @@ export default function RulePage() {
                             appearance="ghost"
                             color="blue"
                             onClick={() => startSync()}
+                            loading={device.pending.includes(MessageAction.SYNC_START)}
                         >
                             {t("rulePage.updateRule")}
                         </Button>

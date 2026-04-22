@@ -44,7 +44,7 @@ export default function Device() {
           </PageHeader>
 
             {device.required_action.includes(MessageAction.UPDATE_PERIPHERAL) ?
-                <UpdatePeripheralRequired onClick={startSync}/>:
+                <UpdatePeripheralRequired onClick={startSync} pending={device.pending.includes(MessageAction.SYNC_START)}/>:
                 <DevicePeripheralWrapper peripherals={device.peripherals}/>
             }
         </PageContainer>

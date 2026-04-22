@@ -1,4 +1,10 @@
 {
+  "updatePeripheralRequired": {
+    "syncRequired": "Synchronization Required",
+    "message": "The device configuration is out of sync. Please update the peripheral settings\n to ensure all sensors and modules operate with the latest parameters.",
+    "buttonStart": "Start Update Now",
+    "buttonUpdating": "SYNCHRONIZING..."
+  },
   "addRoom": {
     "title": "Add new room",
     "nameInputPlaceholder": "Enter room name",

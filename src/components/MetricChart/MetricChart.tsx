@@ -1,18 +1,17 @@
 import {useMemo} from "react";
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import IMetricSeries from "../../interfaces/IMetricSeries.ts";
-import formatDate from "../../utils/formatDate.tsx";
 import styles from "./MetricChart.module.css"
 import {Stack, Text} from "rsuite";
 import {useTranslation} from "react-i18next";
+import convertUtcToTimezone from "../../utils/convertUtcToTimezone.ts";
 
 function prepareDynamicData(series: IMetricSeries[]) {
     const dataMap: { [key: string]: any } = {};
-
     series.forEach(s => {
         s.data?.forEach(item => {
-            const ts = item.timestamp.replace("T", " ");
-            if (!dataMap[ts]) dataMap[ts] = { timestamp: ts };
+            const ts = convertUtcToTimezone(item.timestamp);
+            if (!dataMap[ts]) dataMap[ts] = { timestamp: ts};
             dataMap[ts][s.key] = item.value.toFixed(2);
         });
     });
@@ -54,7 +53,8 @@ export default function MetricChart({ series }: IProps) {
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                     <XAxis
                         dataKey="timestamp"
-                        tickFormatter={(v) => formatDate(v, "DD/MM HH")}
+                        interval="preserveStartEnd"
+                        minTickGap={30}
                         stroke="#aaa"
                     />
 
