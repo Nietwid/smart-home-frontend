@@ -24,17 +24,17 @@ function updateUnassignedDevice(queryClient: QueryClient, deviceId: number) {
 }
 
 export default function useUnassignedDeviceMutation() {
-  const { createData } = useFetch();
+  const { updateData } = useFetch();
   const queryClient = useQueryClient();
   function selectDevice() {
     return useMutation({
       mutationFn: (data: { deviceId: number; roomId: number }) =>
-        createData(api.device(), {
-          device_id: data.deviceId,
-          room_id: data.roomId,
+        updateData(api.device(data.deviceId), {
+          room: data.roomId,
         }),
       onSuccess:async (data) => {
-        updateUnassignedDevice(queryClient, data.data.device_id);
+        console.log(data)
+        updateUnassignedDevice(queryClient, data.data.id);
         await Promise.all([
             queryClient.invalidateQueries({ queryKey: [CacheKey.ROOMS] }),
             queryClient.invalidateQueries({ queryKey: [CacheKey.DEVICES] })
