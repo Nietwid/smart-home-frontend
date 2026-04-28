@@ -97,6 +97,7 @@
     "when": "When",
     "then": "Then",
     "from": "from",
+    "condition": "Condition",
     "trigger": "trigger",
     "created": "Created"
   },

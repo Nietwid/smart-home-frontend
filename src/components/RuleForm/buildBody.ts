@@ -24,10 +24,9 @@ export default function buildBody(
             }
         ]
     }
-    console.log(conditions)
     if (Object.keys(conditions).length > 0) {
         base["conditions"] = [{
-            ...conditions,
+            "condition": {...conditions},
             "peripheral": triggerPeripheralId,
             "event": triggerEvent
         }]

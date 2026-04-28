@@ -5,7 +5,7 @@ export interface IRule {
     enabled:boolean,
     is_local:boolean,
     name:string|null,
-    conditions:any,
+    conditions:IRuleCondition[],
     actions:IRuleAction[],
     triggers:IRuleTrigger[],
 }
@@ -27,4 +27,13 @@ export interface IRuleTrigger{
     device_name:string,
     peripheral_name:string,
     extra_settings:object,
+}
+
+export interface IRuleCondition{
+    id:number,
+    event:string,
+    peripheral:number,
+    rule:number,
+    triggered:boolean,
+    condition:object
 }

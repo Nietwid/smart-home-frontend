@@ -7,22 +7,24 @@ import DeleteIcon from "/static/svg/delete.svg";
 import styles from "./RuleCard.module.css";
 import useRuleMutation from "../../../hooks/queries/useRuleMutation.tsx";
 
-const renderExtraSettings = (settings: object) => {
+const renderExtraSettings = (settings: object, excludeKey:string[]=[]) => {
     const entries = Object.entries(settings);
     if (entries.length === 0) return null;
 
     return (
         <TagGroup className={styles.tagGroup}>
-            {entries.map(([key, value]) => (
-                <Tag key={key} size="sm" color="blue">
-                    {key}: <b>{String(value)}</b>
-                </Tag>
-            ))}
+            {entries.map(([key, value]) => {
+                if(excludeKey.includes(key)) return null
+                return <Tag key={key} size="sm" color="blue">
+                        {key}: <b>{String(value)}</b>
+                    </Tag>
+                }
+            )}
         </TagGroup>
     );
 };
 
-export default function RuleCard({id, name, enabled, triggers, actions, is_local }: IRule) {
+export default function RuleCard({id, name, enabled, triggers, actions, is_local, conditions }: IRule) {
     const { t } = useTranslation();
     const {updateRule, deleteRule} = useRuleMutation();
     const updateMutation = updateRule(id);
@@ -33,7 +35,6 @@ export default function RuleCard({id, name, enabled, triggers, actions, is_local
 
     async function handleToggle (checked: boolean) {
         await updateMutation.mutateAsync({ enabled: checked });
-        console.log(updateMutation.isError)
         setIsEnabled(checked);
     }
 
@@ -41,7 +42,6 @@ export default function RuleCard({id, name, enabled, triggers, actions, is_local
         setConfirmDelete(false);
         deleteMutation.mutate();
     }
-
     return (
         <Card className={`${styles.container} ${!isEnabled ? styles.disabled : ''}`} shaded>
             <Card.Header className={styles.header}>
@@ -54,7 +54,7 @@ export default function RuleCard({id, name, enabled, triggers, actions, is_local
                     </Stack>
 
                     <Stack spacing={15}>
-                        {! is_local && (
+                        {!is_local && (
                             <Toggle
                                 checked={isEnabled}
                                 onChange={handleToggle}
@@ -72,8 +72,10 @@ export default function RuleCard({id, name, enabled, triggers, actions, is_local
             </Card.Header>
 
             <Card.Body className={styles.body}>
+                <Divider className={styles.divider}>
+                    <Text muted size="xs">{t("ruleCard.when").toUpperCase()}</Text>
+                </Divider>
                 <div className={styles.section}>
-                    <Text muted size="sm" className={styles.sectionLabel}>{t("ruleCard.when").toUpperCase()}</Text>
                     {triggers.map(tg => (
                         <div key={tg.id} className={styles.logicRow}>
                             <div className={styles.logicContent}>
@@ -88,13 +90,28 @@ export default function RuleCard({id, name, enabled, triggers, actions, is_local
                         </div>
                     ))}
                 </div>
+                { conditions && (
+                  <>
+                      <Divider className={styles.divider}>
+                          <Text muted size="xs">{t("ruleCard.condition").toUpperCase()}</Text>
+                      </Divider>
+                      <div className={styles.section}>
+                          {conditions.map(condition => (
+                              <div key={condition.id} className={styles.logicRow}>
+                                  <div className={styles.logicContent}>
+                                      {renderExtraSettings(condition.condition,["type"])}
+                                  </div>
+                              </div>
+                          ))}
+                      </div>
+                  </>
+                )}
 
                 <Divider className={styles.divider}>
-                    <Text muted size="xs">THEN</Text>
+                    <Text muted size="xs">{t("ruleCard.then").toUpperCase()}</Text>
                 </Divider>
 
                 <div className={styles.section}>
-                    <Text muted size="sm" className={styles.sectionLabel}>{t("ruleCard.then").toUpperCase()}</Text>
                     {actions.map(action => (
                         <div key={action.id} className={styles.logicRow}>
                             <div className={styles.logicContent}>
