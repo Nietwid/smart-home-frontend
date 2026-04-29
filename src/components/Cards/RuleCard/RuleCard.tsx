@@ -47,9 +47,9 @@ export default function RuleCard({id, name, enabled, triggers, actions, is_local
             <Card.Header className={styles.header}>
                 <Stack justifyContent="space-between" alignItems="center">
                     <Stack spacing={10}>
-                        <Text weight="bold" size="lg" className={styles.title}>
-                            {name || t("ruleCard.unnamedRule")}
-                        </Text>
+                        {/*<Text weight="bold" size="lg" className={styles.title}>*/}
+                        {/*    {name || t("ruleCard.unnamedRule")}*/}
+                        {/*</Text>*/}
                         {is_local && <Tag color="cyan" size="sm">{t("ruleCard.local")}</Tag>}
                     </Stack>
 
