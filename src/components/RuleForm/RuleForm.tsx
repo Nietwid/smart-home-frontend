@@ -14,7 +14,11 @@ import Form from "@rjsf/core";
 import mapErrorsToRjsf from "./mapErrorsToRjsf.ts";
 import useEventConditionQuery from "../../hooks/queries/useEventConditionQuery.tsx";
 import {customWidget, customTemplates} from "./customWidget.tsx"
-
+const uiSchema = {
+    "type": {
+        "ui:widget": "hidden"
+    }
+};
 const initialState: RuleFormState = {
     triggerDevice: null,
     triggerPeripheral: null,
@@ -50,7 +54,6 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
         condition:false
     })
     const {t} = useTranslation();
-
     const triggerDevicePeripheral= state.triggerDevice?.peripherals
         .filter(p=> p.available_event.length > 0)
         ?.map((p:any)=>({ label: `${p.name}  ${p.config?.name ? `- ${p.config.name}` : "" }`, value:p})) ?? []
@@ -95,6 +98,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
         )
         mutation.mutate(data)
     }
+    console.log(mutation.error?.details)
     return <Modal open={open} onClose={onClose}>
         <Modal.Header>
             <Modal.Title>{t("ruleForm.title")}</Modal.Title>
@@ -142,6 +146,7 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                            dispatch({ type: "set/condition", payload: formData })
                            setErrorsForm({...errorsForm, condition: errors.length > 0})
                        }}
+                       uiSchema={uiSchema}
                        liveValidate={true}
                    ><></></Form>
                }
