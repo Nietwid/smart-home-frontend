@@ -1,4 +1,4 @@
-import { Button, Stack, Whisper, Tooltip, IconButton } from "rsuite";
+import { Button, Stack, Whisper, Tooltip } from "rsuite";
 import { Link } from "react-router-dom";
 import WifiStrength from "../ui/WiFiStrength/WiFiStrength.tsx";
 import styles from "./DeviceActionPanel.module.css";
@@ -9,7 +9,7 @@ interface ActionButton {
     type?: "default" | "primary" | "link" | "subtle" | "ghost";
     color?: "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "violet";
     tooltip?: string;
-    icon?: React.ReactNode; // Dodaliśmy obsługę ikon
+    icon?: React.ReactNode;
 }
 
 interface DeviceActionPanelProps {
@@ -34,7 +34,6 @@ export default function DeviceActionPanel({ buttons, wifiStrength, children, sho
                             <Button
                                 key={`dap_button_${idx}`}
                                 as={Link}
-                                forgetProp={undefined}
                                 to={btn.to}
                                 appearance={btn.type || "subtle"}
                                 color={btn.color}
