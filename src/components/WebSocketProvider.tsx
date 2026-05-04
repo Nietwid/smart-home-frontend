@@ -45,7 +45,7 @@ export default function WebSocketProvider({children}:{children: React.ReactNode}
     };
     ws.onmessage = async (event) => {
       const data = JSON.parse(event.data);
-      console.log(data)
+      // console.log(data)
       switch (data.action) {
         case MessageType.UPDATE_DEVICE_REQUIRED_ACTION:
           updateRequiredAction(queryClient, data.data)

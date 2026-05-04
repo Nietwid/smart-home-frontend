@@ -11,14 +11,14 @@ interface WifiStrengthProps {
 }
 
 const getWifiIcons = (strength: number) => {
-  if (strength <= -80) return wifi_no;
+  if (strength <= -99) return wifi_no;
   if (strength <= -60) return wifi_low;
   if (strength <= -50) return wifi_medium;
   return wifi_perfect;
 };
 
 const getSignalClass = (strength: number) => {
-  if (strength <= -80) return styles.offline;
+  if (strength <= -99) return styles.offline;
   if (strength <= -60) return styles.weak;
   return "";
 };

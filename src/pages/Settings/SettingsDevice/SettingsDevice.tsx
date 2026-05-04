@@ -14,7 +14,6 @@ import {
 import PageContainer from "../../../components/ui/PageContainer/PageContainer";
 import PageHeader from "../../../components/ui/Headers/PageHeader/PageHeader";
 import LoadingAnimation from "../../../components/ui/LoadingAnimation/LoadingAnimation";
-import WifiStrength from "../../../components/ui/WiFiStrength/WiFiStrength";
 import useDeviceQuery from "../../../hooks/queries/device/useDeviceQuery";
 import useDeviceMutation from "../../../hooks/queries/device/useDeviceMutation";
 import styles from "./SettingsDevice.module.css";
@@ -52,6 +51,7 @@ export default function SettingsDevice() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
     const mutation = useTriggerActionEventMutation();
+    const updateFirmwarePending = mutation.isPending || device?.pending.includes("update_firmware")
 
     useEffect(() => {
         setIsSetFavourite(isFavourite(id,queryClient,"device"))
@@ -194,7 +194,8 @@ export default function SettingsDevice() {
                         size="lg"
                         onClick={() => handleUpdateFirmware()}
                         className={styles.updateFirmwareButton}
-                        loading={device.pending.includes("update_firmware")}
+                        loading={updateFirmwarePending}
+
                     >
                         {t("firmware.updateFirmware")}
                     </Button>}
