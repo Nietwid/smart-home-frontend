@@ -1,11 +1,10 @@
 import {Button, Modal,SelectPicker} from "rsuite";
 import {useTranslation} from "react-i18next";
 import usePrefetchDeviceQuery from "../../hooks/queries/device/usePrefetchDeviceQuery.tsx";
-import {useReducer, useRef, useState} from "react";
+import {useEffect, useReducer, useRef, useState} from "react";
 import styles from "./RuleForm.module.css"
-import reducer from "./reducer.ts";
+import reducer, {initialState} from "./reducer.ts";
 import buildBody from "./buildBody.ts";
-import {RuleFormState} from "./ruleFormState.ts";
 import isRuleFormValid from "./isRuleValid.ts";
 import useRuleMutation from "../../hooks/queries/useRuleMutation.tsx";
 import useActionExtraSettings from "../../hooks/queries/useActionExtraSettings.tsx";
@@ -13,22 +12,16 @@ import validator from "@rjsf/validator-ajv8";
 import Form from "@rjsf/core";
 import mapErrorsToRjsf from "./mapErrorsToRjsf.ts";
 import useEventConditionQuery from "../../hooks/queries/useEventConditionQuery.tsx";
-import {customWidget, customTemplates} from "./customWidget.tsx"
+import {customWidget} from "./customWidget.tsx"
+import {customTemplates} from "./customTemplate.tsx"
+import {initialErrorState} from "./initialErrorState.ts"
+
 const uiSchema = {
     "type": {
-        "ui:widget": "hidden"
-    }
+        "ui:widget": "hidden",
+        "ui:title": " ",
+    },
 };
-const initialState: RuleFormState = {
-    triggerDevice: null,
-    triggerPeripheral: null,
-    triggerEvent: null,
-    targetDevice: null,
-    targetPeripheral: null,
-    targetAction: null,
-    extraSettings: {},
-    condition:{}
-}
 
 interface RuleFormProps {
     open: boolean;
@@ -36,53 +29,63 @@ interface RuleFormProps {
 }
 
 export default function RuleForm({open, onClose}: RuleFormProps) {
+    const {t} = useTranslation();
     const {deviceData} = usePrefetchDeviceQuery()
     const [state, dispatch] = useReducer(reducer, initialState)
     const {createRule} = useRuleMutation()
-    const {extraSettingSchema} =  useActionExtraSettings(state.targetPeripheral?.name || null, state.targetAction)
-    const {conditionSchema} =  useEventConditionQuery(state.triggerPeripheral?.name || null, state.triggerEvent)
     const mutation = createRule()
-    const formRef = useRef(null);
-    const [errorsForm, setErrorsForm] = useState({
-        triggerDevice: false,
-        triggerPeripheral: false,
-        triggerEvent:false,
-        targetDevice: false,
-        targetPeripheral: false,
-        targetAction: false,
-        extraSettings: false,
-        condition:false
-    })
-    const {t} = useTranslation();
+
+    const {extraSettingSchema} =  useActionExtraSettings(state.targetPeripheral?.name, state.targetAction)
+    const {conditionSchema} =  useEventConditionQuery(state.triggerPeripheral?.name, state.triggerEvent)
+
+    const formRefCondition = useRef<Form>(null);
+    const formRefExtraSettings = useRef<Form>(null);
+
+    const [errorsForm, setErrorsForm] = useState(initialErrorState)
+
     const triggerDevicePeripheral= state.triggerDevice?.peripherals
         .filter(p=> p.available_event.length > 0)
-        ?.map((p:any)=>({ label: `${p.name}  ${p.config?.name ? `- ${p.config.name}` : "" }`, value:p})) ?? []
+        ?.map((p:any)=>({ label: `${t(`peripheralName.${p.name}`)}  ${p.config?.name ? `- ${p.config.name}` : "" }`, value:p})) ?? []
 
-    const triggerPeripheralEvents= state.triggerPeripheral?.available_event.map(i=> ({label:i, value:i}))??[]
+    const triggerPeripheralEvents= state.triggerPeripheral?.available_event.map(i=> ({label:t(`messageCommand.${i}`), value:i}))??[]
 
     const targetDevices = deviceData.map(i=> ({label:i.name, value:i}))
     const targetDevicePeripherals = state.targetDevice?.peripherals
         .filter(p=> p.available_action.length > 0)
         ?.map((p:any) => ({
-        label: `${p.name}  ${p.config?.name ? `- ${p.config.name}` : "" }`,
+        label: `${t(`peripheralName.${p.name}`)}  ${p.config?.name ? `- ${p.config.name}` : "" }`,
         value: p
     })) ?? []
 
-    const targetPeripheralAction= state.targetPeripheral?.available_action.map(i=> ({label:i, value:i}))??[]
+    useEffect(() => {
+        if (!open || mutation.isSuccess) {
+            dispatch({ type: "reset" });
+            setErrorsForm(initialErrorState);
+        }
+    }, [open, mutation.isSuccess]);
+
+    const targetPeripheralAction= state.targetPeripheral?.available_action.map(i=> ({label:t(`messageCommand.${i}`), value:i}))??[]
     function handleSave(){
-        setErrorsForm(
-            {
-                triggerDevice: !Boolean(state.triggerDevice),
-                triggerPeripheral: !Boolean(state.triggerPeripheral),
-                triggerEvent:!Boolean(state.triggerEvent),
-                targetDevice: !Boolean(state.targetDevice),
-                targetPeripheral: !Boolean(state.targetPeripheral),
-                targetAction: !Boolean(state.targetAction),
-                extraSettings: errorsForm.extraSettings,
-                condition:errorsForm.condition
-            }
-        )
-        if(!Object.values(errorsForm).some(v=> !v)) {
+        const isConditionValid = formRefCondition.current
+            ? formRefCondition.current.validateForm()
+            : true;
+
+        const isExtraSettingsValid = formRefExtraSettings.current
+            ? formRefExtraSettings.current.validateForm()
+            : true;
+
+        const newErrors =  {
+            triggerDevice: !Boolean(state.triggerDevice),
+            triggerPeripheral: !Boolean(state.triggerPeripheral),
+            triggerEvent:!Boolean(state.triggerEvent),
+            targetDevice: !Boolean(state.targetDevice),
+            targetPeripheral: !Boolean(state.targetPeripheral),
+            targetAction: !Boolean(state.targetAction),
+            condition: !isConditionValid,
+            extraSettings: !isExtraSettingsValid
+        }
+        setErrorsForm(newErrors);
+        if(Object.values(newErrors).some(v=> v)) {
             return;
         }
         if (!isRuleFormValid(state)) return;
@@ -98,7 +101,6 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
         )
         mutation.mutate(data)
     }
-    console.log(mutation.error?.details)
     return <Modal open={open} onClose={onClose}>
         <Modal.Header>
             <Modal.Title>{t("ruleForm.title")}</Modal.Title>
@@ -137,17 +139,18 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                />
                { conditionSchema &&
                    <Form
-                       ref={formRef}
+                       ref={formRefCondition}
                        className={`${styles.rjsfForm} ${errorsForm.extraSettings ? styles.rjsfFormError : ''}`}
                        showErrorList={false}
                        schema={conditionSchema}
+                       widgets={customWidget}
+                       templates={customTemplates}
                        validator={validator}
                        onChange={({ formData, errors}) => {
                            dispatch({ type: "set/condition", payload: formData })
                            setErrorsForm({...errorsForm, condition: errors.length > 0})
                        }}
                        uiSchema={uiSchema}
-                       liveValidate={true}
                    ><></></Form>
                }
            </div>
@@ -185,12 +188,11 @@ export default function RuleForm({open, onClose}: RuleFormProps) {
                 { extraSettingSchema &&
                     <Form
                         key={state.targetAction}
-                        ref={formRef}
+                        ref={formRefExtraSettings}
                         className={`${styles.rjsfForm} ${errorsForm.extraSettings ? styles.rjsfFormError : ''}`}
                         showErrorList={false}
                         schema={extraSettingSchema}
                         validator={validator}
-                        liveValidate={true}
                         formData={state.extraSettings}
                         widgets={customWidget}
                         templates={customTemplates}

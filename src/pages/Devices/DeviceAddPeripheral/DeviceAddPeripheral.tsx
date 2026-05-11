@@ -8,6 +8,7 @@ import {SyntheticEvent, useState} from "react";
 import PeripheralAddForm from "../../../components/PeripheralAddForm/PeripheralAddForm.tsx";
 import {MessageAction} from "../../../enums/message_command.ts";
 import useHardwareSchemaQuery from "../../../hooks/queries/useHardwareSchemaQuery.ts";
+import {useTranslation} from "react-i18next";
 
 export default function DeviceAddPeripheral() {
     const params = useParams();
@@ -16,6 +17,7 @@ export default function DeviceAddPeripheral() {
     const { schemas } = useHardwareSchemaQuery()
     const [displayForm, setDisplayForm] = useState(false);
     const [schemaKey, setSchemaKey] = useState<string>("");
+    const {t} = useTranslation();
 
     if (!device || !schemas ) return <LoadingAnimation size="xlarge" type="spinner" glow={true}/>;
     function handleOnChange(value: string | null, _: SyntheticEvent<Element, Event>) {
@@ -32,7 +34,7 @@ export default function DeviceAddPeripheral() {
     return <PageContainer>
         <PageHeader title={device.name}>
         </PageHeader>
-        <SelectPicker data={Object.keys(schemas).map(k =>({ label: k, value: k }))} onChange={handleOnChange}/>
+        <SelectPicker data={Object.keys(schemas).map(k =>({ label: t(`peripheralName.${k}`), value: k }))} onChange={handleOnChange}/>
         {displayForm &&
             <PeripheralAddForm
                 deviceId={deviceId}
