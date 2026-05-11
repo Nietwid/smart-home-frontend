@@ -11,10 +11,25 @@ type RuleFormAction =
     | { type: "setTarget/action"; payload: string | null }
     | { type: "set/extraSettings"; payload: object }
     | { type: "set/condition"; payload: object }
+    | { type: "reset";}
+
+export const initialState: RuleFormState = {
+    triggerDevice: null,
+    triggerPeripheral: null,
+    triggerEvent: null,
+    targetDevice: null,
+    targetPeripheral: null,
+    targetAction: null,
+    extraSettings: {},
+    condition:{}
+}
+
 
 
 export default function reducer(state: RuleFormState, action: RuleFormAction): RuleFormState {
     switch (action.type) {
+        case "reset":
+            return initialState
         case "setTrigger/device":
             return {
                 ...state,

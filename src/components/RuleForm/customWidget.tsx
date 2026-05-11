@@ -1,10 +1,9 @@
-import {IconButton, NumberInput} from "rsuite";
-import { Button } from "rsuite";
+import {Checkbox, IconButton, NumberInput, Button, SelectPicker} from "rsuite";
+import {WidgetProps } from '@rjsf/utils';
 import PlusIcon from '@rsuite/icons/Plus';
 import TrashIcon from '@rsuite/icons/Trash';
 import SortDownIcon from '@rsuite/icons/SortDown';
 import SortUpIcon from '@rsuite/icons/SortUp';
-
 export const customTemplates = {
     ButtonTemplates: {
         AddButton: (props: any) => (
@@ -49,7 +48,7 @@ export const customTemplates = {
 };
 
 
-const IntegerWidget = (props: any) => {
+const IntegerWidget = (props: WidgetProps) => {
     return (
         <div style={{ marginBottom: 10 }}>
             <NumberInput
@@ -64,7 +63,31 @@ const IntegerWidget = (props: any) => {
     );
 };
 
+export const CheckboxWidget = ({ value, onChange, label }: WidgetProps) => (
+    <Checkbox checked={!!value} onChange={(_, checked) => onChange(checked)}>
+        {label}
+    </Checkbox>
+);
 
+
+export const SelectWidget = ({id,options,value,disabled,readonly,onChange,}: WidgetProps) => {
+    const data = (options.enumOptions as any[])?.map(opt => ({
+        label: opt.label,
+        value: opt.value
+    })) ?? [];
+
+    return (
+        <SelectPicker
+            id={id}
+            block
+            data={data}
+            value={value}
+            disabled={disabled || readonly}
+            onChange={(val) => onChange(val)}
+            cleanable={!options.emptyValue}
+        />
+    );
+};
 
 export const customWidget = {
     integer: IntegerWidget,
@@ -72,5 +95,7 @@ export const customWidget = {
     string: IntegerWidget,
     BaseInput: IntegerWidget,
     TextWidget: IntegerWidget,
-    NumberWidget: IntegerWidget
+    NumberWidget: IntegerWidget,
+    CheckboxWidget: CheckboxWidget,
+    SelectWidget:SelectWidget
 };

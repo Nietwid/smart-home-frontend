@@ -23,3 +23,20 @@
         background-color: red;
     }
 }
+.rjsfForm :global(.rs-form-group) {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+.rjsfForm :global(.rs-form-control-label) {
+    width: 100% !important;
+    max-width: none !important;
+    float: none !important;
+    display: block !important;
+    text-align: left !important;
+}
+
+.rjsfForm :global(.field-object) {
+    width: 100%;
+}
