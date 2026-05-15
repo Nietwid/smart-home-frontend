@@ -4,6 +4,7 @@ import IPeripheral from "../IPeripheral.ts";
 export interface IAht10WidgetState {
     temperature: number
     humidity: number
+    last_read: string
 }
 export interface IAht10WidgetConfig extends BaseConfig{
     address: number;
