@@ -6,11 +6,12 @@ import styles from './Aht10Widget.module.css';
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import Aht10HistoryManager from "./Aht10HistoryManager/Aht10HistoryManager.tsx";
+import formatDate from "../../../utils/formatDate.tsx";
 export default function Aht10Widget({id, state, config}:IAht10Widget) {
     const [showHistory, setShowHistory] = useState(false);
     const {t} = useTranslation();
 
-
+    console.log(state);
     return (
         <BaseWidget name={config?.name} w={3} h={2}>
             <div className={styles.container}>
@@ -30,6 +31,10 @@ export default function Aht10Widget({id, state, config}:IAht10Widget) {
                             <span className={styles.unit}>%</span>
                         </span>
                     </div>
+                </div>
+                <div className={styles.dataItem}>
+                    <span className={styles.label}>{t("tempHumWidget.lastRead")}</span>
+                    <span>{formatDate(state.last_read)}</span>
                 </div>
 
                 <div className={styles.footer}>

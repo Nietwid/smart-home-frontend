@@ -120,7 +120,8 @@
     "humidity": "Humidity",
     "lastUpdate": "Last update",
     "noData": "No data available",
-    "historicalData": "Historical data"
+    "historicalData": "Historical data",
+    "lastRead": "Last measurement"
   },
   "cardManager": {
     "addCard": "Add card",
